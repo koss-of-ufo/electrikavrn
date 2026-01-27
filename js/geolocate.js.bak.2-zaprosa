@@ -1,0 +1,47 @@
+// Функция для получения геолокации
+async function getLocation() {
+    const latitudeInput = document.getElementById('latitude');
+    const longitudeInput = document.getElementById('longitude');
+
+    // Функция для получения координат по IP
+    async function getLocationByIP() {
+        try {
+            const response = await fetch('http://ip-api.com/json/?fields=lat,lon');
+            const data = await response.json();
+            if (data.lat && data.lon) {
+                latitudeInput.value = data.lat;
+                longitudeInput.value = data.lon;
+            } else {
+                latitudeInput.value = 'Не указано';
+                longitudeInput.value = 'Не указано';
+            }
+        } catch (error) {
+            console.error('Ошибка получения координат по IP:', error);
+            latitudeInput.value = 'Не указано';
+            longitudeInput.value = 'Не указано';
+        }
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                if (latitudeInput && longitudeInput) {
+                    latitudeInput.value = position.coords.latitude;
+                    longitudeInput.value = position.coords.longitude;
+                }
+            },
+            async (error) => {
+                console.log('Геолокация недоступна:', error.message);
+                // Если геолокация недоступна, пробуем получить координаты по IP
+                await getLocationByIP();
+            }
+        );
+    } else {
+        console.log('Геолокация не поддерживается браузером');
+        // Если геолокация не поддерживается, пробуем получить координаты по IP
+        await getLocationByIP();
+    }
+}
+
+// Вызываем функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', getLocation);

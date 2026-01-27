@@ -1,0 +1,125 @@
+// Функция для получения геолокации
+async function getLocation() {
+    const latitudeInput = document.getElementById('latitude');
+    const longitudeInput = document.getElementById('longitude');
+
+    // Функция для получения координат по IP
+    async function getLocationByIP() {
+        try {
+            const response = await fetch('http://ip-api.com/json/?fields=lat,lon');
+            const data = await response.json();
+            if (data.lat && data.lon) {
+                latitudeInput.value = data.lat;
+                longitudeInput.value = data.lon;
+            } else {
+                latitudeInput.value = 'Не указано';
+                longitudeInput.value = 'Не указано';
+            }
+        } catch (error) {
+            console.error('Ошибка получения координат по IP:', error);
+            latitudeInput.value = 'Не указано';
+            longitudeInput.value = 'Не указано';
+        }
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                if (latitudeInput && longitudeInput) {
+                    latitudeInput.value = position.coords.latitude;
+                    longitudeInput.value = position.coords.longitude;
+                }
+            },
+            async (error) => {
+                console.log('Геолокация недоступна:', error.message);
+                // Если геолокация недоступна, пробуем получить координаты по IP
+                await getLocationByIP();
+            }
+        );
+    } else {
+        console.log('Геолокация не поддерживается браузером');
+        // Если геолокация не поддерживается, пробуем получить координаты по IP
+        await getLocationByIP();
+    }
+}
+
+// Вызываем функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем, было ли уже показано уведомление о геолокации
+    if (!localStorage.getItem('geoNoticeAccepted')) {
+        // Создаем элемент уведомления
+        const notice = document.createElement('div');
+        notice.className = 'geo-notice';
+        notice.innerHTML = `
+            <div class="geo-notice-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="geo-notice-content">
+                <div class="geo-notice-text">
+                    Для более точного расчета стоимости работ и оптимизации маршрута выезда специалиста, нам необходимо знать ваше местоположение. Мы используем эти данные только для расчета стоимости и планирования маршрута.
+                </div>
+                <div class="geo-notice-buttons">
+                    <button class="btn btn-primary">Разрешить</button>
+                    <button class="btn btn-secondary">Отказаться</button>
+                </div>
+            </div>
+        `;
+        
+        // Добавляем уведомление на страницу
+        document.body.appendChild(notice);
+        
+        // Показываем уведомление с небольшой задержкой
+        // Делаем задержку больше, чем у cookie, чтобы они не появлялись одновременно
+        setTimeout(() => {
+            notice.classList.add('show');
+        }, 2000);
+
+        // Обработчик для кнопки "Разрешить"
+        notice.querySelector('.btn-primary').addEventListener('click', function() {
+            localStorage.setItem('geoNoticeAccepted', 'true');
+            notice.classList.remove('show');
+            setTimeout(() => notice.remove(), 300);
+
+            // Запрашиваем геолокацию
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    // При успешном получении координат
+                    function(position) {
+                        const latitudeInput = document.getElementById('latitude');
+                        const longitudeInput = document.getElementById('longitude');
+                        
+                        if (latitudeInput && longitudeInput) {
+                            latitudeInput.value = position.coords.latitude;
+                            longitudeInput.value = position.coords.longitude;
+                        }
+                    },
+                    // При ошибке получения координат
+                    async function(error) {
+                        console.log('Ошибка получения геолокации:', error);
+                        // Если не удалось получить геолокацию, пробуем через IP
+                        await getLocationByIP();
+                    },
+                    // Опции получения геолокации
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                console.log('Геолокация не поддерживается вашим браузером');
+                // Если геолокация не поддерживается, пробуем через IP
+                getLocationByIP();
+            }
+        });
+
+        // Обработчик для кнопки "Отказаться"
+        notice.querySelector('.btn-secondary').addEventListener('click', function() {
+            localStorage.setItem('geoNoticeAccepted', 'false');
+            notice.classList.remove('show');
+            setTimeout(() => notice.remove(), 300);
+            // При отказе пробуем получить местоположение по IP
+            getLocationByIP();
+        });
+    }
+});

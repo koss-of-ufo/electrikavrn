@@ -1,0 +1,198 @@
+/* Импорт переменных */
+@import 'variables.css';
+
+/* Дополнительные стили для модальных окон */
+.modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+}
+
+/* Анимации для модальных окон */
+.modal.fade .modal-dialog {
+    transform: translate(0, -50px);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+/* Стили для модальных окон */
+.modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: rgba(47, 58, 69, 0.95);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.modal-body {
+    padding: 1rem 1.5rem;
+}
+
+.modal-title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Стили для форм в модальном окне */
+.contact-form .form-control,
+.callback-form .form-control {
+    background: rgba(76, 89, 102, 0.8);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.contact-form .form-control::placeholder,
+.callback-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-form .form-control:focus,
+.callback-form .form-control:focus {
+    background: rgba(76, 89, 102, 0.9);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Стили для чекбокса */
+.form-check {
+    margin-top: 1rem;
+}
+
+.form-check-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.form-check-label a {
+    color: #3490dc;
+    text-decoration: none;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для кнопки отправки */
+.modal .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 500;
+    padding: 0.75rem;
+    width: 100%;
+    margin-top: 1rem;
+    transition: opacity 0.2s ease;
+}
+
+.modal .btn-primary:hover {
+    background-color: #0a2d52;
+    border-color: #0a2d52;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Стили для Lightbox */
+.lb-container {
+    padding: 0;
+}
+
+.lb-image {
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.lb-nav a.lb-prev,
+.lb-nav a.lb-next {
+    opacity: 0.8;
+}
+
+.lb-nav a.lb-prev:hover,
+.lb-nav a.lb-next:hover {
+    opacity: 1;
+}
+
+.lb-data .lb-close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.lb-data .lb-close:hover {
+    opacity: 1;
+}
+
+.lb-data .lb-details {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+
+.lb-data .lb-caption {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.lb-data .lb-number {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+
+    .modal-content {
+        border-radius: 6px;
+    }
+
+    .lb-data .lb-close {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .lb-data .lb-details {
+        padding: 0.8rem;
+    }
+} 

@@ -1,0 +1,686 @@
+/* Импорт переменных */
+@import 'variables.css';
+
+/* Стили для страницы калькулятора */
+.calculator-page .page-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../assets/images/services/service-1.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--light-color);
+    padding: 80px 0;
+    margin-top: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../assets/images/pattern.png');
+    opacity: 0.1;
+}
+
+.page-header h1,
+.page-header .lead {
+    color: var(--light-color);
+    position: relative;
+    z-index: 1;
+}
+
+/* Основной контейнер калькулятора */
+.calculator-section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+    min-height: auto;
+    color: var(--light-color);
+    width: 100%;
+    margin: 0 auto;
+    font-family: var(--font-family);
+}
+
+/* Стили для таблиц */
+.calculator-section table,
+.calcul table {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-sm);
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Заголовки таблицы */
+.calculator-section thead,
+.calcul thead {
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+.calculator-section th,
+.calcul th {
+    color: var(--light-color) !important;
+    font-weight: 600 !important;
+    padding: var(--spacing-sm) !important;
+    text-align: left;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Ячейки таблицы */
+.calculator-section td,
+.calcul td {
+    padding: var(--spacing-sm);
+    color: var(--light-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    vertical-align: middle;
+    font-weight: 400;
+    line-height: 1.5;
+    position: relative;
+}
+
+/* Стили для инпутов в таблице */
+td input[type="number"] {
+    width: 80px;
+    text-align: center;
+    padding: var(--spacing-xs);
+    border-radius: var(--border-radius-sm);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--light-color);
+    transition: all var(--transition-normal);
+}
+
+td input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(126, 185, 246, 0.2);
+}
+
+/* Стили для select */
+.calculator-section select,
+.calcul select {
+    width: 100%;
+    padding: 8px 32px 8px 32px !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    color: #333 !important;
+    border-radius: 4px;
+    font-weight: 500;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+}
+
+/* Контейнеры для селектов */
+td .room-select-container,
+td .area-select-container,
+td .wall-select-container {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+}
+
+/* Иконки для селектов */
+td .room-select-container::before,
+td .area-select-container::before,
+td .wall-select-container::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    color: #333;
+    font-size: 14px;
+    pointer-events: none;
+    width: 14px;
+    text-align: center;
+}
+
+td .room-select-container::before {
+    content: "\f015"; /* дом */
+    color: #007bff; /* синий — дом */
+}
+
+td .area-select-container::before {
+    content: "\f546"; /* стрелки f0b2 */
+    color: #28a745; /* зелёный — площадь */
+}
+
+td .wall-select-container::before {
+    content: "\f1b3"; /* здание f1ad */
+    color: #8B4513; /* насыщенный коричневый (saddlebrown) */
+}
+
+/* Стрелка для селекта */
+td .room-select-container::after,
+td .area-select-container::after,
+td .wall-select-container::after {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    content: "\f107"; /* стрелка вниз */
+    font-weight: 900;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    color: #333;
+    font-size: 14px;
+    pointer-events: none;
+    width: 14px;
+    text-align: center;
+}
+
+
+/* Стили для подсказок */
+.custom-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.custom-tooltip .tooltip-text {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: var(--light-color);
+    text-align: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    font-size: 14px;
+    box-shadow: var(--shadow-md);
+}
+
+.custom-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Стили для итоговых значений */
+#grandTotal,
+[id^="total"] {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+/* Стили для строки с общей суммой */
+.tablculc {
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+.tablculc td {
+    padding: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--light-color);
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 25%; /* Равномерное распределение ширины для 4 ячеек */
+}
+
+/* Стили для информационных блоков */
+#infoContent,
+#infoContent2 {
+    margin-top: var(--spacing-md);
+}
+
+/* Стили для изображений и иконок */
+.calculator-section img:not(.navbar-brand img):not(#vopros),
+.calcul img:not(.navbar-brand img):not(#vopros) {
+    max-width: none;
+    height: 50px;
+    width: auto;
+}
+
+/* Стили для вопросительного знака */
+#vopros {
+    height: 20px;
+    margin-left: 8px;
+    cursor: help;
+    opacity: 0.8;
+    vertical-align: middle;
+    filter: brightness(1.2);
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .calculator-page .page-header {
+        padding: 40px 0;
+        margin-top: 0;
+    }
+
+    .calculator-section {
+        margin-top: 56px;
+        padding: var(--spacing-sm);
+    }
+
+    .calculator-section h1,
+    .calcul h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-section {
+        padding: var(--spacing-xs);
+    }
+
+    /* Адаптивные таблицы */
+    .calculator-section table,
+    .calcul table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 14px;
+    }
+    
+    .calculator-section th,
+    .calcul th {
+        white-space: nowrap;
+        min-width: 100px;
+        padding: 8px 6px !important;
+    }
+
+    .calculator-section td,
+    .calcul td {
+        padding: 8px 6px;
+    }
+
+    /* Улучшенные стили для инпутов */
+    td input[type="number"] {
+        width: 60px;
+        min-width: 60px;
+        height: 32px;
+        font-size: 14px;
+        padding: 2px 4px;
+    }
+
+    /* Стили для чекбоксов в мобильной версии */
+    .bitteh label {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        margin: 6px 0;
+    }
+
+    .bitteh input[type="checkbox"] {
+        margin-right: 6px;
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Улучшенные стили для подсказок */
+    .custom-tooltip .tooltip-text {
+        width: 140px;
+        font-size: 12px;
+        padding: 6px;
+        white-space: normal;
+    }
+
+    /* Стили для изображений */
+    .calculator-section img:not(.navbar-brand img):not(#vopros),
+    .calcul img:not(.navbar-brand img):not(#vopros) {
+        height: 40px;
+    }
+
+    .calculator-section .custom-tooltip img,
+    .calcul .custom-tooltip img,
+    #vopros {
+        width: 16px;
+        height: 16px;
+        margin-left: 4px;
+    }
+
+    /* Уменьшаем отступы */
+    .calculator-section > *:not(:last-child),
+    .calcul > *:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+
+    td .room-select-container,
+    td .area-select-container,
+    td .wall-select-container {
+        width: 100%;
+        min-width: 120px;
+    }
+
+    .calculator-section select,
+    .calcul select {
+        padding: 6px 28px !important;
+        font-size: 13px;
+    }
+
+    .post-image {
+        height: 50px;
+    }
+    
+    .post-image img {
+        height: 40px;
+    }
+
+    .tablculc td {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: left;
+        padding: 8px;
+        clear: both; /* Предотвращаем наслоение */
+    }
+
+    .room-select-container,
+    .area-select-container,
+    .wall-select-container {
+        width: 100%;
+        margin-bottom: 5px;
+        position: relative;
+    }
+
+    .room-select-container select,
+    .area-select-container select,
+    .wall-select-container select {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    /* Убираем границы у ячеек, когда они становятся блочными */
+    .tablculc td:not(:last-child) {
+        border-bottom: none;
+    }
+
+    /* Добавляем отступ для заголовка характеристик */
+    .tablculc td:first-child {
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 4px 4px 0 0;
+        margin-bottom: 15px; /* Увеличиваем отступ после заголовка */
+    }
+
+    /* Корректируем отступы для контейнеров селектов */
+    .tablculc td > div {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Исправляем позиционирование иконок в мобильной версии */
+    td .room-select-container::before,
+    td .area-select-container::before,
+    td .wall-select-container::before,
+    td .room-select-container::after,
+    td .area-select-container::after,
+    td .wall-select-container::after {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+@media (max-width: 576px) {
+    .calculator-section,
+    .calcul {
+        padding: 0.5rem;
+    }
+
+    /* Максимально компактное отображение таблиц */
+    .calculator-section table,
+    .calcul table {
+        font-size: 12px;
+    }
+
+    .calculator-section td,
+    .calcul td {
+        padding: 4px;
+    }
+
+    .calculator-section th,
+    .calcul th {
+        padding: 4px !important;
+        min-width: 80px;
+    }
+
+    /* Компактные инпуты */
+    td input[type="number"] {
+        width: 50px;
+        min-width: 50px;
+        height: 28px;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    /* Компактные селекты */
+    .calculator-section select,
+    .calcul select {
+        padding: 4px 24px !important;
+        font-size: 12px;
+    }
+
+    /* Уменьшенные отступы в строках с чекбоксами */
+    .bitteh td {
+        padding: 2px 4px;
+    }
+
+    .bitteh label {
+        font-size: 12px;
+        margin: 4px 0;
+    }
+
+    /* Компактные итоговые значения */
+    #grandTotal,
+    [id^="total"] {
+        font-size: 0.85rem;
+    }
+
+    .tablculc td {
+        padding: 6px;
+        margin-bottom: 8px;
+    }
+
+    .room-select-container,
+    .area-select-container,
+    .wall-select-container {
+        margin-bottom: 3px;
+    }
+
+    .tablculc td:first-child {
+        margin-bottom: 12px;
+    }
+
+    /* Улучшенное отображение чекбоксов */
+    .bitteh td {
+        display: block;
+        width: 100%;
+        padding: 4px 8px;
+    }
+
+    .bitteh label {
+        font-size: 13px;
+        margin: 6px 0;
+    }
+
+    /* Стили для изображений */
+    .calculator-section img:not(.navbar-brand img):not(#vopros),
+    .calcul img:not(.navbar-brand img):not(#vopros) {
+        height: 30px;
+    }
+
+    .calculator-section .custom-tooltip img,
+    .calcul .custom-tooltip img,
+    #vopros {
+        width: 14px;
+        height: 14px;
+        margin-left: 2px;
+    }
+
+    /* Максимально уменьшаем отступы */
+    .calculator-section > *:not(:last-child),
+    .calcul > *:not(:last-child) {
+        margin-bottom: 0.25rem;
+    }
+
+    .post-image {
+        height: 40px;
+    }
+    
+    .post-image img {
+        height: 30px;
+    }
+}
+
+/* Стили для калькулятора предварительного расчета */
+.calcul {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: auto;
+    color: #fff;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.calcul h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.calcul select,
+.calcul input[type="number"] {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #333 !important;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.image-cell th {
+    font-weight: normal;
+}
+
+.voprosblok {
+    text-align: center;
+}
+
+.bitteh label {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+/* Убираем стрелки для числовых полей */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Стили для таблицы характеристик */
+.calcul table {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Стили для блоков с изображениями */
+.post-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.post-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 5px;
+    min-height: 40px;
+    font-weight: 500;
+    width: 100%;
+}
+
+.post-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    height: 35px; /* Фиксированная высота */
+    overflow: hidden; /* Предотвращаем выход изображения за пределы контейнера */
+}
+
+/* Стили конкретно для изображений блоков */
+.post-image img {
+    width: auto;
+    height: 35px; /* Фиксированная высота для всех изображений */
+    object-fit: contain;
+    display: block; /* Убираем пробелы под изображением */
+}
+
+/* Переопределяем общие стили изображений для конкретного случая */
+.calculator-section img:not(.navbar-brand img):not(#vopros),
+.calcul img:not(.navbar-brand img):not(#vopros) {
+    max-width: none;
+    height: 35px;
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    .post-image {
+        height: 50px;
+    }
+    
+    .post-image img {
+        height: 40px;
+    }
+    
+    /* Переопределяем для мобильных */
+    .calculator-section img:not(.navbar-brand img):not(#vopros),
+    .calcul img:not(.navbar-brand img):not(#vopros) {
+        height: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .post-image {
+        height: 40px;
+    }
+    
+    .post-image img {
+        height: 30px;
+    }
+    
+    /* Переопределяем для маленьких экранов */
+    .calculator-section img:not(.navbar-brand img):not(#vopros),
+    .calcul img:not(.navbar-brand img):not(#vopros) {
+        height: 30px;
+    }
+}

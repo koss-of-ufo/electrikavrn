@@ -1,0 +1,494 @@
+/* Стили для галереи */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 5px;
+}
+
+.gallery-item {
+    position: relative;
+    min-height: 300px;
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.gallery-item.wide {
+    grid-column: span 2;
+}
+
+.gallery-item.tall {
+    grid-row: span 2;
+}
+
+.gallery-item.big {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.gallery-item-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.gallery-item-inner:hover .gallery-item-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Стили для калькулятора */
+#calculator {
+    background: linear-gradient(180deg, #2f3b47 0%, #1e2832 100%);
+    padding: 6rem 0;
+    position: relative;
+}
+
+#calculator .card {
+    background: rgba(57, 73, 86, 0.9);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    height: 100%;
+    padding: 2rem;
+}
+
+#calculator .card i {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--icon-color);
+    transition: transform 0.3s ease;
+}
+
+#calculator .card:hover i {
+    transform: scale(1.1);
+}
+
+/* Стили для статей */
+.article-header {
+    color: #e0e0e0;
+    padding: 50px 0;
+    margin-bottom: 0;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.article-content {
+    padding-top: 1rem;
+    overflow: hidden;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.article-content h2 {
+    color: var(--light-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.article-content p {
+    color: var(--light-color);
+    margin-bottom: 1.5rem;
+}
+
+.article-image {
+    width: 40%;
+    max-width: 450px;
+    height: auto;
+    float: right;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 0;
+}
+
+/* Форма обратной связи */
+#contact {
+    background: linear-gradient(180deg, #2f3b47 0%, #1e2832 100%);
+    padding: 6rem 0;
+    position: relative;
+}
+
+#contact .form-control {
+    width: 100%;
+    height: 50px;
+    padding: 12px 20px;
+    font-size: 15px;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    border-radius: 8px;
+    background: rgba(30, 40, 50, 0.9);
+    backdrop-filter: blur(10px);
+    color: var(--light-color);
+    transition: all 0.3s ease;
+}
+
+/* Проекты */
+.project-card {
+    margin-bottom: 50px;
+}
+
+.project-images {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.project-images img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+}
+
+/* Медиа запросы */
+@media (max-width: 1200px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .gallery-item.wide, .gallery-item.big {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    .gallery-item, .gallery-item.wide, .gallery-item.tall, .gallery-item.big {
+        grid-column: span 1;
+        grid-row: span 1;
+        min-height: 250px;
+    }
+    
+    .article-image {
+        width: 100%;
+        max-width: 100%;
+        float: none;
+        margin-left: 0;
+        margin-bottom: 2rem;
+    }
+    
+    #calculator {
+        padding: 4rem 0;
+    }
+    
+    #calculator .card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .project-images {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .article-header {
+        padding: 3rem 0;
+    }
+    
+    .article-content {
+        padding: 1rem;
+    }
+}
+
+/* Стили для страницы политики конфиденциальности */
+.privacy-content {
+    padding: var(--spacing-lg) 0;
+    background: var(--bg-light);
+}
+
+.privacy-content .card {
+    background: var(--bg-white);
+    border: none;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.privacy-content .card-body {
+    padding: var(--spacing-lg);
+}
+
+.privacy-content h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.privacy-content h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.privacy-content h4 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+}
+
+.privacy-content p {
+    color: var(--light-color);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm);
+}
+
+.privacy-terms {
+    margin-top: var(--spacing-md);
+}
+
+.privacy-terms .term {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal);
+}
+
+.privacy-terms .term:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.privacy-terms .term h4 {
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.privacy-terms .term p {
+    margin-bottom: 0;
+    color: var(--light-color);
+}
+
+/* Адаптивность для страницы политики */
+@media (max-width: 768px) {
+    .privacy-content {
+        padding: var(--spacing-md) 0;
+    }
+
+    .privacy-content .card-body {
+        padding: var(--spacing-md);
+    }
+
+    .privacy-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .privacy-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .privacy-content h4 {
+        font-size: 1.1rem;
+    }
+
+    .privacy-content p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .privacy-content .card-body {
+        padding: var(--spacing-sm);
+    }
+
+    .privacy-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .privacy-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .privacy-content h4 {
+        font-size: 1rem;
+    }
+
+    .privacy-content p {
+        font-size: 0.9rem;
+    }
+
+    .privacy-terms .term {
+        padding: var(--spacing-xs);
+    }
+}
+
+/* Стили для страницы детального просмотра проекта */
+.project-images {
+    position: relative;
+    cursor: pointer;
+}
+
+.project-images img {
+    width: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.project-images img:nth-child(2) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.image-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.project-images:hover .image-hint {
+    opacity: 1;
+}
+
+.project-summary {
+    position: sticky;
+    top: 20px;
+}
+
+.plan-image {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.plan-image img {
+    width: 100%;
+    height: auto;
+}
+
+/* Стили для таблиц проектов */
+.project-detail .table th {
+    background-color: #f8f9fa;
+}
+
+.project-detail .table td, 
+.project-detail .table th {
+    vertical-align: middle;
+}
+
+/* Стили для карточек этапов работ в проектах */
+.project-detail .card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.project-detail .card-header {
+    background-color: #f8f9fa;
+    border-bottom: none;
+}
+
+/* Стили для похожих проектов */
+.similar-projects .card {
+    transition: transform 0.3s ease;
+}
+
+.similar-projects .card:hover {
+    transform: translateY(-5px);
+}
+
+/* Адаптивность для проектов */
+@media (max-width: 768px) {
+    .project-summary {
+        position: static;
+        margin-top: 20px;
+    }
+    
+    .image-hint {
+        display: none;
+    }
+}
+
+/* Стили для alert-блоков */
+.alert {
+    border-width: 2px;
+    padding: 1.25rem;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+
+.alert-warning p {
+    color: #664d03;
+    font-weight: 500;
+}
+
+.alert-info {
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}
+
+.alert-info p {
+    color: #055160;
+    font-weight: 500;
+}
+
+.alert i {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    vertical-align: middle;
+}
+
+.alert-warning i {
+    color: #664d03;
+}
+
+.alert-info i {
+    color: #055160;
+} 
