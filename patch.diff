@@ -1,1032 +1,237 @@
-diff --git a/.htaccess b/.htaccess
-new file mode 100644
-index 0000000000000000000000000000000000000000..2cd583061e0d410c62a3a0a89f721d56844a3655
---- /dev/null
-+++ b/.htaccess
-@@ -0,0 +1,26 @@
-+RewriteEngine On
+diff --git a/SEO_AUDIT.md b/SEO_AUDIT.md
+index 7f2217dd454fcfdd1044886bcdb78ffecc47033a..1622e3fcee0b4439ce8d2a79e290f1d4e2588170 100644
+--- a/SEO_AUDIT.md
++++ b/SEO_AUDIT.md
+@@ -1,113 +1,113 @@
+-# SEO-аудит сайта ElectrikaVRN
+-
+-Дата: 2026-02-22
+-
+-## 1) Есть ли перелинковка?
+-
+-Короткий ответ: **перелинковка есть, но она несистемная и местами технически неконсистентная**.
+-
+-Что уже хорошо:
+-- В статьях есть блоки «Похожие статьи», то есть есть связи между материалами.
+-- Есть сквозная навигация (header) на ключевые разделы сайта: услуги, калькуляторы, проекты, галерея, статьи, контакты.
+-
+-Что мешает эффективности:
+-- Внутри статей одновременно используются разные форматы URL (`.php`, `.html`, «чистые» URL), из-за чего вес может распыляться между дублями URL.
+-- В хлебных крошках статей встречаются ссылки на `../articles.php`, которого нет в структуре репозитория (признак потенциально битой/устаревшей ссылки).
+-- В footer встречаются старые `.html`-ссылки на разделы, тогда как в меню используются «чистые» URL.
+-
+-Вывод: перелинковка формально есть, но **структура URL и единообразие ссылок требуют нормализации**.
+-
+-## 2) Отдают ли статьи «вес» сайту?
+-
+-Короткий ответ: **частично да, но не в полной мере**.
+-
+-Плюсы:
+-- У статей есть `title`, `description`, canonical, OpenGraph и JSON-LD (`Article`) — это хорошая техническая база.
+-- Есть ссылки между статьями, что создает внутренний граф ссылок.
+-
+-Ограничения:
+-- В видимых блоках перелинковки статьи в основном ссылаются на другие статьи, а не на коммерческие страницы (`/services`, `/calculate`, проектные страницы) с релевантными анкорами. Из-за этого «вес» хуже перетекает в страницы, которые должны ранжироваться по коммерческим запросам.
+-- Несогласованные URL (`.php/.html/clean`) потенциально делят сигналы между разными адресами.
+-- В `robots.txt` много нерелевантных WordPress-правил, а также запрет `Disallow: /?`, что потенциально конфликтует с URL-подходом через query-параметры.
+-
+-Вывод: статьи индексируемы и могут передавать вес, но **сейчас передача ослаблена архитектурой внутренних ссылок и URL-консистентностью**.
+-
+-## 3) Что не хватает для выхода в топ
+-
+-### Критично (High impact)
+-1. **Единая URL-стратегия + 301-редиректы**
+-   - Выбрать единственный канонический формат (рекомендую «чистые» URL без `.php/.html`) и жестко редиректить остальные версии.
+-2. **Коммерческая перелинковка из статей**
+-   - В каждую статью добавить 2–4 контекстные ссылки на коммерческие страницы (услуги, калькуляторы, релевантные проекты) с естественными анкорами.
+-3. **Локальная SEO-оптимизация (Воронеж + районы/услуги)**
+-   - Создать/расширить посадочные страницы под кластеры интента: «электрик в Воронеже», «замена проводки в квартире Воронеж», «срочный вызов электрика» и т.д.
+-4. **Техническая чистка robots/sitemap**
+-   - Удалить «чужие» WordPress-правила.
+-   - В sitemap оставить только реально существующие канонические URL.
+-
+-### Важно (Medium impact)
+-5. **Topic clusters / контент-хабы**
+-   - Пиллар-страницы + связанные статьи под единый кластер (безопасность, замена проводки, щиты/автоматика, заземление).
+-6. **Усиление E-E-A-T**
+-   - Авторство статей, опыт, кейсы до/после, подтверждение квалификации, расширенные контакты и реквизиты.
+-7. **CTR-оптимизация сниппетов**
+-   - Переписать часть title/description под выгоду + локальность + срок/ценность.
+-
+-### Дополнительно (Low/Medium)
+-8. Core Web Vitals (LCP/CLS/INP), оптимизация изображений/критического CSS.
+-9. FAQ-разметка на коммерческих страницах.
+-10. План внешних упоминаний/ссылок (локальные каталоги, партнерские публикации, региональные площадки).
+-
+-## 4) Пошаговый план улучшений
+-
+-### Этап 1 (1–2 недели): Технический фундамент
+-- Привести все внутренние ссылки к одному формату URL.
+-- Настроить 301-редиректы между дублями URL.
+-- Обновить `sitemap.xml` (только канонические живые URL).
+-- Пересобрать `robots.txt` под реальный стек сайта.
+-- Прогнать краулер и устранить 404/301-цепочки.
+-
+-KPI этапа:
+-- 0 внутренних ссылок на неканонические URL.
+-- 0 битых ссылок (4xx) в основном графе.
+-- 100% URL в sitemap отдают 200 и self-canonical.
+-
+-### Этап 2 (2–4 недели): Перелинковка и коммерческий поток веса
+-- Для каждой статьи: добавить блок «Рекомендуем услугу» + 2 контекстные ссылки в теле.
+-- Для каждого сервиса: добавить блок «Полезные статьи по теме».
+-- Для проектов: добавить взаимные ссылки «проект ↔ услуга ↔ статья».
+-- Унифицировать анкоры (без переспама).
+-
+-KPI этапа:
+-- Не менее 3 ссылок из каждой статьи на коммерческие/транзакционные страницы.
+-- Рост внутренних переходов из статей в услуги/калькулятор.
+-
+-### Этап 3 (1–2 месяца): Семантика и контент
+-- Собрать кластерную семантику по Воронежу (инфо + коммерция).
+-- Запустить контент-план 8–12 материалов/месяц по кластерам.
+-- Сделать 6–10 новых регионально-коммерческих посадок.
+-
+-KPI этапа:
+-- Рост числа запросов в топ-10/top-20.
+-- Рост органического трафика на коммерческие страницы.
+-
+-### Этап 4 (постоянно): Конверсия и доверие
+-- Добавить сильные CTA внутри статей.
+-- Усилить соцдоказательства (кейсы, отзывы, фото работ).
+-- Тестировать формы/кнопки для роста лидов из органики.
+-
+-KPI этапа:
+-- Рост CR (органика → заявка/звонок).
+-- Снижение отказов на ключевых посадках.
+-
+-## 5) Приоритетный чек-лист (коротко)
+-
+-1. Нормализовать URL и редиректы.
+-2. Почистить robots/sitemap.
+-3. Исправить устаревшие внутренние ссылки (`.html/.php`, несуществующие адреса).
+-4. Перестроить внутреннюю перелинковку «статья → коммерция».
+-5. Масштабировать контент-кластеры под локальный спрос.
+-
+----
+-
+-Итог: сайт уже имеет рабочую SEO-базу (мета, schema, контент), но для выхода в топ критично **навести порядок в URL/индексации и направить вес из статей в коммерческие посадки**.
+\ No newline at end of file
++# SEO-аудит сайта ElectrikaVRN
 +
-+# Canonical host and scheme
-+RewriteCond %{HTTPS} !=on [OR]
-+RewriteCond %{HTTP_HOST} ^www\.electrikavrn\.ru$ [NC]
-+RewriteRule ^ https://electrikavrn.ru%{REQUEST_URI} [R=301,L]
++Дата: 2026-02-22
 +
-+# Remove /index.php and /index.html from URLs
-+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.(php|html)[\s?] [NC]
-+RewriteRule ^(.*/)?index\.(php|html)$ /$1 [R=301,L]
++## Сводка (быстро)
++- **Ссылки/URL:** обнаружена смешанная URL-стратегия (clean + `.php` + `.html`). Есть 9 явных проблемных ссылок на отсутствующие страницы, в т.ч. `calculate.html`, `projects.html`, `gallery.html`, `../projects.php`.
++- **Контент:** в статьях есть базовая SEO-разметка (meta/canonical/OG/Article), но слабая коммерческая поддержка: статьи почти не ссылаются на страницы услуг/калькуляторов.
++- **Юзабилити:** структура понятная, есть CTA, но встречаются устаревшие URL в кликабельных элементах — это ухудшает путь пользователя.
++- **Перелинковка:** присутствует, но в основном «статья → статья», без системной передачи веса в коммерческие посадочные.
 +
-+# Redirect .php/.html URLs to extensionless equivalents
-+RewriteCond %{THE_REQUEST} \s/+(.+?)\.(php|html)[\s?] [NC]
-+RewriteRule ^(.+?)\.(php|html)$ /$1 [R=301,L]
++---
 +
-+# Serve extensionless URLs from matching .php files
-+RewriteCond %{REQUEST_FILENAME} !-d
-+RewriteCond %{REQUEST_FILENAME} !-f
-+RewriteCond %{REQUEST_FILENAME}.php -f
-+RewriteRule ^(.+?)/?$ $1.php [L]
++## 1) Анализ ссылок и URL (включая «нечистые» URL)
 +
-+# Serve directory index.php from extensionless URLs (e.g., /articles)
-+RewriteCond %{REQUEST_FILENAME} !-f
-+RewriteCond %{REQUEST_FILENAME} -d
-+RewriteCond %{REQUEST_FILENAME}/index.php -f
-+RewriteRule ^(.+?)/?$ $1/index.php [L]
-diff --git a/articles/electrical-requirements.php b/articles/electrical-requirements.php
-index 654a15cab94638960f5a0e902890d48d32f01bed..6ef7365e9fcc4370d83f807b088bccaf4d2b2fe1 100644
---- a/articles/electrical-requirements.php
-+++ b/articles/electrical-requirements.php
-@@ -1,64 +1,64 @@
- <?php
- $pageTitle = 'Требования к современной электрике и подготовка к ремонту - ЭлектрикаВРН';
- $pageDescription = 'Каким требованиям должна соответствовать современная электрика и как правильно подготовиться к ремонту. Советы от профессиональных электриков.';
--$pageCanonical = 'https://electrikavrn.ru/articles/electrical-requirements.php';
-+$pageCanonical = 'https://electrikavrn.ru/articles/electrical-requirements';
- $pageType = 'article';
- $pageImage = 'https://electrikavrn.ru/assets/images/articles/sovremennaya-electrica.png';
- 
- // Определяем данные статьи для Schema.org
- $article = [
-     "name" => "Каким требованиям должна соответствовать современная электрика и как правильно подготовиться к ремонту",
-     "description" => "Безопасность, надежность и комфорт – это главные критерии, которые следует учитывать при проведении электромонтажных работ. Узнайте, как правильно подготовиться к ремонту электрики.",
-     "image" => $pageImage,
-     "datePublished" => "2024-05-15",
-     "url" => $pageCanonical
- ];
- 
- // Хлебные крошки для Schema.org
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
-+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
-     ['name' => 'Требования к современной электрике', 'url' => $pageCanonical]
- ];
- 
- include 'head-articles.php';
- ?>
- 
- <body>
-     <?php include 'preloader-articles.php'; ?>
-     <?php include 'header-articles.php'; ?>
- 
-     <!-- Статья -->
-     <article class="py-5 mt-5">
-         <!-- Хедер статьи -->
-         <header class="article-header">
-             <div class="container">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
--                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
-+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Требования к современной электрике</li>
-                     </ol>
-                 </nav>
-                 <h1>Каким требованиям должна соответствовать современная электрика и как правильно подготовиться к ремонту</h1>
-                 <div class="article-meta">
-                     <span><i class="far fa-clock"></i> Время чтения: 7 минут</span>
-                     <span><i class="far fa-calendar-alt"></i> 15.05.2024</span>
-                     <span class="badge bg-primary">Ремонт</span>
-                 </div>
-             </div>
-         </header>
- 
-         <!-- Содержание статьи -->
-         <div class="container">
-             <div class="article-content">
-                 <!-- Изображение статьи -->
-                 <div class="article-image">
-                     <img src="../assets/images/articles/sovremennaya-electrica.png" alt="Требования к современной электрике">
-                 </div>
- 
-                 <p class="lead">
-                     Безопасность, надежность и комфорт – это главные критерии, которые следует учитывать при проведении электромонтажных работ. Наша команда профессионалов гарантирует соблюдение всех необходимых требований ПЭУ и СНИП, чтобы обеспечить максимальную безопасность вашей электросистемы.
-                 </p>
- 
-                 <h2>Основные требования к современной электрике</h2>
-@@ -116,58 +116,58 @@ include 'head-articles.php';
-                 <div class="alert alert-warning" role="alert">
-                     <i class="fas fa-exclamation-triangle"></i>
-                     <p class="mb-0">Мы уверены, что наши услуги по электромонтажным работам помогут вам создать надежную, безопасную и удобную электросистему в вашем доме или офисе.</p>
-                 </div>
- 
-                 <h2>Заключение</h2>
-                 <p>
-                     Правильно спроектированная и качественно выполненная электрика – это залог безопасности и комфорта вашего дома или офиса. Не экономьте на качестве материалов и работе профессионалов, ведь от этого зависит безопасность ваших близких и сохранность имущества.
-                 </p>
-                 <p>
-                     Доверьтесь нашей команде профессионалов, и мы гарантируем, что все электромонтажные работы будут выполнены в соответствии с самыми высокими стандартами качества и безопасности.
-                 </p>
-             </div>
-         </div>
- 
-         <!-- Блок "Читайте также" -->
-         <div class="container mt-5">
-             <div class="related-articles">
-                 <h3>Читайте также</h3>
-                 <div class="row g-4">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg" class="card-img-top" alt="Безопасность электропроводки">
-                             <div class="card-body">
-                                 <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
--                                <a href="electrical-safety-home.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/samostoyatelniy-remont.jpg" class="card-img-top" alt="Проверка электропроводки">
-                             <div class="card-body">
-                                 <h5 class="card-title">Как проверить свою электрическую проводку самостоятельно</h5>
--                                <a href="wiring-check.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/wiring-check" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </article>
- 
-     <?php include 'footer-articles.php'; ?>
-     <?php include 'modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/articles.js"></script>
-     <script src="../js/cookie-notice.js"></script>
-     <script src="../js/geolocate.js"></script>
- 
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/articles/electrical-safety-home.php b/articles/electrical-safety-home.php
-index e4f6cc41cd81ce95202e0e0129f088afe99ce12e..0894e740506503caeceacbd8ee8c9af73b67282d 100644
---- a/articles/electrical-safety-home.php
-+++ b/articles/electrical-safety-home.php
-@@ -1,64 +1,64 @@
- <?php
- $pageTitle = 'Как обеспечить безопасность электропроводки в доме - ЭлектрикаВРН';
- $pageDescription = 'Узнайте, как обеспечить безопасность электропроводки в доме, какую автоматику использовать и какие меры предосторожности соблюдать. Советы от профессиональных электриков.';
--$pageCanonical = 'https://electrikavrn.ru/articles/electrical-safety-home.php';
-+$pageCanonical = 'https://electrikavrn.ru/articles/electrical-safety-home';
- $pageType = 'article';
- $pageImage = 'https://electrikavrn.ru/assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg';
- 
- // Определяем данные статьи для Schema.org
- $article = [
-     "name" => "Как обеспечить безопасность электропроводки в доме",
-     "description" => "Узнайте основные правила безопасности электропроводки, какие устройства защиты необходимы и как правильно их использовать. Рекомендации по выбору автоматики и советы по эксплуатации.",
-     "image" => $pageImage,
-     "datePublished" => "2024-05-16",
-     "url" => $pageCanonical
- ];
- 
- // Хлебные крошки для Schema.org
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
-+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
-     ['name' => 'Безопасность электропроводки', 'url' => $pageCanonical]
- ];
- 
- include 'head-articles.php';
- ?>
- 
- <body>
-     <?php include 'preloader-articles.php'; ?>
-     <?php include 'header-articles.php'; ?>
- 
-     <!-- Статья -->
-     <article class="py-5 mt-5">
-         <!-- Хедер статьи -->
-         <header class="article-header">
-             <div class="container">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
--                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
-+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Безопасность электропроводки</li>
-                     </ol>
-                 </nav>
-                 <h1>Как обеспечить безопасность электропроводки в доме</h1>
-                 <div class="article-meta">
-                     <span><i class="far fa-clock"></i> Время чтения: 8 минут</span>
-                     <span><i class="far fa-calendar-alt"></i> 16.05.2024</span>
-                     <span class="badge bg-primary">Безопасность</span>
-                 </div>
-             </div>
-         </header>
- 
-         <!-- Содержание статьи -->
-         <div class="container">
-             <div class="article-content">
-                 <!-- Изображение статьи -->
-                 <div class="article-image">
-                     <img src="../assets/images/articles/bezopasnaya-elektrika.jpg" alt="Безопасность электропроводки">
-                 </div>
- 
-                 <p>
-                     Безопасность электропроводки - это основа комфортного и безопасного проживания в доме. 
-                     В этой статье мы рассмотрим основные правила и рекомендации, которые помогут обеспечить 
-                     надежную работу электрической системы вашего дома.
-                 </p>
-@@ -110,57 +110,57 @@ include 'head-articles.php';
-                     <i class="fas fa-info-circle"></i>
-                     Рекомендуется составить схему распределения нагрузки и хранить её вместе с документацией на дом.
-                 </div>
- 
-                 <h2>4. Современные системы защиты</h2>
-                 <p>
-                     Установка современных устройств защиты значительно повышает безопасность:
-                 </p>
-                 <ul>
-                     <li>УЗО (устройство защитного отключения)</li>
-                     <li>Дифференциальные автоматы</li>
-                     <li>Стабилизаторы напряжения</li>
-                 </ul>
-             </div>
-         </div>
- 
-         <!-- Блок "Читайте также" -->
-         <div class="related-articles mt-5">
-             <h3>Читайте также</h3>
-             <div class="row g-4">
-                 <div class="col-md-4">
-                     <div class="card">
-                         <img src="../assets/images/articles/ustanovka-zamena-rozetok.png" class="card-img-top" alt="Замена розетки">
-                         <div class="card-body">
-                             <h5 class="card-title">Пошаговая инструкция по замене розетки</h5>
--                            <a href="socket-replacement-guide.html" class="btn btn-primary">Читать</a>
-+                            <a href="/articles/socket-replacement-guide" class="btn btn-primary">Читать</a>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col-md-4">
-                     <div class="card">
-                         <img src="../assets/images/articles/ekonomiya-elektroenergii.jpg" class="card-img-top" alt="Экономия электроэнергии">
-                         <div class="card-body">
-                             <h5 class="card-title">10 способов сэкономить на электроэнергии</h5>
--                            <a href="energy-saving-tips.html" class="btn btn-primary">Читать</a>
-+                            <a href="/articles/energy-saving-tips" class="btn btn-primary">Читать</a>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </article>
- 
-     <?php include 'footer-articles.php'; ?>
-     <?php include 'modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/articles.js"></script>
-     <script src="../js/cookie-notice.js"></script>
-     <script src="../js/geolocate.js"></script>
- 
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/articles/energy-saving-tips.php b/articles/energy-saving-tips.php
-index 0913da4412e9dab2fdcac97bdfa7882c35205cf7..eff03b010f0bd6b38786a8c7713b208ef0d7d9af 100644
---- a/articles/energy-saving-tips.php
-+++ b/articles/energy-saving-tips.php
-@@ -1,64 +1,64 @@
- <?php
- $pageTitle = '10 способов сэкономить на электроэнергии - ЭлектрикаВРН';
- $pageDescription = 'Узнайте эффективные способы экономии электроэнергии в доме и квартире. Практические советы по снижению расходов на электричество от профессиональных электриков.';
--$pageCanonical = 'https://electrikavrn.ru/articles/energy-saving-tips.php';
-+$pageCanonical = 'https://electrikavrn.ru/articles/energy-saving-tips';
- $pageType = 'article';
- $pageImage = 'https://electrikavrn.ru/assets/images/articles/ekonomiya-elektroenergii.jpg';
- 
- // Определяем данные статьи для Schema.org
- $article = [
-     "name" => "10 способов сэкономить на электроэнергии",
-     "description" => "Практические рекомендации по снижению потребления электроэнергии в доме. Узнайте, как уменьшить счета за электричество, не жертвуя комфортом.",
-     "image" => $pageImage,
-     "datePublished" => "2024-05-17",
-     "url" => $pageCanonical
- ];
- 
- // Хлебные крошки для Schema.org
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
-+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
-     ['name' => 'Экономия электроэнергии', 'url' => $pageCanonical]
- ];
- 
- include 'head-articles.php';
- ?>
- 
- <body>
-     <?php include 'preloader-articles.php'; ?>
-     <?php include 'header-articles.php'; ?>
- 
-     <!-- Статья -->
-     <article class="py-5 mt-5">
-         <!-- Хедер статьи -->
-         <header class="article-header">
-             <div class="container">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
--                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
-+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Экономия электроэнергии</li>
-                     </ol>
-                 </nav>
-                 <h1>10 способов сэкономить на электроэнергии</h1>
-                 <div class="article-meta">
-                     <span><i class="far fa-clock"></i> Время чтения: 7 минут</span>
-                     <span><i class="far fa-calendar-alt"></i> 17.05.2024</span>
-                     <span class="badge bg-success">Экономия</span>
-                 </div>
-             </div>
-         </header>
- 
-         <!-- Содержание статьи -->
-         <div class="container">
-             <div class="article-content">
-                 <!-- Изображение статьи -->
-                 <div class="article-image">
-                     <img src="../assets/images/articles/ekonomiya-elektroenergii.jpg" alt="Экономия электроэнергии">
-                 </div>
- 
-                 <p>
-                     В современном мире вопрос экономии электроэнергии становится всё более актуальным.
-                     Это не только позволяет сократить расходы на коммунальные платежи, но и вносит вклад
-                     в защиту окружающей среды.
-                 </p>
-@@ -157,58 +157,58 @@ include 'head-articles.php';
- 
-                 <div class="alert alert-warning mt-4">
-                     <h4>Важно помнить!</h4>
-                     <p>Экономия электроэнергии не должна идти в ущерб безопасности. Все изменения в электропроводке
-                         должны выполняться квалифицированным электриком.</p>
-                 </div>
- 
-                 <div class="alert alert-success mt-4">
-                     <h4>Нужна консультация?</h4>
-                     <p>Наши специалисты помогут оптимизировать энергопотребление в вашем доме или офисе.</p>
-                     <button class="btn btn-primary" data-callback>Заказать звонок</button>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Блок "Читайте также" -->
-         <div class="related-articles mt-5">
-             <h3>Читайте также</h3>
-             <div class="row g-4">
-                 <div class="col-md-4">
-                     <div class="card">
-                         <img src="../assets/images/articles/bezopasnaya-elektrika.jpg" class="card-img-top"
-                             alt="Безопасность электропроводки">
-                         <div class="card-body">
-                             <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
--                            <a href="electrical-safety-home.html" class="btn btn-primary">Читать</a>
-+                            <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col-md-4">
-                     <div class="card">
-                         <img src="../assets/images/articles/ustanovka-zamena-rozetok.png" class="card-img-top"
-                             alt="Замена розетки">
-                         <div class="card-body">
-                             <h5 class="card-title">Пошаговая инструкция по замене розетки</h5>
--                            <a href="socket-replacement-guide.html" class="btn btn-primary">Читать</a>
-+                            <a href="/articles/socket-replacement-guide" class="btn btn-primary">Читать</a>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </article>
- 
-     <?php include 'footer-articles.php'; ?>
-     <?php include 'modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/articles.js"></script>
-     <script src="../js/cookie-notice.js"></script>
-     <script src="../js/geolocate.js"></script>
- 
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/articles/footer-articles.php b/articles/footer-articles.php
-index 16672a3c71ff88da153e12a30add4db4adcd07d5..56b6d728b2a9feab4845adf566902a977d1c3db6 100644
---- a/articles/footer-articles.php
-+++ b/articles/footer-articles.php
-@@ -1,46 +1,46 @@
- <!-- Футер -->
- <footer class="py-4 bg-dark text-white">
-     <div class="container">
-         <div class="row">
-             <div class="col-md-3 mb-4 mb-md-0">
-                 <h4 class="h6 mb-3">Контакты</h4>
-                 <p class="mb-1"><i class="fas fa-phone me-2"></i>Временно скрыт</p>
-                 <p class="mb-1"><i class="fas fa-envelope me-2"></i>electrikavrn@yandex.ru</p>
-                 <p><i class="fas fa-map-marker-alt me-2"></i>г. Воронеж</p>
-             </div>
-             <div class="col-md-3 mb-4 mb-md-0">
-                 <h4 class="h6 mb-3">Режим работы</h4>
-                 <p class="mb-1">Пн-Пт: 9:00 - 20:00</p>
-                 <p class="mb-1">Сб: 10:00 - 18:00</p>
-                 <p>Вс: выходной</p>
-             </div>
-             <div class="col-md-3 mb-4 mb-md-0">
-                 <h4 class="h6 mb-3">Разделы сайта</h4>
-                 <ul class="list-unstyled">
--                    <li><a href="../projects.php" class="text-white">Проекты</a></li>
--                    <li><a href="../gallery.php" class="text-white">Галерея работ</a></li>
--                    <li><a href="../articles.php" class="text-white">Статьи</a></li>
--                    <li><a href="../vybor-calculate.php" class="text-white">Калькуляторы</a></li>
-+                    <li><a href="/projects" class="text-white">Проекты</a></li>
-+                    <li><a href="/gallery" class="text-white">Галерея работ</a></li>
-+                    <li><a href="/articles" class="text-white">Статьи</a></li>
-+                    <li><a href="/vybor-calculate" class="text-white">Калькуляторы</a></li>
-                 </ul>
-             </div>
-             <div class="col-md-3">
-                 <h4 class="h6 mb-3">Мы в соцсетях</h4>
-                 <div class="social-links">
-                     <a href="#" class="text-white me-3" title="Мы ВКонтакте"><i class="fab fa-vk"></i></a>
-                     <a href="#" class="text-white me-3" title="Наш Instagram"><i class="fab fa-instagram"></i></a>
-                     <a href="#" class="text-white" title="Наш YouTube канал"><i class="fab fa-youtube"></i></a>
-                 </div>
-             </div>
-         </div>
-         <hr class="my-4">
-         <div class="row align-items-center">
-             <div class="col-md-6 text-center text-md-start">
-                 <p class="mb-0">&copy; 2024 ЭлектрикаВРН. Все права защищены.</p>
-             </div>
-             <div class="col-md-6 text-center text-md-end">
--                <a href="../privacy.php" class="text-white text-decoration-none small me-3">Политика конфиденциальности</a>
--                <a href="../sitemap.php" class="text-white text-decoration-none small">Карта сайта</a>
-+                <a href="/privacy" class="text-white text-decoration-none small me-3">Политика конфиденциальности</a>
-+                <a href="/sitemap" class="text-white text-decoration-none small">Карта сайта</a>
-             </div>
-         </div>
-     </div>
- </footer> 
-\ No newline at end of file
-diff --git a/articles/grounding-importance.php b/articles/grounding-importance.php
-index e6b635e2fb6ef26acd5e13c8872d6c3569f3fb76..464fb25ad9f684fee034a8eb65076ab053598250 100644
---- a/articles/grounding-importance.php
-+++ b/articles/grounding-importance.php
-@@ -1,64 +1,64 @@
- <?php
- $pageTitle = 'Важность заземления в электропроводке - ЭлектрикаВРН';
- $pageDescription = 'Узнайте, почему заземление необходимо для безопасной работы электропроводки, как правильно его выполнить и какие требования предъявляются к современным системам заземления.';
--$pageCanonical = 'https://electrikavrn.ru/articles/grounding-importance.php';
-+$pageCanonical = 'https://electrikavrn.ru/articles/grounding-importance';
- $pageType = 'article';
- $pageImage = 'https://electrikavrn.ru/assets/images/articles/zazemlenie-elektrika.jpg';
- 
- // Определяем данные статьи для Schema.org
- $article = [
-     "name" => "Важность заземления в электропроводке: основные требования и правила",
-     "description" => "Подробный разбор систем заземления, их роли в безопасности электропроводки, современных требований и методов реализации. Практические рекомендации по проверке и обслуживанию.",
-     "image" => $pageImage,
-     "datePublished" => "2024-05-18",
-     "url" => $pageCanonical
- ];
- 
- // Хлебные крошки для Schema.org
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
-+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
-     ['name' => 'Заземление электропроводки', 'url' => $pageCanonical]
- ];
- 
- include 'head-articles.php';
- ?>
- 
- <body>
-     <?php include 'preloader-articles.php'; ?>
-     <?php include 'header-articles.php'; ?>
- 
-     <!-- Статья -->
-     <article class="py-5 mt-5">
-         <!-- Хедер статьи -->
-         <header class="article-header">
-             <div class="container">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
--                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
-+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Заземление электропроводки</li>
-                     </ol>
-                 </nav>
-                 <h1>Важность заземления в электропроводке: основные требования и правила</h1>
-                 <div class="article-meta">
-                     <span><i class="far fa-clock"></i> Время чтения: 10 минут</span>
-                     <span><i class="far fa-calendar-alt"></i> 18.05.2024</span>
-                     <span class="badge bg-danger">Безопасность</span>
-                 </div>
-             </div>
-         </header>
- 
-         <!-- Содержание статьи -->
-         <div class="container">
-             <div class="article-content">
-                 <!-- Изображение статьи -->
-                 <div class="article-image">
-                     <img src="../assets/images/articles/zazemlenie.jpg" alt="Схема заземления">
-                 </div>
- 
-                 <p class="lead">
-                     Заземление является важным элементом электрооборудования в квартирах и домах. Заземление – это процесс создания безопасной среды для использования электрической энергии, предотвращая риск поражения электрическим током. Это делается путем соединения электрической системы с землей, что позволяет току уходить в землю в случае неисправности.
-                 </p>
- 
-                 <div class="alert alert-primary" role="alert">
-@@ -148,67 +148,67 @@ include 'head-articles.php';
-                 </ol>
- 
-                 <h2>Заключение</h2>
-                 <p>
-                     Заземление - это не просто техническое требование или дополнительная опция. Это важнейший элемент безопасности, который защищает и вас, и ваше электрооборудование от потенциальных опасностей, связанных с электричеством.
-                 </p>
-                 <p>
-                     Если в вашем доме или квартире еще нет правильно установленного заземления, рекомендуем не откладывать этот вопрос. Наша компания готова провести профессиональную установку заземления, соответствующего всем современным требованиям безопасности.
-                 </p>
-                 <p>
-                     Помните: безопасность вашей семьи и сохранность имущества стоят гораздо дороже, чем установка качественного заземления!
-                 </p>
-             </div>
-         </div>
- 
-         <!-- Блок "Читайте также" -->
-         <div class="container mt-5">
-             <div class="related-articles">
-                 <h3>Читайте также</h3>
-                 <div class="row g-4">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg" class="card-img-top" alt="Безопасность электропроводки">
-                             <div class="card-body">
-                                 <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
--                                <a href="electrical-safety-home.html" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/samostoyatelniy-remont.jpg" class="card-img-top" alt="Проверка электропроводки">
-                             <div class="card-body">
-                                 <h5 class="card-title">Как проверить свою электрическую проводку самостоятельно</h5>
--                                <a href="wiring-check.html" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/wiring-check" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/sovremennaya-electrica.png" class="card-img-top" alt="Требования к современной электрике">
-                             <div class="card-body">
-                                 <h5 class="card-title">Каким требованиям должна соответствовать современная электрика</h5>
--                                <a href="electrical-requirements.html" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/electrical-requirements" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </article>
- 
-     <?php include 'footer-articles.php'; ?>
-     <?php include 'modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/articles.js"></script>
-     <script src="../js/cookie-notice.js"></script>
-     <script src="../js/geolocate.js"></script>
- 
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/articles/head-articles.php b/articles/head-articles.php
-index 0519e3c9a2317277e64dc47e1fc1a3318d17f904..af36f05869e8624ecf8601864c5c874d26c1e0d1 100644
---- a/articles/head-articles.php
-+++ b/articles/head-articles.php
-@@ -50,51 +50,51 @@ function getBreadcrumbList($items) {
-             return [
-                 "@type" => "ListItem",
-                 "position" => $index + 1,
-                 "name" => $item['name'],
-                 "item" => $item['url']
-             ];
-         }, $items, array_keys($items))
-     ];
- }
- 
- function getArticleSchema($metaTags, $article) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "Article",
-         "headline" => $article['name'],
-         "description" => $article['description'],
-         "image" => $article['image'],
-         "datePublished" => $article['datePublished'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Статьи', 'url' => SITE_URL . '/articles.php'],
-+            ['name' => 'Статьи', 'url' => SITE_URL . '//articles'],
-             ['name' => $article['name'], 'url' => $article['url']]
-         ])
-     ];
- }
- 
- // Инициализация метатегов
- $metaTags = getDefaultMetaTags($pageTitle ?? null, $pageDescription ?? null, $pageCanonical ?? null);
- 
- // Формирование Schema.org разметки
- if (!isset($schemaMarkup)) {
-     if (isset($article)) {
-         $schemaMarkup = getArticleSchema($metaTags, $article);
-     }
- }
- 
- ?>
- <!DOCTYPE html>
- <html lang="ru">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title><?php echo $metaTags['title']; ?></title>
-     <meta name="description" content="<?php echo $metaTags['description']; ?>">
-     
-     <!-- Canonical -->
-diff --git a/articles/modal-articles.php b/articles/modal-articles.php
-index 8b61c5e88ff182f86def29b8048b07dc16e976e7..800b8171057eb81159451379f92b47b5be8f42fc 100644
---- a/articles/modal-articles.php
-+++ b/articles/modal-articles.php
-@@ -1,34 +1,34 @@
- <!-- Модальное окно обратной связи -->
-     <div class="modal fade" id="callbackModal" tabindex="-1" aria-labelledby="callbackModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered">
-             <div class="modal-content">
-                 <div class="modal-header border-0">
-                     <h5 class="modal-title" id="callbackModalLabel">Заказать звонок</h5>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                 <div class="modal-body">
-                     <form id="callbackForm" class="callback-form">
-                         <div class="mb-3">
-                             <input type="text" class="form-control" id="modalName" name="name" placeholder="Ваше имя" required>
-                         </div>
-                         <div class="mb-3">
-                             <input type="tel" class="form-control" id="modalPhone" name="phone" placeholder="Ваш телефон" required>
-                         </div>
-                         <div class="mb-3">
-                             <textarea class="form-control" id="modalMessage" name="message" rows="4" placeholder="Сообщение"></textarea>
-                         </div>
-                         <div class="mb-3 form-check">
-                             <input type="checkbox" class="form-check-input" id="modalPrivacyAgree" name="privacyAgree">
--                            <label class="form-check-label" for="modalPrivacyAgree">Я согласен с <a href="../privacy.php" target="_blank">политикой конфиденциальности</a></label>
-+                            <label class="form-check-label" for="modalPrivacyAgree">Я согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a></label>
-                             <div class="invalid-feedback">Пожалуйста, подтвердите согласие с политикой конфиденциальности</div>
-                         </div>
-                         <input type="hidden" id="modalLatitude" name="latitude">
-                         <input type="hidden" id="modalLongitude" name="longitude">
-                         <div class="text-center">
-                             <button type="submit" class="btn btn-primary px-5">Отправить</button>
-                         </div>
-                     </form>
-                 </div>
-             </div>
-         </div>
-     </div> 
-\ No newline at end of file
-diff --git a/articles/socket-replacement-guide.php b/articles/socket-replacement-guide.php
-index f1c14b46c1d5ce68e0f194d1a36237c4be9ff49a..18ea99387ef9e7a07ca0692866ec78fdc0925618 100644
---- a/articles/socket-replacement-guide.php
-+++ b/articles/socket-replacement-guide.php
-@@ -1,64 +1,64 @@
- <?php
- $pageTitle = 'Пошаговая инструкция по замене розетки своими руками - ЭлектрикаВРН';
- $pageDescription = 'Подробное руководство по безопасной замене электрической розетки. Узнайте, какие инструменты понадобятся, как правильно отключить электричество и установить новую розетку.';
--$pageCanonical = 'https://electrikavrn.ru/articles/socket-replacement-guide.php';
-+$pageCanonical = 'https://electrikavrn.ru/articles/socket-replacement-guide';
- $pageType = 'article';
- $pageImage = 'https://electrikavrn.ru/assets/images/articles/ustanovka-zamena-rozetok.png';
- 
- // Определяем данные статьи для Schema.org
- $article = [
-     "name" => "Пошаговая инструкция по замене розетки своими руками",
-     "description" => "Подробное руководство по безопасной замене электрической розетки. Рассмотрим необходимые инструменты, меры предосторожности и последовательность действий для правильной установки.",
-     "image" => $pageImage,
-     "datePublished" => "2024-05-19",
-     "url" => $pageCanonical
- ];
- 
- // Хлебные крошки для Schema.org
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
-+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
-     ['name' => 'Замена розетки', 'url' => $pageCanonical]
- ];
- 
- include 'head-articles.php';
- ?>
- 
- <body>
-     <?php include 'preloader-articles.php'; ?>
-     <?php include 'header-articles.php'; ?>
- 
-     <!-- Статья -->
-     <article class="py-5 mt-5">
-         <!-- Хедер статьи -->
-         <header class="article-header">
-             <div class="container">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
--                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
-+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Замена розетки</li>
-                     </ol>
-                 </nav>
-                 <h1>Пошаговая инструкция по замене розетки своими руками</h1>
-                 <div class="article-meta">
-                     <span><i class="far fa-clock"></i> Время чтения: 8 минут</span>
-                     <span><i class="far fa-calendar-alt"></i> 19.05.2024</span>
-                     <span class="badge bg-warning text-dark">Инструкция</span>
-                 </div>
-             </div>
-         </header>
- 
-         <!-- Содержание статьи -->
-         <div class="container">
-             <div class="article-content">
-                 <!-- Изображение статьи -->
-                 <div class="article-image">
-                     <img src="../assets/images/articles/ustanovka-zamena-rozetok.png" alt="Замена розетки">
-                 </div>
- 
-                 <p>
-                     Замена розетки может показаться сложной задачей, но при соблюдении правил безопасности 
-                     и пошаговой инструкции вы сможете выполнить эту работу самостоятельно. В этой статье 
-                     мы рассмотрим основные этапы замены розетки.
-                 </p>
-@@ -126,67 +126,67 @@ include 'head-articles.php';
-                 <ul>
-                     <li>Неправильное подключение проводов</li>
-                     <li>Слабая затяжка винтов</li>
-                     <li>Повреждение изоляции при зачистке</li>
-                     <li>Работа под напряжением</li>
-                 </ul>
- 
-                 <div class="alert alert-success mt-4">
-                     <h4>Нужна помощь профессионала?</h4>
-                     <p>Если вы не уверены в своих силах или хотите получить консультацию, наши специалисты готовы помочь.</p>
-                     <button class="btn btn-primary" data-callback>Заказать звонок</button>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Блок "Читайте также" -->
-         <div class="container mt-5">
-             <div class="related-articles">
-                 <h3>Читайте также</h3>
-                 <div class="row g-4">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg" class="card-img-top" alt="Безопасность электропроводки">
-                             <div class="card-body">
-                                 <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
--                                <a href="electrical-safety-home.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/zazemlenie.jpg" class="card-img-top" alt="Заземление">
-                             <div class="card-body">
-                                 <h5 class="card-title">Важность заземления в электропроводке</h5>
--                                <a href="grounding-importance.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/grounding-importance" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/ekonomiya-elektroenergii.jpg" class="card-img-top" alt="Экономия электроэнергии">
-                             <div class="card-body">
-                                 <h5 class="card-title">10 способов сэкономить на электроэнергии</h5>
--                                <a href="energy-saving-tips.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/energy-saving-tips" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </article>
- 
-     <?php include 'footer-articles.php'; ?>
-     <?php include 'modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/articles.js"></script>
-     <script src="../js/cookie-notice.js"></script>
-     <script src="../js/geolocate.js"></script>
- 
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/articles/wiring-check.php b/articles/wiring-check.php
-index add18da4200084ce60aa33cf33771b3f03235ce0..5fc6b32c4780eabef4d8accca7d6994621f2ffd6 100644
---- a/articles/wiring-check.php
-+++ b/articles/wiring-check.php
-@@ -1,64 +1,64 @@
- <?php
- $pageTitle = 'Требования к современной электрике и подготовка к ремонту - ЭлектрикаВРН';
- $pageDescription = 'Каким требованиям должна соответствовать современная электрика и как правильно подготовиться к ремонту. Советы от профессиональных электриков.';
--$pageCanonical = 'https://electrikavrn.ru/articles/wiring-check.php';
-+$pageCanonical = 'https://electrikavrn.ru/articles/wiring-check';
- $pageType = 'article';
- $pageImage = 'https://electrikavrn.ru/assets/images/articles/sovremennaya-electrica.png';
- 
- // Определяем данные статьи для Schema.org
- $article = [
-     "name" => "Каким требованиям должна соответствовать современная электрика и как правильно подготовиться к ремонту",
-     "description" => "Безопасность, надежность и комфорт – это главные критерии, которые следует учитывать при проведении электромонтажных работ. Узнайте, как правильно подготовиться к ремонту электрики.",
-     "image" => $pageImage,
-     "datePublished" => "2024-05-15",
-     "url" => $pageCanonical
- ];
- 
- // Хлебные крошки для Schema.org
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
-+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
-     ['name' => 'Требования к современной электрике', 'url' => $pageCanonical]
- ];
- 
- include 'head-articles.php';
- ?>
- 
- <body>
-     <?php include 'preloader-articles.php'; ?>
-     <?php include 'header-articles.php'; ?>
- 
-     <!-- Статья -->
-     <article class="py-5 mt-5">
-         <!-- Хедер статьи -->
-         <header class="article-header">
-             <div class="container">
-                 <nav aria-label="breadcrumb">
-                     <ol class="breadcrumb">
--                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
-+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
-                         <li class="breadcrumb-item active" aria-current="page">Как проверить электропроводку</li>
-                     </ol>
-                 </nav>
-                 <h1>Как проверить электропроводку в квартире и доме: пошаговая инструкция</h1>
-                 <div class="article-meta">
-                     <span><i class="far fa-clock"></i> Время чтения: 5 минут</span>
-                     <span><i class="far fa-calendar-alt"></i> 18.05.2024</span>
-                     <span class="badge bg-info">Советы</span>
-                 </div>
-             </div>
-         </header>
- 
-         <!-- Содержание статьи -->
-         <div class="container">
-             <div class="article-content">
-                 <!-- Изображение статьи -->
-                 <div class="article-image">
-                     <img src="../assets/images/articles/samostoyatelniy-remont.jpg" alt="Проверка электропроводки">
-                 </div>
- 
-                 <p class="lead">
-                     Электричество – это очень важная часть нашей жизни, и наша электрическая проводка играет ключевую роль в обеспечении нас энергией. Но как часто вы задумываетесь о состоянии своей электрической проводки? Это может быть опасно, если проводка не в хорошем состоянии. Но не волнуйтесь – существуют простые способы, чтобы проверить свою электрическую проводку самостоятельно без необходимости вызывать электрика.
-                 </p>
- 
-                 <div class="alert alert-warning" role="alert">
-@@ -151,67 +151,67 @@ include 'head-articles.php';
-                     <li>Нестабильное напряжение в сети</li>
-                     <li>Электропроводка старше 25-30 лет</li>
-                     <li>Планирование значительного увеличения нагрузки на сеть</li>
-                 </ul>
- 
-                 <h2>Заключение</h2>
-                 <p>
-                     Регулярная проверка электрической проводки является важной частью обеспечения безопасности вашего дома или квартиры. Выполняя простые шаги, описанные выше, вы можете выявить потенциальные проблемы до того, как они станут серьезными. Однако, помните, что если вы не уверены в своих навыках или обнаружили что-то подозрительное, лучше обратиться к профессиональному электрику.
-                 </p>
-                 <p>
-                     Наша компания всегда готова помочь вам с профессиональной диагностикой и ремонтом электропроводки. Обращайтесь к нам для консультации и решения любых вопросов, связанных с электрикой в вашем доме.
-                 </p>
-             </div>
-         </div>
- 
-         <!-- Блок "Читайте также" -->
-         <div class="container mt-5">
-             <div class="related-articles">
-                 <h3>Читайте также</h3>
-                 <div class="row g-4">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg" class="card-img-top" alt="Безопасность электропроводки">
-                             <div class="card-body">
-                                 <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
--                                <a href="electrical-safety-home.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/sovremennaya-electrica.png" class="card-img-top" alt="Требования к электрике">
-                             <div class="card-body">
-                                 <h5 class="card-title">Требования к современной электрике</h5>
--                                <a href="electrical-requirements.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/electrical-requirements" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/articles/zazemlenie.jpg" class="card-img-top" alt="Схема заземления">
-                             <div class="card-body">
-                                 <h5 class="card-title">Зачем нужно заземление и нужно ли оно вообще?</h5>
--                                <a href="grounding-importance.php" class="btn btn-primary">Читать</a>
-+                                <a href="/articles/grounding-importance" class="btn btn-primary">Читать</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </article>
- 
-     <?php include 'footer-articles.php'; ?>
-     <?php include 'modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/articles.js"></script>
-     <script src="../js/cookie-notice.js"></script>
-     <script src="../js/geolocate.js"></script>
- 
- </body>
- </html> 
-\ No newline at end of file
++### Что проверено
++- Внутренние ссылки `<a href>` и формы `<form action>` во всех `*.php`.
++- Наличие смешанных форматов URL: `clean`, `.php`, `.html`.
++- Явно битые ссылки на локальные `.php/.html` файлы.
++
++### Результат
++- Форматы внутренних ссылок:
++  - `clean`: **122**
++  - `.php`: **5**
++  - `.html`: **8**
++- Явно битые внутренние ссылки: **9**
++  - `index.php` и `test.php` ссылаются на несуществующие: `calculate-dlya-chaynikov.html`, `calculate.html`, `projects.html`, `gallery.html`.
++  - `projects/2room-budget.php` содержит ссылку `../projects.php` (файл отсутствует).
++
++### Вывод по URL
++- Проблема с «нечистыми»/устаревшими URL подтверждена.
++- Нужна единая стратегия (рекомендуемо: clean URL) + 301-редиректы со всех старых вариантов.
++
++---
++
++## 2) Контент и коммерческий потенциал
++
++### Что хорошо
++- На уровне шаблонов подготовлена корректная мета-база (`title`, `description`, canonical, OG, JSON-LD), особенно в контентных разделах.
++- Статьи имеют блоки «похожие материалы», что поддерживает crawl depth и вовлеченность.
++
++### Что сдерживает рост
++- По проверке статей (`articles/*.php`): в каждой статье есть внутренние ссылки, но **коммерческих ссылок = 0**
++  (нет системных ссылок на `/services`, `/calculate`, `/vybor-calculate`, `/projects`, `/contacts`).
++- Текущий поток внутреннего веса в основном циркулирует внутри инфо-раздела.
++
++### Рекомендация
++- Для каждой статьи добавить 2–4 релевантные коммерческие ссылки в теле + блок «Связанные услуги» в конце.
++
++---
++
++## 3) Юзабилити (UX) с точки зрения SEO
++
++### Наблюдения
++- Главная и разделы содержат явные CTA и понятные сценарии перехода.
++- Но часть CTA ведет на устаревшие `.html` адреса — это потенциальные 404/лишние редиректы.
++- Наличие смешанных URL в интерфейсе снижает предсказуемость навигации (и для пользователя, и для краулера).
++
++### Рекомендация
++- Обновить все CTA в шаблонах на канонические clean URL.
++- Проверить, что каждый кликабельный путь из hero/cards/footer ведет на 200 без редирект-цепочек.
++
++---
++
++## 4) Перелинковка
++
++### Текущий статус
++- Перелинковка **есть**, но она несбалансированная:
++  - Хорошо: статья ↔ статья.
++  - Слабо: статья → коммерция.
++- Есть единичные ссылки на legacy-страницы (пример: `../projects.php`).
++
++### Что сделать
++1. Внедрить матрицу перелинковки:
++   - статья → услуга
++   - статья → калькулятор
++   - статья → релевантный кейс/проект
++2. На коммерческих страницах добавить обратные блоки «Полезные статьи по теме».
++3. Стандартизировать анкоры (без переспама ключами).
++
++---
++
++## 5) Технические SEO-риски
++
++### `robots.txt`
++- Содержит много WordPress-специфичных директив (`/wp-admin/`, `/wp-content/`, `/wp-login.php` и т.д.), не соответствующих текущей структуре проекта.
++- Есть общий `Disallow: /?`, что может мешать индексации параметрических URL при необходимости.
++
++### `sitemap.xml`
++- В основном clean URL и логичная структура.
++- Требуется синхронизация с фактическими каноническими страницами и датами обновления.
++
++---
++
++## 6) Приоритетный план действий
++
++### P0 (срочно, 1 неделя)
++1. Исправить битые `.html` и `.php` ссылки в `index.php`, `test.php`, `projects/2room-budget.php`.
++2. Зафиксировать единый формат URL (clean), включить 301 со старых URL.
++3. Прогнать повторный crawl и закрыть 4xx/301-chain.
++
++### P1 (1–2 недели)
++4. Добавить коммерческие ссылки в каждую статью (минимум 2).
++5. Добавить блок «Связанные статьи» на коммерческие страницы.
++6. Очистить `robots.txt` от нерелевантных правил.
++
++### P2 (2–4 недели)
++7. Расширить контент-кластеры под локальный спрос (Воронеж + услуги).
++8. Оптимизировать сниппеты (title/description) под CTR и интент.
++
++---
++
++## Итог
++Сайт имеет хорошую базу, но для роста в поиске критично: **убрать URL-хаос (`.html/.php`), устранить битые ссылки и перестроить перелинковку из статей в коммерческие страницы**.
 diff --git a/calculate-dlya-chaynikov.php b/calculate-dlya-chaynikov.php
-index 1255e5c79ed657957feb1f321901c67af200be90..3864823a68c6352de88716844bb575d7f4b3c95b 100644
+index a07618a6e7007caba090d1ed8646ce30a3ae96b0..6ad54ed7530204271207a3f19bb2a25c3e979840 100644
 --- a/calculate-dlya-chaynikov.php
 +++ b/calculate-dlya-chaynikov.php
 @@ -1,29 +1,29 @@
@@ -1061,7 +266,7 @@ index 1255e5c79ed657957feb1f321901c67af200be90..3864823a68c6352de88716844bb575d7
                  "@type" => "Answer",
                  "text" => "Калькулятор дает предварительную оценку стоимости. Точная цена определяется после осмотра объекта специалистом, который учтет все особенности помещения."
 diff --git a/calculate.php b/calculate.php
-index 2a363d4b468c2cc9fd940589f1d762a0b94ce543..1f279b67699d3f439549bd1301bd1c1f94be1057 100644
+index 02bf1377667b0e439e632622335f8ad6f3c38dc3..1a4b1bf820e56b41f774195be31e010405327c40 100644
 --- a/calculate.php
 +++ b/calculate.php
 @@ -1,29 +1,29 @@
@@ -1096,7 +301,7 @@ index 2a363d4b468c2cc9fd940589f1d762a0b94ce543..1f279b67699d3f439549bd1301bd1c1f
                    <label for="wallMaterial">Материал стен:</label>
                    <select id="wallMaterial">
 diff --git a/contacts.php b/contacts.php
-index 014a80e6cbd5b41f3257ed95edca341f383f1868..8bb3f91a6081aab33f23da680f15ba8264926683 100644
+index 79fd491d90d50eafa2e8a929714e3ad4e8ca6ddc..049f55797138ae4d0796095a979e29545aec2ab9 100644
 --- a/contacts.php
 +++ b/contacts.php
 @@ -1,29 +1,29 @@
@@ -1183,65 +388,8 @@ index 014a80e6cbd5b41f3257ed95edca341f383f1868..8bb3f91a6081aab33f23da680f15ba82
                      </div>
                      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                          <div class="card h-100 shadow">
-diff --git a/footer.php b/footer.php
-index 183a433866ad4c34f2db6a2971493eba35f2de48..762fbdc7f42782802464ad2e2732f9a71f433f73 100644
---- a/footer.php
-+++ b/footer.php
-@@ -1,45 +1,45 @@
- <!-- Футер -->
-     <footer class="py-4 bg-dark text-white">
-         <div class="container">
-             <div class="row">
-                 <div class="col-md-3 mb-4 mb-md-0">
-                     <h4 class="h6 mb-3">Контакты</h4>
-                     <p class="mb-1"><i class="fas fa-phone me-2"></i>Временно скрыт</p>
-                     <p class="mb-1"><i class="fas fa-envelope me-2"></i>electrikavrn@yandex.ru</p>
-                     <p><i class="fas fa-map-marker-alt me-2"></i>г. Воронеж</p>
-                 </div>
-                 <div class="col-md-3 mb-4 mb-md-0">
-                     <h4 class="h6 mb-3">Режим работы</h4>
-                     <p class="mb-1">Пн-Пт: 9:00 - 20:00</p>
-                     <p class="mb-1">Сб: 10:00 - 18:00</p>
-                     <p>Вс: выходной</p>
-                 </div>
-                 <div class="col-md-3 mb-4 mb-md-0">
-                     <h4 class="h6 mb-3">Разделы сайта</h4>
-                     <ul class="list-unstyled">
--                        <li><a href="projects.html" class="text-white">Проекты</a></li>
--                        <li><a href="gallery.html" class="text-white">Галерея работ</a></li>
--                        <li><a href="articles.html" class="text-white">Статьи</a></li>
--                        <li><a href="vybor-calculate.html" class="text-white">Калькуляторы</a></li>
-+                        <li><a href="/projects" class="text-white">Проекты</a></li>
-+                        <li><a href="/gallery" class="text-white">Галерея работ</a></li>
-+                        <li><a href="/articles" class="text-white">Статьи</a></li>
-+                        <li><a href="/vybor-calculate" class="text-white">Калькуляторы</a></li>
-                     </ul>
-                 </div>
-                 <div class="col-md-3">
-                     <h4 class="h6 mb-3">Мы в соцсетях</h4>
-                     <div class="social-links">
-                         <a href="https://vk.ru/electrikavrn36" class="text-white me-3" title="Мы ВКонтакте"><i class="fab fa-vk"></i></a>
-                         <a href="https://t.me/electrikavrn" class="text-white me-3" title="Наш Telegram"><i class="fab fa-telegram"></i></a>
-                     </div>
-                 </div>
-             </div>
-             <hr class="my-4">
-             <div class="row align-items-center">
-                 <div class="col-md-6 text-center text-md-start">
-                     <p class="mb-0">&copy; 2024 ЭлектрикаВРН. Все права защищены.</p>
-                 </div>
-                 <div class="col-md-6 text-center text-md-end">
--                    <a href="privacy.php" class="text-white text-decoration-none small me-3">Политика конфиденциальности</a>
--                    <a href="sitemap.php" class="text-white text-decoration-none small">Карта сайта</a>
-+                    <a href="/privacy" class="text-white text-decoration-none small me-3">Политика конфиденциальности</a>
-+                    <a href="/sitemap" class="text-white text-decoration-none small">Карта сайта</a>
-                 </div>
-             </div>
-         </div>
-     </footer>
-\ No newline at end of file
 diff --git a/gallery.php b/gallery.php
-index 695407dbb810f224854e8baef2e49bd2e4e9842a..7c6117dbb9db1eefe0441f1aaf856973bb61b3ae 100644
+index ecd5832e0812a84beab7c122005818671e0b8984..b4fdfa8c67193f947d39d1c7de6ca3c0f9cbd240 100644
 --- a/gallery.php
 +++ b/gallery.php
 @@ -1,65 +1,65 @@
@@ -1312,315 +460,8 @@ index 695407dbb810f224854e8baef2e49bd2e4e9842a..7c6117dbb9db1eefe0441f1aaf856973
  
              <!-- Фильтры -->
              <div class="row mb-4">
-diff --git a/head.php b/head.php
-index 7de97f744028f76a5b58d63ce4f0b467208b6a5a..46d03172a5684e871589489ae6ce5ef898aa9131 100644
---- a/head.php
-+++ b/head.php
-@@ -40,263 +40,263 @@ function getOrganizationSchema() {
-             "https://vk.com/electrikavrn",
-             "https://t.me/electrikavrn"
-         ]
-     ];
- }
- 
- function getBreadcrumbList($items) {
-     return [
-         "@type" => "BreadcrumbList",
-         "itemListElement" => array_map(function($item, $index) {
-             return [
-                 "@type" => "ListItem",
-                 "position" => $index + 1,
-                 "name" => $item['name'],
-                 "item" => $item['url']
-             ];
-         }, $items, array_keys($items))
-     ];
- }
- 
- function getArticlesSchema($metaTags, $articles = null) {
-     // Если статьи не переданы, используем дефолтный список
-     if ($articles === null) {
-         $articles = [
-             [
--                "url" => SITE_URL . "/articles/electrical-safety-home.php",
-+                "url" => SITE_URL . "/articles//articles/electrical-safety-home",
-                 "name" => "Как обеспечить безопасность электропроводки в доме",
-                 "description" => "Основные правила и рекомендации по обеспечению безопасности электропроводки в жилых помещениях",
-                 "image" => SITE_URL . "/assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg",
-                 "datePublished" => "2024-03-15"
-             ],
-             [
--                "url" => SITE_URL . "/articles/socket-replacement-guide.php",
-+                "url" => SITE_URL . "/articles//articles/socket-replacement-guide",
-                 "name" => "Пошаговая инструкция по замене розетки",
-                 "description" => "Подробное руководство по безопасной замене электрической розетки своими руками",
-                 "image" => SITE_URL . "/assets/images/articles/ustanovka-zamena-rozetok.png",
-                 "datePublished" => "2024-03-10"
-             ],
-             [
--                "url" => SITE_URL . "/articles/energy-saving-tips.php",
-+                "url" => SITE_URL . "/articles//articles/energy-saving-tips",
-                 "name" => "10 способов сэкономить на электроэнергии",
-                 "description" => "Практические советы по снижению потребления электроэнергии",
-                 "image" => SITE_URL . "/assets/images/articles/ekonomiya-elektroenergii.jpg",
-                 "datePublished" => "2024-03-05"
-             ]
-         ];
-     }
- 
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "CollectionPage",
-         "name" => $metaTags['title'],
-         "description" => $metaTags['description'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Статьи', 'url' => SITE_URL . '/articles.php']
-+            ['name' => 'Статьи', 'url' => SITE_URL . '//articles']
-         ]),
-         "mainEntity" => [
-             "@type" => "ItemList",
-             "itemListElement" => array_map(function($article, $index) {
-                 return array_merge(
-                     ["@type" => "Article", "position" => $index + 1],
-                     $article
-                 );
-             }, $articles, array_keys($articles))
-         ]
-     ];
- }
- 
- function getArticleSchema($metaTags, $article) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "Article",
-         "headline" => $article['name'],
-         "description" => $article['description'],
-         "image" => $article['image'],
-         "datePublished" => $article['datePublished'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Статьи', 'url' => SITE_URL . '/articles.php'],
-+            ['name' => 'Статьи', 'url' => SITE_URL . '//articles'],
-             ['name' => $article['name'], 'url' => $article['url']]
-         ])
-     ];
- }
- 
- function getWebPageSchema($metaTags, $breadcrumbItems) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "WebPage",
-         "name" => $metaTags['title'],
-         "description" => $metaTags['description'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList($breadcrumbItems)
-     ];
- }
- 
- function getServicesSchema($metaTags) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "WebPage",
-         "name" => $metaTags['title'],
-         "description" => $metaTags['description'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Услуги', 'url' => SITE_URL . '/services.php']
-+            ['name' => 'Услуги', 'url' => SITE_URL . '//services']
-         ]),
-         "mainEntity" => [
-             "@type" => "Service",
-             "provider" => [
-                 "@type" => "Organization",
-                 "name" => SITE_NAME,
-                 "url" => SITE_URL
-             ],
-             "areaServed" => [
-                 "@type" => "City",
-                 "name" => "Воронеж"
-             ]
-         ]
-     ];
- }
- 
- function getProjectsSchema($metaTags, $projects = null) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "CollectionPage",
-         "name" => $metaTags['title'],
-         "description" => $metaTags['description'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Проекты', 'url' => SITE_URL . '/projects.php']
-+            ['name' => 'Проекты', 'url' => SITE_URL . '//projects']
-         ])
-     ];
- }
- 
- function getCalculatorSchema($metaTags) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "WebPage",
-         "name" => $metaTags['title'],
-         "description" => $metaTags['description'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Калькулятор', 'url' => SITE_URL . '/calculate.php']
-+            ['name' => 'Калькулятор', 'url' => SITE_URL . '//calculate']
-         ])
-     ];
- }
- 
- function getContactsSchema($metaTags) {
-     return [
-         "@context" => "https://schema.org",
-         "@type" => "ContactPage",
-         "name" => $metaTags['title'],
-         "description" => $metaTags['description'],
-         "publisher" => [
-             "@type" => "Organization",
-             "name" => SITE_NAME,
-             "url" => SITE_URL
-         ],
-         "breadcrumb" => getBreadcrumbList([
-             ['name' => 'Главная', 'url' => SITE_URL],
--            ['name' => 'Контакты', 'url' => SITE_URL . '/contacts.php']
-+            ['name' => 'Контакты', 'url' => SITE_URL . '//contacts']
-         ]),
-         "mainEntity" => getOrganizationSchema()
-     ];
- }
- 
- // Инициализация метатегов
- $metaTags = getDefaultMetaTags($pageTitle ?? null, $pageDescription ?? null, $pageCanonical ?? null);
- 
- // Формирование Schema.org разметки
- if (!isset($schemaMarkup)) {
-     switch ($pageType ?? '') {
-         case 'home':
-             $schemaMarkup = getOrganizationSchema();
-             break;
-         case 'articles':
-             $schemaMarkup = getArticlesSchema($metaTags, $articles ?? null);
-             break;
-         case 'article':
-             if (isset($article)) {
-                 $schemaMarkup = getArticleSchema($metaTags, $article);
-             } else {
-                 $schemaMarkup = getWebPageSchema($metaTags, [
-                     ['name' => 'Главная', 'url' => SITE_URL]
-                 ]);
-             }
-             break;
-         case 'services':
-             $schemaMarkup = getServicesSchema($metaTags);
-             break;
-         case 'projects':
-             $schemaMarkup = getProjectsSchema($metaTags);
-             break;
-         case 'calculator':
-             $schemaMarkup = getCalculatorSchema($metaTags);
-             break;
-         case 'contacts':
-             $schemaMarkup = getContactsSchema($metaTags);
-             break;
-         case 'privacy':
-             $schemaMarkup = getWebPageSchema($metaTags, [
-                 ['name' => 'Главная', 'url' => SITE_URL],
--                ['name' => 'Политика конфиденциальности', 'url' => SITE_URL . '/privacy.php']
-+                ['name' => 'Политика конфиденциальности', 'url' => SITE_URL . '//privacy']
-             ]);
-             break;
-         case 'sitemap':
-             $schemaMarkup = getWebPageSchema($metaTags, [
-                 ['name' => 'Главная', 'url' => SITE_URL],
--                ['name' => 'Карта сайта', 'url' => SITE_URL . '/sitemap.php']
-+                ['name' => 'Карта сайта', 'url' => SITE_URL . '//sitemap']
-             ]);
-             break;
-         default:
-             $schemaMarkup = getWebPageSchema($metaTags, [
-                 ['name' => 'Главная', 'url' => SITE_URL]
-             ]);
-     }
- }
- ?>
- <!DOCTYPE html>
- <html lang="ru">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title><?php echo $metaTags['title']; ?></title>
-     <meta name="description" content="<?php echo $metaTags['description']; ?>">
-     <meta name="keywords" content="электромонтаж Воронеж, электрик Воронеж, замена проводки, установка розеток, электромонтажные работы, вызов электрика">
-     
-     <!-- Canonical -->
-     <link rel="canonical" href="<?php echo $metaTags['canonical']; ?>">
-     
-     <!-- Open Graph -->
-     <meta property="og:type" content="<?php echo $pageType === 'article' ? 'article' : 'website'; ?>">
-     <meta property="og:title" content="<?php echo $metaTags['title']; ?>">
-     <meta property="og:description" content="<?php echo $metaTags['description']; ?>">
-@@ -314,26 +314,25 @@ if (!isset($schemaMarkup)) {
-     </script>
-     <?php endif; ?>
-     
-     <!-- Favicon -->
-     <link rel="icon" type="image/png" href="assets/favicon.png">
- 
-     <!-- CSS -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-     <link href="css/variables.css" rel="stylesheet">
-     <link href="css/components.css" rel="stylesheet">
-     <link href="css/pages.css" rel="stylesheet">
-     <link href="css/main.css" rel="stylesheet">
-     <link href="css/modal.css" rel="stylesheet">
-     <link href="css/cookie-notice.css" rel="stylesheet">
-     
-     <?php if (isset($additionalCss) && is_array($additionalCss)): ?>
-         <?php foreach ($additionalCss as $cssFile): ?>
-             <link href="<?php echo $cssFile; ?>" rel="stylesheet">
-         <?php endforeach; ?>
-     <?php endif; ?>
-     <?php include 'included/ya-metrika.php'; ?>
- </head>
--</rewritten_file> 
-\ No newline at end of file
 diff --git a/index.php b/index.php
-index b87179bf9f02de7d1ca7713c00f89dabed193115..d18583826a13b36f8a5a3341fb66b9fe4287e86c 100644
+index 3cc01823d15d39b955d62bd5f861c93f6ec93551..1f1fbfda350d84ec42cba415338eed219a68327d 100644
 --- a/index.php
 +++ b/index.php
 @@ -167,110 +167,110 @@ include 'head.php';
@@ -1739,549 +580,8 @@ index b87179bf9f02de7d1ca7713c00f89dabed193115..d18583826a13b36f8a5a3341fb66b9fe
  
  </body>
 \ No newline at end of file
-diff --git a/js/cookie-notice.js b/js/cookie-notice.js
-index a3925841f39db2c4c812f8233d90201f915c00d9..488eff31998f29f792d0201f6ec6adf69b2792c5 100644
---- a/js/cookie-notice.js
-+++ b/js/cookie-notice.js
-@@ -1,32 +1,32 @@
- document.addEventListener('DOMContentLoaded', function() {
-     // Проверяем, было ли уже показано уведомление
-     if (!localStorage.getItem('cookieNoticeAccepted')) {
-         // Создаем элемент уведомления
-         const notice = document.createElement('div');
-         notice.className = 'cookie-notice';
-         notice.innerHTML = `
-             <img src="assets/favicon.png" alt="Cookie" class="cookie-notice-icon">
-             <div class="cookie-notice-content">
-                 <div class="cookie-notice-text">
--                    Этот сайт использует файлы cookie для хранения данных. Продолжая использовать сайт, вы даете свое согласие на работу с этими файлами. Подробнее в <a href="/privacy.html">политике конфиденциальности</a>.
-+                    Этот сайт использует файлы cookie для хранения данных. Продолжая использовать сайт, вы даете свое согласие на работу с этими файлами. Подробнее в <a href="/privacy">политике конфиденциальности</a>.
-                 </div>
-                 <button class="btn btn-primary">Хорошо, принимаю</button>
-             </div>
-         `;
-         
-         // Добавляем уведомление на страницу
-         document.body.appendChild(notice);
-         
-         // Показываем уведомление с небольшой задержкой
-         setTimeout(() => {
-             notice.classList.add('show');
-         }, 1000);
- 
-         // Обработчик для кнопки принятия
-         notice.querySelector('.btn.btn-primary').addEventListener('click', function() {
-             localStorage.setItem('cookieNoticeAccepted', 'true');
-             notice.classList.remove('show');
-             setTimeout(() => notice.remove(), 300);
-         });
-     }
- }); 
-\ No newline at end of file
-diff --git a/modal.php b/modal.php
-index 31304f9b4c7f1fb192d895ceb9f8719b1ba27b29..69ee27cdb521e43530c66b4232a996d8564c8971 100644
---- a/modal.php
-+++ b/modal.php
-@@ -1,34 +1,34 @@
- <!-- Модальное окно обратной связи -->
-     <div class="modal fade" id="callbackModal" tabindex="-1" aria-labelledby="callbackModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered">
-             <div class="modal-content">
-                 <div class="modal-header border-0">
-                     <h5 class="modal-title" id="callbackModalLabel">Заказать звонок</h5>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                 <div class="modal-body">
-                     <form id="callbackForm" class="callback-form">
-                         <div class="mb-3">
-                             <input type="text" class="form-control" id="modalName" name="name" placeholder="Ваше имя" required>
-                         </div>
-                         <div class="mb-3">
-                             <input type="tel" class="form-control" id="modalPhone" name="phone" placeholder="Ваш телефон" required>
-                         </div>
-                         <div class="mb-3">
-                             <textarea class="form-control" id="modalMessage" name="message" rows="4" placeholder="Сообщение"></textarea>
-                         </div>
-                         <div class="mb-3 form-check">
-                             <input type="checkbox" class="form-check-input" id="modalPrivacyAgree" name="privacyAgree">
--                            <label class="form-check-label" for="modalPrivacyAgree">Я согласен с <a href="privacy.php" target="_blank">политикой конфиденциальности</a></label>
-+                            <label class="form-check-label" for="modalPrivacyAgree">Я согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a></label>
-                             <div class="invalid-feedback">Пожалуйста, подтвердите согласие с политикой конфиденциальности</div>
-                         </div>
-                         <input type="hidden" id="modalLatitude" name="latitude">
-                         <input type="hidden" id="modalLongitude" name="longitude">
-                         <div class="text-center">
-                             <button type="submit" class="btn btn-primary px-5">Отправить</button>
-                         </div>
-                     </form>
-                 </div>
-             </div>
-         </div>
-     </div>
-\ No newline at end of file
-diff --git a/privacy.php b/privacy.php
-index 151e51150df4e5d0d13f9caa7ea0ab6c8e8c71d9..3ddd2522a9b01405643a348df1d47329b33803f4 100644
---- a/privacy.php
-+++ b/privacy.php
-@@ -1,29 +1,29 @@
- <?php
- $pageTitle = 'Политика конфиденциальности | ЭлектрикаВРН';
- $pageDescription = 'Политика конфиденциальности сайта ЭлектрикаВРН. Информация о сборе, хранении и обработке персональных данных пользователей.';
--$pageCanonical = 'https://electrikavrn.ru/privacy.php';
-+$pageCanonical = 'https://electrikavrn.ru/privacy';
- $pageType = 'privacy';
- 
- include 'head.php';
- ?>
- 
- <body>
-     <?php include 'preloader.php'; ?>
-     <?php include 'header.php'; ?>
- 
-     <!-- Основной контент -->
-     <main class="pt-5 mt-5">
-         <section class="py-5">
-             <div class="container">
-                 <h1 class="text-center mb-5" data-aos="fade-up">Политика конфиденциальности</h1>
-                 
-                 <div class="row justify-content-center">
-                     <div class="col-lg-10">
-                         <div class="card shadow mb-4" data-aos="fade-up">
-                             <div class="card-body">
-                                 <h2 class="mb-4">Политика в отношении обработки персональных данных</h2>
-                                 
-                                 <div class="mb-4">
-                                     <h3 class="h5 mb-3">1. Общие положения</h3>
-                                     <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. № 152-ФЗ «О персональных данных» (далее — Закон о персональных данных) и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые ЭлектрикаВРН (далее — Оператор).</p>
-                                     <p>1.1. Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни, личную и семейную тайну.</p>
-diff --git a/projects/1room-budget.php b/projects/1room-budget.php
-index 3213b7de5791981f4c771a646a06e6e48397d7b5..0a552c3b41285298ef9a995e105c4ff9e39b94df 100644
---- a/projects/1room-budget.php
-+++ b/projects/1room-budget.php
-@@ -1,76 +1,76 @@
- <?php
- $pageTitle = 'Проект электромонтажа в однокомнатной квартире 40 м² - Бюджетный вариант под ключ | ЭлектрикаВРН';
- $pageDescription = 'Готовый проект электромонтажа для однокомнатной квартиры 40 м². Бюджетный вариант включает: 13 розеток, 4 выключателя, базовое освещение, накладной щит. Срок работ: 6 дней. Цена: 26 150 ₽. Оптимальное решение для ремонта.';
--$pageCanonical = 'https://electrikavrn.ru/projects/1room-budget.php';
-+$pageCanonical = 'https://electrikavrn.ru/projects/1room-budget';
- $pageImage = 'https://electrikavrn.ru/assets/images/projects/1-komn/kollag-1km-budget.jpg';
- 
- // Данные проекта для Schema.org
- $project = [
-     'name' => 'Проект электромонтажа однокомнатной квартиры 40 м² (Бюджет)',
-     'description' => 'Базовый проект электромонтажа для однокомнатной квартиры площадью 40 м². Включает оптимальное количество розеток, базовое освещение и накладной электрощит. Идеальное решение для экономного ремонта.',
-     'image' => $pageImage,
-     'price' => '26150',
-     'priceValidUntil' => '2024-12-31',
-     'properties' => [
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Площадь',
-             'value' => '40 м²'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Срок выполнения',
-             'value' => '6 дней'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество розеток',
-             'value' => '13'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество выключателей',
-             'value' => '4'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип освещения',
-             'value' => 'Базовое освещение'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип электрощита',
-             'value' => 'Накладной'
-         ]
-     ]
- ];
- 
- // Хлебные крошки
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
-+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
-     ['name' => 'Однокомнатная квартира 40 м² (Бюджетный вариант)', 'url' => $pageCanonical]
- ];
- 
- // Данные этапов работ
- $stages = [
-     [
-         'title' => 'Черновой электромонтаж',
-         'duration' => '5 рабочих дней',
-         'works' => [
-             [
-                 'name' => 'Прокладка кабеля',
-                 'unit' => 'м.п.',
-                 'quantity' => 75,
-                 'price' => 50,
-                 'data_price' => 'kabel'
-             ],
-             [
-                 'name' => 'Штроба (бетон)',
-                 'unit' => 'м.п.',
-                 'quantity' => 20,
-                 'price' => 300,
-                 'data_price' => 'shtroba',
-                 'data_material' => 'beton'
-             ],
-             [
-@@ -150,62 +150,62 @@ $stages = [
-                 'quantity' => 4,
-                 'price' => 150,
-                 'data_price' => 'switch',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Установка розеток',
-                 'unit' => 'шт.',
-                 'quantity' => 13,
-                 'price' => 150,
-                 'data_price' => 'socket',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Монтаж люстр до 3х кг.',
-                 'unit' => 'шт.',
-                 'quantity' => 2,
-                 'price' => 700,
-                 'data_price' => 'light',
-                 'data_type' => 'chandelier'
-             ]
-         ]
-     ]
- ];
- 
--include 'head-projects.php';
-+include 'head-/projects';
- ?>
- 
- <body>
-     <?php include '../articles/preloader-articles.php'; ?>
-     <?php include '../articles/header-articles.php'; ?>
- 
-     <!-- Хлебные крошки -->
-     <nav aria-label="breadcrumb" class="container mt-3">
-         <ol class="breadcrumb">
--            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
-+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
-             <li class="breadcrumb-item active">Однокомнатная квартира 40 м² (Бюджетный)</li>
-         </ol>
-     </nav>
- 
-     <div class="container my-5">
-         <h1 class="mb-4">Однокомнатная квартира 40 м² (Вариант "Бюджет")</h1>
-         
-         <!-- Основная информация -->
-         <div class="row mb-5">
-             <div class="col-md-8">
-                 <div class="project-images mb-4">
-                     <img src="../assets/images/projects/1-komn/kollag-1km-budget.jpg" alt="До ремонта" class="img-fluid mb-3">
-                 </div>
-             </div>
-             <div class="col-md-4">
-                 <div class="project-summary card">
-                     <div class="card-body">
-                         <h5 class="card-title">Краткая информация</h5>
-                         <ul class="list-unstyled">
-                             <li><strong>Площадь:</strong> 40 м²</li>
-                             <li><strong>Тип помещения:</strong> Квартира</li>
-                             <li><strong>Срок выполнения:</strong> 6 дней</li>
-                             <li><strong>Стоимость работ:</strong> 26 150 ₽</li>
-                         </ul>
-                         <a href="#" class="btn btn-primary w-100" data-callback>Заказать похожий проект</a>
-@@ -398,60 +398,60 @@ include 'head-projects.php';
-                     <div class="col-md-6">
-                         <a href="../assets/images/projects/1-komn/superbyudzhetnaya-1-komn.-plan-gruppy_page-0001.jpg" data-lightbox="plan" data-title="План расположения - страница 1">
-                             <img src="../assets/images/projects/1-komn/superbyudzhetnaya-1-komn.-plan-gruppy_page-0001.jpg" alt="План расположения - страница 1" class="img-fluid rounded shadow-sm">
-                         </a>
-                     </div>
-                     <div class="col-md-6">
-                         <a href="../assets/images/projects/1-komn/superbyudzhetnaya-1-komn.-plan-gruppy_page-0002.jpg" data-lightbox="plan" data-title="План расположения - страница 2">
-                             <img src="../assets/images/projects/1-komn/superbyudzhetnaya-1-komn.-plan-gruppy_page-0002.jpg" alt="План расположения - страница 2" class="img-fluid rounded shadow-sm">
-                         </a>
-                     </div>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Похожие проекты -->
-         <div class="row">
-             <div class="col-12">
-                 <h2 class="mb-4">Похожие проекты</h2>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/1-komn/planirovka-1km-komfort.png" class="card-img-top" alt="Комфорт вариант">
-                             <div class="card-body">
-                                 <h5 class="card-title">Однокомнатная квартира (Комфорт)</h5>
-                                 <p class="card-text">Вариант с расширенным функционалом</p>
--                                <a href="1room-comfort.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/1room-comfort" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/2-komn/planirovka-2km-budget.png" class="card-img-top" alt="Бюджетный вариант">
-                             <div class="card-body">
-                                 <h5 class="card-title">Двухкомнатная квартира (Бюджет)</h5>
-                                 <p class="card-text">Базовый вариант электромонтажа</p>
--                                <a href="2room-budget.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/2room-budget" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- 
-     <?php include '../articles/footer-articles.php'; ?>
-     <?php include '../articles/modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-     <script src="../js/prices.js?v=1"></script>
-     <script src="../js/project-totals.js"></script>
-     <script src="../js/projects.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/geolocate.js"></script>
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/projects/1room-comfort.php b/projects/1room-comfort.php
-index 714de5669ccd043b3311c5aba9f9118d677cd378..4b34023bff6f7f1c1ff7afc641c2c0dd3834199f 100644
---- a/projects/1room-comfort.php
-+++ b/projects/1room-comfort.php
-@@ -1,76 +1,76 @@
- <?php
- $pageTitle = 'Проект электромонтажа в однокомнатной квартире 40 м² - Комфортный вариант под ключ | ЭлектрикаВРН';
- $pageDescription = 'Готовый проект электромонтажа для однокомнатной квартиры 40 м². Комфортный вариант включает: 18 розеток, 6 выключателей, расширенное освещение, встраиваемый щит. Срок работ: 7 дней. Цена: 35 800 ₽. Оптимальное решение для комфортного проживания.';
--$pageCanonical = 'https://electrikavrn.ru/projects/1room-comfort.php';
-+$pageCanonical = 'https://electrikavrn.ru/projects/1room-comfort';
- $pageImage = 'https://electrikavrn.ru/assets/images/projects/1-komn/kollag-1km-comfort.jpg';
- 
- // Данные проекта для Schema.org
- $project = [
-     'name' => 'Проект электромонтажа однокомнатной квартиры 40 м² (Комфорт)',
-     'description' => 'Расширенный проект электромонтажа для однокомнатной квартиры площадью 40 м². Включает увеличенное количество розеток, расширенное освещение и встраиваемый электрощит. Идеальное решение для комфортного проживания.',
-     'image' => $pageImage,
-     'price' => '35800',
-     'priceValidUntil' => '2024-12-31',
-     'properties' => [
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Площадь',
-             'value' => '40 м²'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Срок выполнения',
-             'value' => '7 дней'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество розеток',
-             'value' => '18'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество выключателей',
-             'value' => '6'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип освещения',
-             'value' => 'Расширенное освещение'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип электрощита',
-             'value' => 'Встраиваемый'
-         ]
-     ]
- ];
- 
- // Хлебные крошки
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
-+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
-     ['name' => 'Однокомнатная квартира 40 м² (Комфортный вариант)', 'url' => $pageCanonical]
- ];
- 
- // Данные этапов работ
- $stages = [
-     [
-         'title' => 'Черновой электромонтаж',
-         'duration' => '6 рабочих дней',
-         'works' => [
-             [
-                 'name' => 'Прокладка кабеля',
-                 'unit' => 'м.п.',
-                 'quantity' => 95,
-                 'price' => 50,
-                 'data_price' => 'kabel'
-             ],
-             [
-                 'name' => 'Штроба (бетон)',
-                 'unit' => 'м.п.',
-                 'quantity' => 25,
-                 'price' => 300,
-                 'data_price' => 'shtroba',
-                 'data_material' => 'beton'
-             ],
-             [
-@@ -158,62 +158,62 @@ $stages = [
-                 'quantity' => 18,
-                 'price' => 200,
-                 'data_price' => 'socket',
-                 'data_type' => 'comfort'
-             ],
-             [
-                 'name' => 'Монтаж люстр до 5 кг.',
-                 'unit' => 'шт.',
-                 'quantity' => 3,
-                 'price' => 900,
-                 'data_price' => 'light',
-                 'data_type' => 'chandelier-heavy'
-             ],
-             [
-                 'name' => 'Монтаж точечных светильников',
-                 'unit' => 'шт.',
-                 'quantity' => 6,
-                 'price' => 250,
-                 'data_price' => 'light',
-                 'data_type' => 'spot'
-             ]
-         ]
-     ]
- ];
- 
--include 'head-projects.php';
-+include 'head-/projects';
- ?>
- 
- <body>
-     <?php include '../articles/preloader-articles.php'; ?>
-     <?php include '../articles/header-articles.php'; ?>
- 
-     <!-- Хлебные крошки -->
-     <nav aria-label="breadcrumb" class="container mt-3">
-         <ol class="breadcrumb">
--            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
-+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
-             <li class="breadcrumb-item active">Однокомнатная квартира 40 м² (Комфортный)</li>
-         </ol>
-     </nav>
- 
-     <div class="container my-5">
-         <h1 class="mb-4">Однокомнатная квартира 40 м² (Вариант "Комфорт")</h1>
-         
-         <!-- Основная информация -->
-         <div class="row mb-5">
-             <div class="col-md-8">
-                 <div class="project-images mb-4">
-                     <img src="../assets/images/projects/1-komn/kollag-1km-komfort.jpg" alt="До ремонта" class="img-fluid mb-3">
-                 </div>
-             </div>
-             <div class="col-md-4">
-                 <div class="project-summary card">
-                     <div class="card-body">
-                         <h5 class="card-title">Краткая информация</h5>
-                         <ul class="list-unstyled">
-                             <li><strong>Площадь:</strong> 40 м²</li>
-                             <li><strong>Тип помещения:</strong> Квартира</li>
-                             <li><strong>Срок выполнения:</strong> 9 дней</li>
-                             <li><strong>Стоимость работ:</strong> 45 500 ₽</li>
-                         </ul>
-                         <a href="#" class="btn btn-primary w-100" data-callback>Заказать похожий проект</a>
-@@ -464,60 +464,60 @@ include 'head-projects.php';
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card h-100">
-                             <div class="card-body">
-                                 <i class="fas fa-network-wired fa-2x text-primary mb-3"></i>
-                                 <h5 class="card-title">Современные коммуникации</h5>
-                                 <p class="card-text">TV и Ethernet розетки для качественного подключения техники</p>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Похожие проекты -->
-         <div class="row">
-             <div class="col-12">
-                 <h2 class="mb-4">Похожие проекты</h2>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/1-komn/planirovka-1km-budget.png" class="card-img-top" alt="Бюджетный вариант">
-                             <div class="card-body">
-                                 <h5 class="card-title">Однокомнатная квартира (Бюджет)</h5>
-                                 <p class="card-text">Базовый вариант электромонтажа</p>
--                                <a href="1room-budget.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/1room-budget" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/2-komn/planirovka-2km-komfort.png" class="card-img-top" alt="Двухкомнатная комфорт">
-                             <div class="card-body">
-                                 <h5 class="card-title">Двухкомнатная квартира (Комфорт)</h5>
-                                 <p class="card-text">Расширенный вариант для большей площади</p>
--                                <a href="2room-comfort.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/2room-comfort" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- 
-     <?php include '../articles/footer-articles.php'; ?>
-     <?php include '../articles/modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-     <script src="../js/prices.js?v=1"></script>
-     <script src="../js/project-totals.js"></script>
-     <script src="../js/projects.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/geolocate.js"></script>
- </body>
- </html> 
-\ No newline at end of file
 diff --git a/projects/2room-budget.php b/projects/2room-budget.php
-index 5451f6e5e7855581baeda5b92c7034b504908a87..8ff2011042ec4dacf2d6553adf368912ef427a42 100644
+index abfa7f6a85ac26b4e1c9e99d9dbb8042fa7c6bdf..828ece97bd98169666d59388f96aefbc1e0a0f02 100644
 --- a/projects/2room-budget.php
 +++ b/projects/2room-budget.php
 @@ -1,76 +1,76 @@
@@ -2363,17 +663,7 @@ index 5451f6e5e7855581baeda5b92c7034b504908a87..8ff2011042ec4dacf2d6553adf368912
                  'data_material' => 'beton'
              ],
              [
-@@ -150,62 +150,62 @@ $stages = [
-                 'quantity' => 4,
-                 'price' => 150,
-                 'data_price' => 'switch',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Установка розеток',
-                 'unit' => 'шт.',
-                 'quantity' => 13,
-                 'price' => 150,
+@@ -160,52 +160,52 @@ $stages = [
                  'data_price' => 'socket',
                  'data_type' => 'basic'
              ],
@@ -2389,8 +679,7 @@ index 5451f6e5e7855581baeda5b92c7034b504908a87..8ff2011042ec4dacf2d6553adf368912
      ]
  ];
  
--include 'head-projects.php';
-+include 'head-/projects';
+ include 'head-projects.php';
  ?>
  
  <body>
@@ -2493,1235 +782,125 @@ index 5451f6e5e7855581baeda5b92c7034b504908a87..8ff2011042ec4dacf2d6553adf368912
  </body>
  </html> 
 \ No newline at end of file
-diff --git a/projects/2room-comfort.php b/projects/2room-comfort.php
-index 80ae5b88023f213ba51b4f1d998683583edd13d6..7782ade687d8a69cbea9d91e1e47c56421764672 100644
---- a/projects/2room-comfort.php
-+++ b/projects/2room-comfort.php
-@@ -1,76 +1,76 @@
- <?php
- $pageTitle = 'Проект электромонтажа в двухкомнатной квартире 60 м² - Комфортный вариант под ключ | ЭлектрикаВРН';
- $pageDescription = 'Готовый проект электромонтажа для двухкомнатной квартиры 60 м². Комфортный вариант включает: 32 розетки, 8 выключателей, расширенное освещение, встраиваемый щит. Срок работ: 12 дней. Цена: 59 400 ₽. Оптимальное решение для комфортного проживания.';
--$pageCanonical = 'https://electrikavrn.ru/projects/2room-comfort.php';
-+$pageCanonical = 'https://electrikavrn.ru/projects/2room-comfort';
- $pageImage = 'https://electrikavrn.ru/assets/images/projects/2-komn/kollag-2km-komfort.jpg';
- 
- // Данные проекта для Schema.org
- $project = [
-     'name' => 'Проект электромонтажа двухкомнатной квартиры 60 м² (Комфорт)',
-     'description' => 'Расширенный проект электромонтажа для двухкомнатной квартиры площадью 60 м². Включает увеличенное количество розеток, расширенное освещение и встраиваемый электрощит. Идеальное решение для комфортного проживания.',
-     'image' => $pageImage,
-     'price' => '59400',
-     'priceValidUntil' => '2024-12-31',
-     'properties' => [
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Площадь',
-             'value' => '60 м²'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Срок выполнения',
-             'value' => '12 дней'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество розеток',
-             'value' => '32'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество выключателей',
-             'value' => '8'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип освещения',
-             'value' => 'Расширенное освещение'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип электрощита',
-             'value' => 'Встраиваемый'
-         ]
-     ]
- ];
- 
- // Хлебные крошки
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
-+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
-     ['name' => 'Двухкомнатная квартира 60 м² (Комфортный вариант)', 'url' => $pageCanonical]
- ];
- 
- // Данные этапов работ
- $stages = [
-     [
-         'title' => 'Черновой электромонтаж',
-         'duration' => '5 рабочих дней',
-         'works' => [
-             [
-                 'name' => 'Прокладка кабеля',
-                 'unit' => 'м.п.',
-                 'quantity' => 75,
-                 'price' => 50,
-                 'data_price' => 'kabel'
-             ],
-             [
-                 'name' => 'Штроба (бетон)',
-                 'unit' => 'м.п.',
-                 'quantity' => 20,
-                 'price' => 300,
-                 'data_price' => 'shtroba',
-                 'data_material' => 'beton'
-             ],
-             [
-@@ -150,62 +150,62 @@ $stages = [
-                 'quantity' => 4,
-                 'price' => 150,
-                 'data_price' => 'switch',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Установка розеток',
-                 'unit' => 'шт.',
-                 'quantity' => 13,
-                 'price' => 150,
-                 'data_price' => 'socket',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Монтаж люстр до 3х кг.',
-                 'unit' => 'шт.',
-                 'quantity' => 2,
-                 'price' => 700,
-                 'data_price' => 'light',
-                 'data_type' => 'chandelier'
-             ]
-         ]
-     ]
- ];
- 
--include 'head-projects.php';
-+include 'head-/projects';
- ?>
- 
- <body>
-     <?php include '../articles/preloader-articles.php'; ?>
-     <?php include '../articles/header-articles.php'; ?>
- 
-     <!-- Хлебные крошки -->
-     <nav aria-label="breadcrumb" class="container mt-3">
-         <ol class="breadcrumb">
--            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
-+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
-             <li class="breadcrumb-item active">Двухкомнатная квартира 60 м² (Комфортный)</li>
-         </ol>
-     </nav>
- 
-     <div class="container my-5">
-         <h1 class="mb-4">Двухкомнатная квартира 60 м² (Вариант "Комфорт")</h1>
-         
-         <!-- Основная информация -->
-         <div class="row mb-5">
-             <div class="col-md-8">
-                 <div class="project-images mb-4">
-                     <img src="../assets/images/projects/2-komn/kollag-2km-komfort.jpg" alt="До ремонта" class="img-fluid mb-3">
+diff --git a/test.php b/test.php
+index b87179bf9f02de7d1ca7713c00f89dabed193115..d18583826a13b36f8a5a3341fb66b9fe4287e86c 100644
+--- a/test.php
++++ b/test.php
+@@ -167,110 +167,110 @@ include 'head.php';
+                             <img src="assets/images/services/ustanovka-elektrooborudovaniya-white.jpg" class="card-img-top" alt="Установка">
+                             <div class="card-body">
+                                 <h3 class="card-title h5">Установка электрооборудования</h3>
+                                 <p class="card-text">Монтаж розеток, выключателей, светильников и другого оборудования</p>
+                             </div>
+                         </div>
+                     </div>
                  </div>
              </div>
-             <div class="col-md-4">
-                 <div class="project-summary card">
-                     <div class="card-body">
-                         <h5 class="card-title">Краткая информация</h5>
-                         <ul class="list-unstyled">
-                             <li><strong>Площадь:</strong> 60 м²</li>
-                             <li><strong>Тип помещения:</strong> Квартира</li>
-                             <li><strong>Срок выполнения:</strong> 12 дней</li>
-                             <li><strong>Стоимость работ:</strong> 59 400 ₽</li>
-                         </ul>
-                         <a href="#" class="btn btn-primary w-100" data-callback>Заказать похожий проект</a>
-@@ -464,60 +464,60 @@ include 'head-projects.php';
+         </section>
+ 
+         <!-- Калькулятор -->
+         <section id="calculator" class="py-5 bg-light">
+             <div class="container">
+                 <h2 class="text-center mb-5" data-aos="fade-up">Рассчитать стоимость работ</h2>
+                 <div class="row justify-content-center">
+                     <div class="col-lg-12 text-center">
+                         <p class="lead mb-4" data-aos="fade-up">Воспользуйтесь нашими онлайн-калькуляторами для предварительного расчета стоимости электромонтажных работ</p>
+                         <div class="row g-4">
+                             <div class="col-md-4" data-aos="fade-up">
+                                 <div class="card">
+                                     <div class="card-body py-4">
+                                         <i class="fas fa-calculator fa-2x mb-3 text-primary"></i>
+                                         <h3 class="h5 mb-2">Калькулятор предварительного расчета</h3>
+                                         <p class="card-text mb-3">Быстрый расчет стоимости базовых электромонтажных работ для квартир и домов</p>
+-                                        <a href="calculate-dlya-chaynikov.html" class="btn btn-primary">Рассчитать</a>
++                                        <a href="/calculate-dlya-chaynikov" class="btn btn-primary">Рассчитать</a>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                                 <div class="card">
+                                     <div class="card-body py-4">
+                                         <i class="fas fa-tools fa-2x mb-3 text-primary"></i>
+                                         <h3 class="h5 mb-2">Профессиональный калькулятор</h3>
+                                         <p class="card-text mb-3">Детальный расчет с учетом всех параметров и дополнительных работ. Требует глубокого понимания объекта строительства</p>
+-                                        <a href="calculate.html" class="btn btn-primary">Рассчитать</a>
++                                        <a href="/calculate" class="btn btn-primary">Рассчитать</a>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                                 <div class="card">
+                                     <div class="card-body py-4">
+                                         <i class="fas fa-home fa-2x mb-3 text-primary"></i>
+                                         <h3 class="h5 mb-2">Типовые проекты</h3>
+                                         <p class="card-text mb-3">Готовые проекты электромонтажа для квартир, домов и коммерческих помещений</p>
+-                                        <a href="projects.html" class="btn btn-primary">Смотреть проекты</a>
++                                        <a href="/projects" class="btn btn-primary">Смотреть проекты</a>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
                      </div>
-                     <div class="col-md-4">
+                 </div>
+             </div>
+         </section>
+ 
+         <!-- Портфолио -->
+         <section id="portfolio" class="py-5 bg-light">
+             <div class="container">
+                 <h2 class="text-center mb-5" data-aos="fade-up">Наши работы</h2>
+                 <div class="row g-4">
+                     <div class="col-md-4" data-aos="fade-up">
                          <div class="card h-100">
-                             <div class="card-body">
-                                 <i class="fas fa-network-wired fa-2x text-primary mb-3"></i>
-                                 <h5 class="card-title">Современные технологии</h5>
-                                 <p class="card-text">TV и интернет розетки в каждой комнате, выключатели с подсветкой</p>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Похожие проекты -->
-         <div class="row">
-             <div class="col-12">
-                 <h2 class="mb-4">Похожие проекты</h2>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/2-komn/planirovka-2km-budget.png" class="card-img-top" alt="Бюджетный вариант">
-                             <div class="card-body">
-                                 <h5 class="card-title">Двухкомнатная квартира (Бюджет)</h5>
-                                 <p class="card-text">Базовый вариант электромонтажа</p>
--                                <a href="2room-budget.php" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/2room-budget" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/1-komn/planirovka-1km-komfort.png" class="card-img-top" alt="Однокомнатная комфорт">
-                             <div class="card-body">
-                                 <h5 class="card-title">Однокомнатная квартира (Комфорт)</h5>
-                                 <p class="card-text">Расширенный вариант для меньшей площади</p>
--                                <a href="1room-comfort.php" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/1room-comfort" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- 
-     <?php include '../articles/footer-articles.php'; ?>
-     <?php include '../articles/modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-     <script src="../js/prices.js?v=1"></script>
-     <script src="../js/project-totals.js"></script>
-     <script src="../js/projects.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/geolocate.js"></script>
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/projects/head-projects.php b/projects/head-projects.php
-index 4bcf9bf7dadcf60609d557e879586f6d20006548..2ed1e17228f3d17c53a3046b1f75dde394bdff62 100644
---- a/projects/head-projects.php
-+++ b/projects/head-projects.php
-@@ -104,26 +104,25 @@ $schemaMarkup = [
-         <?php if (strpos($property, 'og:') === 0): ?>
-             <meta property="<?php echo $property; ?>" content="<?php echo $content; ?>">
-         <?php endif; ?>
-     <?php endforeach; ?>
-     
-     <!-- Schema.org разметка -->
-     <?php foreach ($schemaMarkup as $schema): ?>
-         <script type="application/ld+json">
-             <?php echo json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>
-         </script>
-     <?php endforeach; ?>
- 
-     <!-- Favicon -->
-     <link rel="icon" type="image/png" href="../assets/favicon.png">
-     
-     <!-- CSS -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-     <link href="../css/main.css" rel="stylesheet">
-     <link href="../css/pages.css" rel="stylesheet">
-     <link href="../css/modal.css" rel="stylesheet">
- </head>
--</rewritten_file> 
-\ No newline at end of file
-diff --git a/projects/house-budget.php b/projects/house-budget.php
-index 9ba6af3f24d90f114010d0a5cc93133998d11a58..fc35f71031a5e84a0340152feaaa0c1002128f01 100644
---- a/projects/house-budget.php
-+++ b/projects/house-budget.php
-@@ -1,76 +1,76 @@
- <?php
- $pageTitle = 'Проект электромонтажа в частном доме 90 м² - Бюджетный вариант под ключ | ЭлектрикаВРН';
- $pageDescription = 'Готовый проект электромонтажа для частного дома 90 м². Бюджетный вариант включает: 18 розеток, 6 выключателей, базовое освещение, накладной щит. Срок работ: 8 дней. Цена: 35 550 ₽. Оптимальное решение для ремонта.';
--$pageCanonical = 'https://electrikavrn.ru/projects/house-budget.php';
-+$pageCanonical = 'https://electrikavrn.ru/projects/house-budget';
- $pageImage = 'https://electrikavrn.ru/assets/images/projects/dom-90-kv/kollag-dom90-budget.jpg';
- 
- // Данные проекта для Schema.org
- $project = [
-     'name' => 'Проект электромонтажа частного дома 90 м² (Бюджет)',
-     'description' => 'Базовый проект электромонтажа для частного дома площадью 90 м². Включает оптимальное количество розеток, базовое освещение и накладной электрощит. Идеальное решение для экономного ремонта.',
-     'image' => $pageImage,
-     'price' => '35550',
-     'priceValidUntil' => '2024-12-31',
-     'properties' => [
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Площадь',
-             'value' => '90 м²'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Срок выполнения',
-             'value' => '8 дней'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество розеток',
-             'value' => '18'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество выключателей',
-             'value' => '6'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип освещения',
-             'value' => 'Базовое освещение'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип электрощита',
-             'value' => 'Накладной'
-         ]
-     ]
- ];
- 
- // Хлебные крошки
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
-+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
-     ['name' => 'Частный дом 90 м² (Бюджетный вариант)', 'url' => $pageCanonical]
- ];
- 
- // Данные этапов работ
- $stages = [
-     [
-         'title' => 'Черновой электромонтаж',
-         'duration' => '5 рабочих дней',
-         'works' => [
-             [
-                 'name' => 'Прокладка кабеля',
-                 'unit' => 'м.п.',
-                 'quantity' => 75,
-                 'price' => 50,
-                 'data_price' => 'kabel'
-             ],
-             [
-                 'name' => 'Штроба (бетон)',
-                 'unit' => 'м.п.',
-                 'quantity' => 20,
-                 'price' => 300,
-                 'data_price' => 'shtroba',
-                 'data_material' => 'beton'
-             ],
-             [
-@@ -150,62 +150,62 @@ $stages = [
-                 'quantity' => 4,
-                 'price' => 150,
-                 'data_price' => 'switch',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Установка розеток',
-                 'unit' => 'шт.',
-                 'quantity' => 13,
-                 'price' => 150,
-                 'data_price' => 'socket',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Монтаж люстр до 3х кг.',
-                 'unit' => 'шт.',
-                 'quantity' => 2,
-                 'price' => 700,
-                 'data_price' => 'light',
-                 'data_type' => 'chandelier'
-             ]
-         ]
-     ]
- ];
- 
--include 'head-projects.php';
-+include 'head-/projects';
- ?>
- 
- <body>
-     <?php include '../articles/preloader-articles.php'; ?>
-     <?php include '../articles/header-articles.php'; ?>
- 
-     <!-- Хлебные крошки -->
-     <nav aria-label="breadcrumb" class="container mt-3">
-         <ol class="breadcrumb">
--            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
-+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
-             <li class="breadcrumb-item active">Частный дом 90 м² (Бюджетный)</li>
-         </ol>
-     </nav>
- 
-     <div class="container my-5">
-         <h1 class="mb-4">Частный дом 90 м² (Вариант "Бюджет")</h1>
-         
-         <!-- Основная информация -->
-         <div class="row mb-5">
-             <div class="col-md-8">
-                 <div class="project-images mb-4">
-                     <img src="../assets/images/projects/dom-90-kv/kollag-dom90-budget.jpg" alt="До ремонта" class="img-fluid mb-3">
-                 </div>
-             </div>
-             <div class="col-md-4">
-                 <div class="project-summary card">
-                     <div class="card-body">
-                         <h5 class="card-title">Краткая информация</h5>
-                         <ul class="list-unstyled">
-                             <li><strong>Площадь:</strong> 90 м²</li>
-                             <li><strong>Тип помещения:</strong> Частный дом</li>
-                             <li><strong>Срок выполнения:</strong> 8 дней</li>
-                             <li><strong>Стоимость работ:</strong> 35 550 ₽</li>
-                         </ul>
-                         <a href="#" class="btn btn-primary w-100" data-callback>Заказать похожий проект</a>
-@@ -447,60 +447,60 @@ include 'head-projects.php';
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card h-100">
-                             <div class="card-body">
-                                 <i class="fas fa-clock fa-2x text-primary mb-3"></i>
-                                 <h5 class="card-title">Быстрый монтаж</h5>
-                                 <p class="card-text">Возможность монтажа до штукатурки значительно сокращает сроки и стоимость</p>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Похожие проекты -->
-         <div class="row">
-             <div class="col-12">
-                 <h2 class="mb-4">Похожие проекты</h2>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/dom-90-kv/dom-90-komfort.png" class="card-img-top" alt="Комфорт вариант">
-                             <div class="card-body">
-                                 <h5 class="card-title">Частный дом (Комфорт)</h5>
-                                 <p class="card-text">Расширенный вариант с дополнительными возможностями</p>
--                                <a href="house-comfort.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/house-comfort" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/2-komn/planirovka-2km-budget.png" class="card-img-top" alt="Двухкомнатная бюджет">
-                             <div class="card-body">
-                                 <h5 class="card-title">Двухкомнатная квартира (Бюджет)</h5>
-                                 <p class="card-text">Базовый вариант для квартиры</p>
--                                <a href="2room-budget.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/2room-budget" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- 
-     <?php include '../articles/footer-articles.php'; ?>
-     <?php include '../articles/modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-     <script src="../js/prices.js?v=1"></script>
-     <script src="../js/project-totals.js"></script>
-     <script src="../js/projects.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/geolocate.js"></script>
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/projects/house-comfort.php b/projects/house-comfort.php
-index e650374766b0d851dedce74020c543f42eaa9825..e1706afcdfc4ee61ec254401a70b407f48043748 100644
---- a/projects/house-comfort.php
-+++ b/projects/house-comfort.php
-@@ -1,76 +1,76 @@
- <?php
- $pageTitle = 'Проект электромонтажа в частном доме 90 м² - Комфортный вариант под ключ | ЭлектрикаВРН';
- $pageDescription = 'Готовый проект электромонтажа для частного дома 90 м². Комфортный вариант включает: 30 розеток, 8 выключателей, расширенное освещение, встраиваемый щит. Срок работ: 12 дней. Цена: 135 200 ₽. Оптимальное решение для комфортного проживания.';
--$pageCanonical = 'https://electrikavrn.ru/projects/house-comfort.php';
-+$pageCanonical = 'https://electrikavrn.ru/projects/house-comfort';
- $pageImage = 'https://electrikavrn.ru/assets/images/projects/dom-90-kv/kollag-dom90-comfort.jpg';
- 
- // Данные проекта для Schema.org
- $project = [
-     'name' => 'Проект электромонтажа частного дома 90 м² (Комфорт)',
-     'description' => 'Расширенный проект электромонтажа для частного дома площадью 90 м². Включает увеличенное количество розеток, расширенное освещение и встраиваемый электрощит. Идеальное решение для комфортного проживания.',
-     'image' => $pageImage,
-     'price' => '135200',
-     'priceValidUntil' => '2024-12-31',
-     'properties' => [
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Площадь',
-             'value' => '90 м²'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Срок выполнения',
-             'value' => '12 дней'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество розеток',
-             'value' => '30'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Количество выключателей',
-             'value' => '8'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип освещения',
-             'value' => 'Расширенное освещение'
-         ],
-         [
-             '@type' => 'PropertyValue',
-             'name' => 'Тип электрощита',
-             'value' => 'Встраиваемый'
-         ]
-     ]
- ];
- 
- // Хлебные крошки
- $breadcrumbItems = [
-     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
--    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
-+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
-     ['name' => 'Частный дом 90 м² (Комфортный вариант)', 'url' => $pageCanonical]
- ];
- 
- // Данные этапов работ
- $stages = [
-     [
-         'title' => 'Черновой электромонтаж',
-         'duration' => '5 рабочих дней',
-         'works' => [
-             [
-                 'name' => 'Прокладка кабеля',
-                 'unit' => 'м.п.',
-                 'quantity' => 75,
-                 'price' => 50,
-                 'data_price' => 'kabel'
-             ],
-             [
-                 'name' => 'Штроба (бетон)',
-                 'unit' => 'м.п.',
-                 'quantity' => 20,
-                 'price' => 300,
-                 'data_price' => 'shtroba',
-                 'data_material' => 'beton'
-             ],
-             [
-@@ -150,62 +150,62 @@ $stages = [
-                 'quantity' => 4,
-                 'price' => 150,
-                 'data_price' => 'switch',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Установка розеток',
-                 'unit' => 'шт.',
-                 'quantity' => 13,
-                 'price' => 150,
-                 'data_price' => 'socket',
-                 'data_type' => 'basic'
-             ],
-             [
-                 'name' => 'Монтаж люстр до 3х кг.',
-                 'unit' => 'шт.',
-                 'quantity' => 2,
-                 'price' => 700,
-                 'data_price' => 'light',
-                 'data_type' => 'chandelier'
-             ]
-         ]
-     ]
- ];
- 
--include 'head-projects.php';
-+include 'head-/projects';
- ?>
- 
- <body>
-     <?php include '../articles/preloader-articles.php'; ?>
-     <?php include '../articles/header-articles.php'; ?>
- 
-     <!-- Хлебные крошки -->
-     <nav aria-label="breadcrumb" class="container mt-3">
-         <ol class="breadcrumb">
--            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
--            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
-+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
-             <li class="breadcrumb-item active">Частный дом 90 м² (Комфортный)</li>
-         </ol>
-     </nav>
- 
-     <div class="container my-5">
-         <h1 class="mb-4">Частный дом 90 м² (Вариант "Комфорт")</h1>
-         
-         <!-- Основная информация -->
-         <div class="row mb-5">
-             <div class="col-md-8">
-                 <div class="project-images mb-4">
-                     <img src="../assets/images/projects/dom-90-kv/kollag-dom90-komfort.jpg" alt="До ремонта" class="img-fluid mb-3">
-                 </div>
-             </div>
-             <div class="col-md-4">
-                 <div class="project-summary card">
-                     <div class="card-body">
-                         <h5 class="card-title">Краткая информация</h5>
-                         <ul class="list-unstyled">
-                             <li><strong>Площадь:</strong> 90 м²</li>
-                             <li><strong>Тип помещения:</strong> Частный дом</li>
-                             <li><strong>Срок выполнения:</strong> 12 дней</li>
-                             <li><strong>Стоимость работ:</strong> 135 200 ₽</li>
-                         </ul>
-                         <a href="#" class="btn btn-primary w-100" data-callback>Заказать похожий проект</a>
-@@ -486,60 +486,60 @@ include 'head-projects.php';
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card h-100">
-                             <div class="card-body">
-                                 <i class="fas fa-network-wired fa-2x text-primary mb-3"></i>
-                                 <h5 class="card-title">Современные технологии</h5>
-                                 <p class="card-text">TV и интернет розетки в каждой комнате, система переключателей освещения</p>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
- 
-         <!-- Похожие проекты -->
-         <div class="row">
-             <div class="col-12">
-                 <h2 class="mb-4">Похожие проекты</h2>
-                 <div class="row">
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/dom-90-kv/dom-90-budget.png" class="card-img-top" alt="Бюджетный вариант">
-                             <div class="card-body">
-                                 <h5 class="card-title">Частный дом (Бюджет)</h5>
-                                 <p class="card-text">Базовый вариант электромонтажа</p>
--                                <a href="house-budget.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/house-budget" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="card">
-                             <img src="../assets/images/projects/2-komn/planirovka-2km-komfort.png" class="card-img-top" alt="Двухкомнатная комфорт">
-                             <div class="card-body">
-                                 <h5 class="card-title">Двухкомнатная квартира (Комфорт)</h5>
-                                 <p class="card-text">Расширенный вариант для квартиры</p>
--                                <a href="2room-comfort.html" class="btn btn-primary">Подробнее</a>
-+                                <a href="/projects/2room-comfort" class="btn btn-primary">Подробнее</a>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- 
-     <?php include '../articles/footer-articles.php'; ?>
-     <?php include '../articles/modal-articles.php'; ?>
- 
-     <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-     <script src="../js/prices.js?v=1"></script>
-     <script src="../js/project-totals.js"></script>
-     <script src="../js/projects.js"></script>
-     <script src="../js/main.js"></script>
-     <script src="../js/callback.js"></script>
-     <script src="../js/geolocate.js"></script>
- </body>
- </html> 
-\ No newline at end of file
-diff --git a/projects/index.php b/projects/index.php
-index 80a2c6d64a038cc2bd5ad7aaf6e6c31ddcb9d3fd..80ca55c7720e31b6d7b3c4bb376cc4f8501df5dc 100644
---- a/projects/index.php
-+++ b/projects/index.php
-@@ -1,29 +1,29 @@
- <?php
- $pageTitle = 'Наши проекты электромонтажа в Воронеже - ЭлектрикаВРН';
- $pageDescription = 'Готовые проекты электромонтажа в Воронеже: квартиры, частные дома, коммерческие помещения. Бюджетные и комфортные варианты с подробными планами и расчетами.';
--$pageCanonical = 'https://electrikavrn.ru/projects.php';
-+$pageCanonical = 'https://electrikavrn.ru/projects';
- $pageType = 'projects';
- $pageImage = 'https://electrikavrn.ru/assets/images/projects/dom-90-kv/kollag-dom90-komfort.jpg';
- 
- // Получаем имя проекта из URL (параметр project)
- $project = $_GET['project'] ?? null;
- 
- if ($project) {
-     // Очистка имени файла — разрешаем только буквы, цифры и дефисы
-     if (preg_match('/^[a-z0-9\-]+$/i', $project)) {
-         $filepath = __DIR__ . '/' . $project . '.php';
-         if (file_exists($filepath)) {
-             include $filepath;
-             exit;
-         } else {
-             // Если файл не найден — 404
-             header("HTTP/1.0 404 Not Found");
-             include __DIR__ . '/../404.php'; // путь к 404
-             exit;
-         }
-     } else {
-         // Если в параметре что-то подозрительное — 400 или 404
-         header("HTTP/1.0 400 Bad Request");
-         exit('Неверный запрос');
-     }
- } else {
-diff --git a/services.php b/services.php
-index 920a79f4475bcb3643fab732bad2f2bcca6313c2..db575b3eaf8d528d33d512b7a20305562bf7dcf9 100644
---- a/services.php
-+++ b/services.php
-@@ -1,29 +1,29 @@
- <?php
- $pageTitle = 'Услуги электрика в Воронеже: цены на электромонтажные работы 2024 | ЭлектрикаВРН';
- $pageDescription = 'Электромонтажные работы в Воронеже: квартиры от 15000₽, дома от 25000₽, офисы от 20000₽. Замена проводки от 50₽/м, установка розеток от 150₽. Срочный выезд электрика 24/7. Гарантия до 5 лет.';
--$pageCanonical = 'https://electrikavrn.ru/services.php';
-+$pageCanonical = 'https://electrikavrn.ru/services';
- $pageType = 'services';
- $pageImage = 'https://electrikavrn.ru/assets/images/services/elektromontazh-white.jpg';
- 
- // Определяем услуги для Schema.org
- $services = [
-     [
-         "name" => "Электромонтаж в квартирах",
-         "description" => "Полный комплекс электромонтажных работ в квартирах",
-         "lowPrice" => 15000,
-         "highPrice" => 50000,
-         "offers" => [
-             ["name" => "Замена проводки", "price" => 50, "unitText" => "м.п."],
-             ["name" => "Установка розетки", "price" => 150, "unitText" => "шт."]
-         ]
-     ],
-     [
-         "name" => "Электромонтаж в частных домах",
-         "description" => "Комплексный электромонтаж в частных домах и коттеджах",
-         "lowPrice" => 25000,
-         "highPrice" => 100000
-     ],
-     [
-         "name" => "Коммерческий электромонтаж",
-         "description" => "Электромонтажные работы в офисах и коммерческих помещениях",
-         "lowPrice" => 20000,
-diff --git a/sitemap.php b/sitemap.php
-index 773bfe2fb0b2aa342fec5774c40f1c4b8663b8ac..bb380de2421362fd74c1a015913bfa93df595c28 100644
---- a/sitemap.php
-+++ b/sitemap.php
-@@ -1,177 +1,177 @@
- <?php
- $pageTitle = "Карта сайта | ЭлектрикаВРН";
- $pageDescription = "Карта сайта ЭлектрикаВРН. Полный список всех страниц и разделов сайта для удобной навигации.";
--$pageCanonical = "https://electrikavrn.ru/sitemap.php";
-+$pageCanonical = "https://electrikavrn.ru/sitemap";
- $pageType = "sitemap";
- 
- // Schema.org разметка для страницы
- $schemaMarkup = [
-     "@context" => "https://schema.org",
-     "@type" => "WebPage",
-     "name" => "Карта сайта",
-     "description" => "Карта сайта ЭлектрикаВРН. Полный список всех страниц и разделов сайта для удобной навигации.",
--    "url" => "https://electrikavrn.ru/sitemap.php",
-+    "url" => "https://electrikavrn.ru/sitemap",
-     "isPartOf" => [
-         "@type" => "WebSite",
-         "name" => "ЭлектрикаВРН",
-         "url" => "https://electrikavrn.ru/"
-     ],
-     "breadcrumb" => [
-         "@type" => "BreadcrumbList",
-         "itemListElement" => [
-             [
-                 "@type" => "ListItem",
-                 "position" => 1,
-                 "name" => "Главная",
-                 "item" => "https://electrikavrn.ru/"
-             ],
-             [
-                 "@type" => "ListItem",
-                 "position" => 2,
-                 "name" => "Карта сайта",
--                "item" => "https://electrikavrn.ru/sitemap.php"
-+                "item" => "https://electrikavrn.ru/sitemap"
-             ]
-         ]
-     ],
-     "mainEntity" => [
-         "@type" => "SiteNavigationElement",
-         "name" => "Карта сайта ЭлектрикаВРН",
-         "description" => "Навигационная структура сайта электромонтажной компании ЭлектрикаВРН",
-         "hasPart" => [
-             [
-                 "@type" => "SiteNavigationElement",
-                 "name" => "Главная",
-                 "url" => "https://electrikavrn.ru/"
-             ],
-             [
-                 "@type" => "SiteNavigationElement",
-                 "name" => "Услуги",
--                "url" => "https://electrikavrn.ru/services.php"
-+                "url" => "https://electrikavrn.ru/services"
-             ],
-             [
-                 "@type" => "SiteNavigationElement",
-                 "name" => "Проекты",
--                "url" => "https://electrikavrn.ru/projects.php"
-+                "url" => "https://electrikavrn.ru/projects"
-             ],
-             [
-                 "@type" => "SiteNavigationElement",
-                 "name" => "Статьи",
--                "url" => "https://electrikavrn.ru/articles.php"
-+                "url" => "https://electrikavrn.ru/articles"
-             ],
-             [
-                 "@type" => "SiteNavigationElement",
-                 "name" => "Калькулятор",
--                "url" => "https://electrikavrn.ru/calculate.php"
-+                "url" => "https://electrikavrn.ru/calculate"
-             ],
-             [
-                 "@type" => "SiteNavigationElement",
-                 "name" => "Контакты",
--                "url" => "https://electrikavrn.ru/contacts.php"
-+                "url" => "https://electrikavrn.ru/contacts"
-             ]
-         ]
-     ]
- ];
- 
- include 'head.php';
- ?>
- 
- <body>
- <?php include 'preloader.php'; ?>
- <?php include 'header.php'; ?>
- 
- <!-- Основной контент карты сайта -->
- <section class="py-5 mt-5">
-     <div class="container">
-         <h1 class="text-center mb-5">Карта сайта</h1>
- 
-         <div class="row">
-             <div class="col-lg-8 mx-auto">
-                 <div class="card shadow" data-aos="fade-up">
-                     <div class="card-body">
-                         <div class="sitemap-section mb-4">
-                             <h2 class="h4 mb-3">Главные разделы</h2>
-                             <ul class="list-unstyled">
--                                <li class="mb-2"><a href="index.php">Главная страница</a></li>
--                                <li class="mb-2"><a href="services.php">Услуги</a></li>
--                                <li class="mb-2"><a href="projects.php">Проекты</a></li>
--                                <li class="mb-2"><a href="gallery.php">Галерея</a></li>
--                                <li class="mb-2"><a href="articles.php">Статьи</a></li>
--                                <li class="mb-2"><a href="contacts.php">Контакты</a></li>
-+                                <li class="mb-2"><a href="/">Главная страница</a></li>
-+                                <li class="mb-2"><a href="/services">Услуги</a></li>
-+                                <li class="mb-2"><a href="/projects">Проекты</a></li>
-+                                <li class="mb-2"><a href="/gallery">Галерея</a></li>
-+                                <li class="mb-2"><a href="/articles">Статьи</a></li>
-+                                <li class="mb-2"><a href="/contacts">Контакты</a></li>
-                             </ul>
-                         </div>
- 
-                         <div class="sitemap-section mb-4">
-                             <h2 class="h4 mb-3">Услуги</h2>
-                             <ul class="list-unstyled">
--                                <li class="mb-2"><a href="services.php#residential">Для жилых помещений</a></li>
--                                <li class="mb-2"><a href="services.php#commercial">Для коммерческих объектов</a></li>
--                                <li class="mb-2"><a href="services.php#industrial">Промышленный электромонтаж</a></li>
--                                <li class="mb-2"><a href="services.php#emergency">Аварийный вызов</a></li>
-+                                <li class="mb-2"><a href="/services#residential">Для жилых помещений</a></li>
-+                                <li class="mb-2"><a href="/services#commercial">Для коммерческих объектов</a></li>
-+                                <li class="mb-2"><a href="/services#industrial">Промышленный электромонтаж</a></li>
-+                                <li class="mb-2"><a href="/services#emergency">Аварийный вызов</a></li>
-                             </ul>
-                         </div>
- 
-                         <div class="sitemap-section mb-4">
-                             <h2 class="h4 mb-3">Калькуляторы</h2>
-                             <ul class="list-unstyled">
--                                <li class="mb-2"><a href="vybor-calculate.php">Список всех калькуляторов</a></li>
--                                <li class="mb-2"><a href="calculate-dlya-chaynikov.php">Калькулятор предварительного расчета</a></li>
--                                <li class="mb-2"><a href="calculate.php">Детальный расчет</a></li>
-+                                <li class="mb-2"><a href="/vybor-calculate">Список всех калькуляторов</a></li>
-+                                <li class="mb-2"><a href="/calculate-dlya-chaynikov">Калькулятор предварительного расчета</a></li>
-+                                <li class="mb-2"><a href="/calculate">Детальный расчет</a></li>
-                             </ul>
-                         </div>
- 
-                         <div class="sitemap-section mb-4">
-                             <h2 class="h4 mb-3">Статьи</h2>
-                             <ul class="list-unstyled">
--                                <li class="mb-2"><a href="articles.php">Все статьи</a></li>
--                                <li class="mb-2"><a href="articles/electrical-safety-home.php">Как обеспечить безопасность электропроводки в доме</a></li>
--                                <li class="mb-2"><a href="articles/socket-replacement-guide.php">Пошаговая инструкция по замене розетки</a></li>
--                                <li class="mb-2"><a href="articles/energy-saving-tips.php">10 способов сэкономить на электроэнергии</a></li>
--                                <li class="mb-2"><a href="articles/electrical-requirements.php">Каким требованиям должна соответствовать современная электрика</a></li>
--                                <li class="mb-2"><a href="articles/wiring-check.php">Как проверить свою электрическую проводку самостоятельно</a></li>
--                                <li class="mb-2"><a href="articles/grounding-importance.php">Зачем нужно заземление и нужно ли оно вообще?</a></li>
-+                                <li class="mb-2"><a href="/articles">Все статьи</a></li>
-+                                <li class="mb-2"><a href="articles//articles/electrical-safety-home">Как обеспечить безопасность электропроводки в доме</a></li>
-+                                <li class="mb-2"><a href="articles//articles/socket-replacement-guide">Пошаговая инструкция по замене розетки</a></li>
-+                                <li class="mb-2"><a href="articles//articles/energy-saving-tips">10 способов сэкономить на электроэнергии</a></li>
-+                                <li class="mb-2"><a href="articles//articles/electrical-requirements">Каким требованиям должна соответствовать современная электрика</a></li>
-+                                <li class="mb-2"><a href="articles//articles/wiring-check">Как проверить свою электрическую проводку самостоятельно</a></li>
-+                                <li class="mb-2"><a href="articles//articles/grounding-importance">Зачем нужно заземление и нужно ли оно вообще?</a></li>
-                             </ul>
-                         </div>
- 
-                         <div class="sitemap-section mb-4">
-                             <h2 class="h4 mb-3">Проекты</h2>
-                             <ul class="list-unstyled">
--                                <li class="mb-2"><a href="projects.php">Все проекты</a></li>
--                                <li class="mb-2"><a href="projects/house-comfort.php">Электромонтаж в частном доме (комфорт)</a></li>
--                                <li class="mb-2"><a href="projects/house-budget.php">Электромонтаж в частном доме (бюджет)</a></li>
--                                <li class="mb-2"><a href="projects/2room-comfort.php">Электромонтаж в 2-комнатной квартире (комфорт)</a></li>
--                                <li class="mb-2"><a href="projects/2room-budget.php">Электромонтаж в 2-комнатной квартире (бюджет)</a></li>
--                                <li class="mb-2"><a href="projects/1room-comfort.php">Электромонтаж в 1-комнатной квартире (комфорт)</a></li>
--                                <li class="mb-2"><a href="projects/1room-budget.php">Электромонтаж в 1-комнатной квартире (бюджет)</a></li>
-+                                <li class="mb-2"><a href="/projects">Все проекты</a></li>
-+                                <li class="mb-2"><a href="projects//projects/house-comfort">Электромонтаж в частном доме (комфорт)</a></li>
-+                                <li class="mb-2"><a href="projects//projects/house-budget">Электромонтаж в частном доме (бюджет)</a></li>
-+                                <li class="mb-2"><a href="projects//projects/2room-comfort">Электромонтаж в 2-комнатной квартире (комфорт)</a></li>
-+                                <li class="mb-2"><a href="projects//projects/2room-budget">Электромонтаж в 2-комнатной квартире (бюджет)</a></li>
-+                                <li class="mb-2"><a href="projects//projects/1room-comfort">Электромонтаж в 1-комнатной квартире (комфорт)</a></li>
-+                                <li class="mb-2"><a href="projects//projects/1room-budget">Электромонтаж в 1-комнатной квартире (бюджет)</a></li>
-                             </ul>
-                         </div>
- 
-                         <div class="sitemap-section mb-4">
-                             <h2 class="h4 mb-3">Дополнительная информация</h2>
-                             <ul class="list-unstyled">
--                                <li class="mb-2"><a href="privacy.php">Политика конфиденциальности</a></li>
--                                <li class="mb-2"><a href="sitemap.php">Карта сайта</a></li>
-+                                <li class="mb-2"><a href="/privacy">Политика конфиденциальности</a></li>
-+                                <li class="mb-2"><a href="/sitemap">Карта сайта</a></li>
-                             </ul>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </section>
- 
- <?php
- include 'footer.php';
- include 'modal.php';
- ?>
- 
- <!-- JavaScript -->
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
- <script src="js/main.js"></script>
- <script src="js/callback.js"></script>
- 
- <script>
-     // Инициализация AOS после полной загрузки страницы
-     window.addEventListener('load', function() {
-diff --git a/sitemap.xml b/sitemap.xml
-index c59b4f2af2d543a9db46093c6381a44d33164579..23c5d9a34e4b47deb66101c600e4d4afb37054a7 100644
---- a/sitemap.xml
-+++ b/sitemap.xml
-@@ -1,126 +1,126 @@
- <?xml version="1.0" encoding="UTF-8"?>
- <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-     <url>
--        <loc>https://electrikavrn.ru/index.html</loc>
-+        <loc>https://electrikavrn.ru/</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>1.0</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/services.html</loc>
-+        <loc>https://electrikavrn.ru/services</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.9</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/contacts.html</loc>
-+        <loc>https://electrikavrn.ru/contacts</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.9</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects.html</loc>
-+        <loc>https://electrikavrn.ru/projects</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.8</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/gallery.html</loc>
-+        <loc>https://electrikavrn.ru/gallery</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.8</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/articles.html</loc>
-+        <loc>https://electrikavrn.ru/articles</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>weekly</changefreq>
-         <priority>0.8</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/vybor-calculate.html</loc>
-+        <loc>https://electrikavrn.ru/vybor-calculate</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.8</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/calculate.html</loc>
-+        <loc>https://electrikavrn.ru/calculate</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/calculate-dlya-chaynikov.html</loc>
-+        <loc>https://electrikavrn.ru/calculate-dlya-chaynikov</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects/house-comfort.html</loc>
-+        <loc>https://electrikavrn.ru/projects/house-comfort</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects/house-budget.html</loc>
-+        <loc>https://electrikavrn.ru/projects/house-budget</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects/2room-comfort.html</loc>
-+        <loc>https://electrikavrn.ru/projects/2room-comfort</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects/2room-budget.html</loc>
-+        <loc>https://electrikavrn.ru/projects/2room-budget</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects/1room-comfort.html</loc>
-+        <loc>https://electrikavrn.ru/projects/1room-comfort</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/projects/1room-budget.html</loc>
-+        <loc>https://electrikavrn.ru/projects/1room-budget</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.7</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/articles/energy-saving-tips.html</loc>
-+        <loc>https://electrikavrn.ru/articles/energy-saving-tips</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>yearly</changefreq>
-         <priority>0.6</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/articles/electrical-safety-home.html</loc>
-+        <loc>https://electrikavrn.ru/articles/electrical-safety-home</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>yearly</changefreq>
-         <priority>0.6</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/articles/socket-replacement-guide.html</loc>
-+        <loc>https://electrikavrn.ru/articles/socket-replacement-guide</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>yearly</changefreq>
-         <priority>0.6</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/privacy.html</loc>
-+        <loc>https://electrikavrn.ru/privacy</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>yearly</changefreq>
-         <priority>0.5</priority>
-     </url>
-     <url>
--        <loc>https://electrikavrn.ru/sitemap.html</loc>
-+        <loc>https://electrikavrn.ru/sitemap</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>monthly</changefreq>
-         <priority>0.3</priority>
-     </url>
- </urlset> 
-\ No newline at end of file
-diff --git a/vybor-calculate.php b/vybor-calculate.php
-index 8adcad0144ca50143fd03dae23f769a6bb983447..7ad0dbfe5ce1bf4f7d991a7f46e235604a0b58a3 100644
---- a/vybor-calculate.php
-+++ b/vybor-calculate.php
-@@ -1,107 +1,107 @@
- <?php
- $pageTitle = 'Калькуляторы стоимости электромонтажа в Воронеже | ЭлектрикаВРН';
- $pageDescription = 'Онлайн калькуляторы для расчета стоимости электромонтажа в Воронеже. Простой и профессиональный расчет цены работ для квартир, домов и офисов. Актуальные цены 2024 года.';
--$pageCanonical = 'https://electrikavrn.ru/vybor-calculate.php';
-+$pageCanonical = 'https://electrikavrn.ru/vybor-calculate';
- $pageType = 'calculator';
- $pageImage = 'https://electrikavrn.ru/assets/images/services/elektromontazh-white.jpg';
- 
- // Определяем калькуляторы для Schema.org
- $calculators = [
-     [
-         "name" => "Простой калькулятор",
-         "description" => "Калькулятор для быстрого расчета стоимости базовых электромонтажных работ",
--        "url" => "https://electrikavrn.ru/calculate-dlya-chaynikov.php",
-+        "url" => "https://electrikavrn.ru/calculate-dlya-chaynikov",
-         "applicationCategory" => "CalculatorApplication"
-     ],
-     [
-         "name" => "Профессиональный калькулятор",
-         "description" => "Детальный калькулятор для точного расчета стоимости всех видов электромонтажных работ",
--        "url" => "https://electrikavrn.ru/calculate.php",
-+        "url" => "https://electrikavrn.ru/calculate",
-         "applicationCategory" => "CalculatorApplication"
-     ]
- ];
- 
- // FAQ для Schema.org
- $faq = [
-     [
-         "question" => "Какой калькулятор выбрать?",
-         "answer" => "Если вам нужен быстрый предварительный расчет - используйте простой калькулятор. Для точного расчета с учетом всех деталей выберите профессиональный калькулятор."
-     ],
-     [
-         "question" => "Учитывают ли калькуляторы стоимость материалов?",
-         "answer" => "Калькуляторы рассчитывают стоимость работ без учета материалов. Точную стоимость материалов можно узнать после составления сметы."
-     ]
- ];
- 
- include 'head.php';
- ?>
- 
- <body>
-     <?php include 'preloader.php'; ?>
-     <?php include 'header.php'; ?>
- 
-     <!-- Заголовок страницы -->
-     <section class="py-5 mt-5">
-         <div class="container">
-             <h1 class="text-center mb-5">Выберите тип калькулятора</h1>
-             <div class="row justify-content-center">
-                 <div class="col-md-6 mb-4">
-                     <div class="card h-100" data-aos="fade-up">
-                         <div class="card-body text-center p-5">
-                             <i class="fas fa-calculator fa-4x mb-4 text-primary"></i>
-                             <h3 class="card-title mb-4">Калькулятор предварительного расчета</h3>
-                             <p class="card-text mb-4">
-                                 Калькулятор для предварительного расчета стоимости работ по базовым параметрам помещения.
-                                 Подходит для предварительной оценки стоимости работ.
-                             </p>
-                             <ul class="list-unstyled text-start mb-4">
-                                 <li><i class="fas fa-check text-success me-2"></i> Указываете тип помещения</li>
-                                 <li><i class="fas fa-check text-success me-2"></i> Вводите количество комнат</li>
-                                 <li><i class="fas fa-check text-success me-2"></i> Указываете площадь</li>
-                                 <li><i class="fas fa-check text-success me-2"></i> Выбираете тип работ</li>
-                             </ul>
--                            <a href="calculate-dlya-chaynikov.php" class="btn btn-primary btn-lg">
-+                            <a href="/calculate-dlya-chaynikov" class="btn btn-primary btn-lg">
-                                 Перейти к расчету
+                             <a href="assets/images/portfolio/electrika-v-trehkomnatnoy-kvartire-1.jpg" data-lightbox="portfolio" data-title="Электромонтаж в квартире">
+                                 <img src="assets/images/portfolio/electrika-v-trehkomnatnoy-kvartire-1.jpg" class="card-img-top" alt="Проект 1" style="height: 250px; object-fit: cover;">
                              </a>
+                             <div class="card-body">
+                                 <h3 class="card-title h5">Электромонтаж в квартире</h3>
+                                 <p class="card-text">Полная замена проводки в трехкомнатной квартире</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                         <div class="card h-100">
+                             <a href="assets/images/portfolio/service-osveshenie-mp.jpg" data-lightbox="portfolio" data-title="Монтаж освещения">
+                                 <img src="assets/images/portfolio/service-osveshenie-mp.jpg" class="card-img-top" alt="Проект 2" style="height: 250px; object-fit: cover;">
+                             </a>
+                             <div class="card-body">
+                                 <h3 class="card-title h5">Монтаж освещения</h3>
+                                 <p class="card-text">Установка светильников в торговом центре</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                         <div class="card h-100">
+                             <a href="assets/images/portfolio/shit-v-trehkomnatnoy-kvartire.jpg" data-lightbox="portfolio" data-title="Электрощит в частном доме">
+                                 <img src="assets/images/portfolio/shit-v-trehkomnatnoy-kvartire.jpg" class="card-img-top" alt="Проект 3" style="height: 250px; object-fit: cover;">
+                             </a>
+                             <div class="card-body">
+                                 <h3 class="card-title h5">Электрощит в частном доме</h3>
+                                 <p class="card-text">Монтаж и подключение электрощита</p>
+                             </div>
                          </div>
                      </div>
                  </div>
-                 <div class="col-md-6 mb-4">
-                     <div class="card h-100" data-aos="fade-up" data-aos-delay="200">
-                         <div class="card-body text-center p-5">
-                             <i class="fas fa-tools fa-4x mb-4 text-primary"></i>
-                             <h3 class="card-title mb-4">Калькулятор для "профи"</h3>
-                             <p class="card-text mb-4">
-                                 Детальный расчет стоимости по конкретным видам работ и материалам.
-                                 Для точного расчета уже известных объемов.
-                             </p>
-                             <ul class="list-unstyled text-start mb-4">
-                                 <li><i class="fas fa-check text-success me-2"></i> Расчет по типам работ</li>
-                                 <li><i class="fas fa-check text-success me-2"></i> Учет материалов</li>
-                                 <li><i class="fas fa-check text-success me-2"></i> Щитовое оборудование</li>
-                                 <li><i class="fas fa-check text-success me-2"></i> Точная стоимость</li>
-                             </ul>
--                            <a href="calculate.php" class="btn btn-primary btn-lg">
-+                            <a href="/calculate" class="btn btn-primary btn-lg">
-                                 Перейти к расчету
-                             </a>
-                         </div>
-                     </div>
+                 <div class="text-center mt-5">
+-                    <a href="gallery.html" class="btn btn-primary" data-aos="fade-up">
++                    <a href="/gallery" class="btn btn-primary" data-aos="fade-up">
+                         Смотреть все работы
+                     </a>
                  </div>
              </div>
-         </div>
-     </section>
+         </section>
+     </main>
  
      <?php include 'footer.php'; ?>
      <?php include 'modal.php'; ?>
  
      <!-- JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="js/main.js"></script>
-     <script src="js/callback.js"></script>
-     <script src="js/cookie-notice.js"></script>
-     <script src="js/geolocate.js"></script>
+     <?php include 'included/included-js.php'; ?>
  
  </body>
- </html>
 \ No newline at end of file
  
 EOF
