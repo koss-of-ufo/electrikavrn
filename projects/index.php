@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Наши проекты электромонтажа в Воронеже - ЭлектрикаВРН';
 $pageDescription = 'Готовые проекты электромонтажа в Воронеже: квартиры, частные дома, коммерческие помещения. Бюджетные и комфортные варианты с подробными планами и расчетами.';
-$pageCanonical = 'https://electrikavrn.ru/projects.php';
+$pageCanonical = 'https://electrikavrn.ru/projects';
 $pageType = 'projects';
 $pageImage = 'https://electrikavrn.ru/assets/images/projects/dom-90-kv/kollag-dom90-komfort.jpg';
 

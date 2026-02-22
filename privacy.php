@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Политика конфиденциальности | ЭлектрикаВРН';
 $pageDescription = 'Политика конфиденциальности сайта ЭлектрикаВРН. Информация о сборе, хранении и обработке персональных данных пользователей.';
-$pageCanonical = 'https://electrikavrn.ru/privacy.php';
+$pageCanonical = 'https://electrikavrn.ru/privacy';
 $pageType = 'privacy';
 
 include 'head.php';

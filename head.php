@@ -62,21 +62,21 @@ function getArticlesSchema($metaTags, $articles = null) {
     if ($articles === null) {
         $articles = [
             [
-                "url" => SITE_URL . "/articles/electrical-safety-home.php",
+                "url" => SITE_URL . "/articles//articles/electrical-safety-home",
                 "name" => "Как обеспечить безопасность электропроводки в доме",
                 "description" => "Основные правила и рекомендации по обеспечению безопасности электропроводки в жилых помещениях",
                 "image" => SITE_URL . "/assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg",
                 "datePublished" => "2024-03-15"
             ],
             [
-                "url" => SITE_URL . "/articles/socket-replacement-guide.php",
+                "url" => SITE_URL . "/articles//articles/socket-replacement-guide",
                 "name" => "Пошаговая инструкция по замене розетки",
                 "description" => "Подробное руководство по безопасной замене электрической розетки своими руками",
                 "image" => SITE_URL . "/assets/images/articles/ustanovka-zamena-rozetok.png",
                 "datePublished" => "2024-03-10"
             ],
             [
-                "url" => SITE_URL . "/articles/energy-saving-tips.php",
+                "url" => SITE_URL . "/articles//articles/energy-saving-tips",
                 "name" => "10 способов сэкономить на электроэнергии",
                 "description" => "Практические советы по снижению потребления электроэнергии",
                 "image" => SITE_URL . "/assets/images/articles/ekonomiya-elektroenergii.jpg",
@@ -97,7 +97,7 @@ function getArticlesSchema($metaTags, $articles = null) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Статьи', 'url' => SITE_URL . '/articles.php']
+            ['name' => 'Статьи', 'url' => SITE_URL . '//articles']
         ]),
         "mainEntity" => [
             "@type" => "ItemList",
@@ -126,7 +126,7 @@ function getArticleSchema($metaTags, $article) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Статьи', 'url' => SITE_URL . '/articles.php'],
+            ['name' => 'Статьи', 'url' => SITE_URL . '//articles'],
             ['name' => $article['name'], 'url' => $article['url']]
         ])
     ];
@@ -160,7 +160,7 @@ function getServicesSchema($metaTags) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Услуги', 'url' => SITE_URL . '/services.php']
+            ['name' => 'Услуги', 'url' => SITE_URL . '//services']
         ]),
         "mainEntity" => [
             "@type" => "Service",
@@ -190,7 +190,7 @@ function getProjectsSchema($metaTags, $projects = null) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Проекты', 'url' => SITE_URL . '/projects.php']
+            ['name' => 'Проекты', 'url' => SITE_URL . '//projects']
         ])
     ];
 }
@@ -208,7 +208,7 @@ function getCalculatorSchema($metaTags) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Калькулятор', 'url' => SITE_URL . '/calculate.php']
+            ['name' => 'Калькулятор', 'url' => SITE_URL . '//calculate']
         ])
     ];
 }
@@ -226,7 +226,7 @@ function getContactsSchema($metaTags) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Контакты', 'url' => SITE_URL . '/contacts.php']
+            ['name' => 'Контакты', 'url' => SITE_URL . '//contacts']
         ]),
         "mainEntity" => getOrganizationSchema()
     ];
@@ -268,13 +268,13 @@ if (!isset($schemaMarkup)) {
         case 'privacy':
             $schemaMarkup = getWebPageSchema($metaTags, [
                 ['name' => 'Главная', 'url' => SITE_URL],
-                ['name' => 'Политика конфиденциальности', 'url' => SITE_URL . '/privacy.php']
+                ['name' => 'Политика конфиденциальности', 'url' => SITE_URL . '//privacy']
             ]);
             break;
         case 'sitemap':
             $schemaMarkup = getWebPageSchema($metaTags, [
                 ['name' => 'Главная', 'url' => SITE_URL],
-                ['name' => 'Карта сайта', 'url' => SITE_URL . '/sitemap.php']
+                ['name' => 'Карта сайта', 'url' => SITE_URL . '//sitemap']
             ]);
             break;
         default:

@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Проект электромонтажа в однокомнатной квартире 40 м² - Бюджетный вариант под ключ | ЭлектрикаВРН';
 $pageDescription = 'Готовый проект электромонтажа для однокомнатной квартиры 40 м². Бюджетный вариант включает: 13 розеток, 4 выключателя, базовое освещение, накладной щит. Срок работ: 6 дней. Цена: 26 150 ₽. Оптимальное решение для ремонта.';
-$pageCanonical = 'https://electrikavrn.ru/projects/1room-budget.php';
+$pageCanonical = 'https://electrikavrn.ru/projects/1room-budget';
 $pageImage = 'https://electrikavrn.ru/assets/images/projects/1-komn/kollag-1km-budget.jpg';
 
 // Данные проекта для Schema.org
@@ -48,7 +48,7 @@ $project = [
 // Хлебные крошки
 $breadcrumbItems = [
     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
-    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
     ['name' => 'Однокомнатная квартира 40 м² (Бюджетный вариант)', 'url' => $pageCanonical]
 ];
 
@@ -172,7 +172,7 @@ $stages = [
     ]
 ];
 
-include 'head-projects.php';
+include 'head-/projects';
 ?>
 
 <body>
@@ -182,8 +182,8 @@ include 'head-projects.php';
     <!-- Хлебные крошки -->
     <nav aria-label="breadcrumb" class="container mt-3">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
-            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
             <li class="breadcrumb-item active">Однокомнатная квартира 40 м² (Бюджетный)</li>
         </ol>
     </nav>
@@ -420,7 +420,7 @@ include 'head-projects.php';
                             <div class="card-body">
                                 <h5 class="card-title">Однокомнатная квартира (Комфорт)</h5>
                                 <p class="card-text">Вариант с расширенным функционалом</p>
-                                <a href="1room-comfort.html" class="btn btn-primary">Подробнее</a>
+                                <a href="/projects/1room-comfort" class="btn btn-primary">Подробнее</a>
                             </div>
                         </div>
                     </div>
@@ -430,7 +430,7 @@ include 'head-projects.php';
                             <div class="card-body">
                                 <h5 class="card-title">Двухкомнатная квартира (Бюджет)</h5>
                                 <p class="card-text">Базовый вариант электромонтажа</p>
-                                <a href="2room-budget.html" class="btn btn-primary">Подробнее</a>
+                                <a href="/projects/2room-budget" class="btn btn-primary">Подробнее</a>
                             </div>
                         </div>
                     </div>
@@ -454,4 +454,4 @@ include 'head-projects.php';
     <script src="../js/callback.js"></script>
     <script src="../js/geolocate.js"></script>
 </body>
-</html> 
+</html>

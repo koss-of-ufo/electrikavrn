@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Калькуляторы стоимости электромонтажа в Воронеже | ЭлектрикаВРН';
 $pageDescription = 'Онлайн калькуляторы для расчета стоимости электромонтажа в Воронеже. Простой и профессиональный расчет цены работ для квартир, домов и офисов. Актуальные цены 2024 года.';
-$pageCanonical = 'https://electrikavrn.ru/vybor-calculate.php';
+$pageCanonical = 'https://electrikavrn.ru/vybor-calculate';
 $pageType = 'calculator';
 $pageImage = 'https://electrikavrn.ru/assets/images/services/elektromontazh-white.jpg';
 
@@ -10,13 +10,13 @@ $calculators = [
     [
         "name" => "Простой калькулятор",
         "description" => "Калькулятор для быстрого расчета стоимости базовых электромонтажных работ",
-        "url" => "https://electrikavrn.ru/calculate-dlya-chaynikov.php",
+        "url" => "https://electrikavrn.ru/calculate-dlya-chaynikov",
         "applicationCategory" => "CalculatorApplication"
     ],
     [
         "name" => "Профессиональный калькулятор",
         "description" => "Детальный калькулятор для точного расчета стоимости всех видов электромонтажных работ",
-        "url" => "https://electrikavrn.ru/calculate.php",
+        "url" => "https://electrikavrn.ru/calculate",
         "applicationCategory" => "CalculatorApplication"
     ]
 ];
@@ -60,7 +60,7 @@ include 'head.php';
                                 <li><i class="fas fa-check text-success me-2"></i> Указываете площадь</li>
                                 <li><i class="fas fa-check text-success me-2"></i> Выбираете тип работ</li>
                             </ul>
-                            <a href="calculate-dlya-chaynikov.php" class="btn btn-primary btn-lg">
+                            <a href="/calculate-dlya-chaynikov" class="btn btn-primary btn-lg">
                                 Перейти к расчету
                             </a>
                         </div>
@@ -81,7 +81,7 @@ include 'head.php';
                                 <li><i class="fas fa-check text-success me-2"></i> Щитовое оборудование</li>
                                 <li><i class="fas fa-check text-success me-2"></i> Точная стоимость</li>
                             </ul>
-                            <a href="calculate.php" class="btn btn-primary btn-lg">
+                            <a href="/calculate" class="btn btn-primary btn-lg">
                                 Перейти к расчету
                             </a>
                         </div>

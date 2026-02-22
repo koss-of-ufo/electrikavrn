@@ -1,7 +1,7 @@
 <?php
 $pageTitle = '10 способов сэкономить на электроэнергии - ЭлектрикаВРН';
 $pageDescription = 'Узнайте эффективные способы экономии электроэнергии в доме и квартире. Практические советы по снижению расходов на электричество от профессиональных электриков.';
-$pageCanonical = 'https://electrikavrn.ru/articles/energy-saving-tips.php';
+$pageCanonical = 'https://electrikavrn.ru/articles/energy-saving-tips';
 $pageType = 'article';
 $pageImage = 'https://electrikavrn.ru/assets/images/articles/ekonomiya-elektroenergii.jpg';
 
@@ -17,7 +17,7 @@ $article = [
 // Хлебные крошки для Schema.org
 $breadcrumbItems = [
     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
-    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
     ['name' => 'Экономия электроэнергии', 'url' => $pageCanonical]
 ];
 
@@ -35,8 +35,8 @@ include 'head-articles.php';
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
-                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Экономия электроэнергии</li>
                     </ol>
                 </nav>
@@ -179,7 +179,7 @@ include 'head-articles.php';
                             alt="Безопасность электропроводки">
                         <div class="card-body">
                             <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
-                            <a href="electrical-safety-home.html" class="btn btn-primary">Читать</a>
+                            <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
                         </div>
                     </div>
                 </div>
@@ -189,7 +189,7 @@ include 'head-articles.php';
                             alt="Замена розетки">
                         <div class="card-body">
                             <h5 class="card-title">Пошаговая инструкция по замене розетки</h5>
-                            <a href="socket-replacement-guide.html" class="btn btn-primary">Читать</a>
+                            <a href="/articles/socket-replacement-guide" class="btn btn-primary">Читать</a>
                         </div>
                     </div>
                 </div>
@@ -211,4 +211,4 @@ include 'head-articles.php';
     <script src="../js/geolocate.js"></script>
 
 </body>
-</html> 
+</html>

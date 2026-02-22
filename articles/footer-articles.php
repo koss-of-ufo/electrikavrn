@@ -17,10 +17,10 @@
             <div class="col-md-3 mb-4 mb-md-0">
                 <h4 class="h6 mb-3">Разделы сайта</h4>
                 <ul class="list-unstyled">
-                    <li><a href="../projects.php" class="text-white">Проекты</a></li>
-                    <li><a href="../gallery.php" class="text-white">Галерея работ</a></li>
-                    <li><a href="../articles.php" class="text-white">Статьи</a></li>
-                    <li><a href="../vybor-calculate.php" class="text-white">Калькуляторы</a></li>
+                    <li><a href="/projects" class="text-white">Проекты</a></li>
+                    <li><a href="/gallery" class="text-white">Галерея работ</a></li>
+                    <li><a href="/articles" class="text-white">Статьи</a></li>
+                    <li><a href="/vybor-calculate" class="text-white">Калькуляторы</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -38,9 +38,9 @@
                 <p class="mb-0">&copy; 2024 ЭлектрикаВРН. Все права защищены.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
-                <a href="../privacy.php" class="text-white text-decoration-none small me-3">Политика конфиденциальности</a>
-                <a href="../sitemap.php" class="text-white text-decoration-none small">Карта сайта</a>
+                <a href="/privacy" class="text-white text-decoration-none small me-3">Политика конфиденциальности</a>
+                <a href="/sitemap" class="text-white text-decoration-none small">Карта сайта</a>
             </div>
         </div>
     </div>
-</footer> 
+</footer>

@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Карта сайта | ЭлектрикаВРН";
 $pageDescription = "Карта сайта ЭлектрикаВРН. Полный список всех страниц и разделов сайта для удобной навигации.";
-$pageCanonical = "https://electrikavrn.ru/sitemap.php";
+$pageCanonical = "https://electrikavrn.ru/sitemap";
 $pageType = "sitemap";
 
 // Schema.org разметка для страницы
@@ -10,7 +10,7 @@ $schemaMarkup = [
     "@type" => "WebPage",
     "name" => "Карта сайта",
     "description" => "Карта сайта ЭлектрикаВРН. Полный список всех страниц и разделов сайта для удобной навигации.",
-    "url" => "https://electrikavrn.ru/sitemap.php",
+    "url" => "https://electrikavrn.ru/sitemap",
     "isPartOf" => [
         "@type" => "WebSite",
         "name" => "ЭлектрикаВРН",
@@ -29,7 +29,7 @@ $schemaMarkup = [
                 "@type" => "ListItem",
                 "position" => 2,
                 "name" => "Карта сайта",
-                "item" => "https://electrikavrn.ru/sitemap.php"
+                "item" => "https://electrikavrn.ru/sitemap"
             ]
         ]
     ],
@@ -46,27 +46,27 @@ $schemaMarkup = [
             [
                 "@type" => "SiteNavigationElement",
                 "name" => "Услуги",
-                "url" => "https://electrikavrn.ru/services.php"
+                "url" => "https://electrikavrn.ru/services"
             ],
             [
                 "@type" => "SiteNavigationElement",
                 "name" => "Проекты",
-                "url" => "https://electrikavrn.ru/projects.php"
+                "url" => "https://electrikavrn.ru/projects"
             ],
             [
                 "@type" => "SiteNavigationElement",
                 "name" => "Статьи",
-                "url" => "https://electrikavrn.ru/articles.php"
+                "url" => "https://electrikavrn.ru/articles"
             ],
             [
                 "@type" => "SiteNavigationElement",
                 "name" => "Калькулятор",
-                "url" => "https://electrikavrn.ru/calculate.php"
+                "url" => "https://electrikavrn.ru/calculate"
             ],
             [
                 "@type" => "SiteNavigationElement",
                 "name" => "Контакты",
-                "url" => "https://electrikavrn.ru/contacts.php"
+                "url" => "https://electrikavrn.ru/contacts"
             ]
         ]
     ]
@@ -91,65 +91,65 @@ include 'head.php';
                         <div class="sitemap-section mb-4">
                             <h2 class="h4 mb-3">Главные разделы</h2>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><a href="index.php">Главная страница</a></li>
-                                <li class="mb-2"><a href="services.php">Услуги</a></li>
-                                <li class="mb-2"><a href="projects.php">Проекты</a></li>
-                                <li class="mb-2"><a href="gallery.php">Галерея</a></li>
-                                <li class="mb-2"><a href="articles.php">Статьи</a></li>
-                                <li class="mb-2"><a href="contacts.php">Контакты</a></li>
+                                <li class="mb-2"><a href="/">Главная страница</a></li>
+                                <li class="mb-2"><a href="/services">Услуги</a></li>
+                                <li class="mb-2"><a href="/projects">Проекты</a></li>
+                                <li class="mb-2"><a href="/gallery">Галерея</a></li>
+                                <li class="mb-2"><a href="/articles">Статьи</a></li>
+                                <li class="mb-2"><a href="/contacts">Контакты</a></li>
                             </ul>
                         </div>
 
                         <div class="sitemap-section mb-4">
                             <h2 class="h4 mb-3">Услуги</h2>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><a href="services.php#residential">Для жилых помещений</a></li>
-                                <li class="mb-2"><a href="services.php#commercial">Для коммерческих объектов</a></li>
-                                <li class="mb-2"><a href="services.php#industrial">Промышленный электромонтаж</a></li>
-                                <li class="mb-2"><a href="services.php#emergency">Аварийный вызов</a></li>
+                                <li class="mb-2"><a href="/services#residential">Для жилых помещений</a></li>
+                                <li class="mb-2"><a href="/services#commercial">Для коммерческих объектов</a></li>
+                                <li class="mb-2"><a href="/services#industrial">Промышленный электромонтаж</a></li>
+                                <li class="mb-2"><a href="/services#emergency">Аварийный вызов</a></li>
                             </ul>
                         </div>
 
                         <div class="sitemap-section mb-4">
                             <h2 class="h4 mb-3">Калькуляторы</h2>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><a href="vybor-calculate.php">Список всех калькуляторов</a></li>
-                                <li class="mb-2"><a href="calculate-dlya-chaynikov.php">Калькулятор предварительного расчета</a></li>
-                                <li class="mb-2"><a href="calculate.php">Детальный расчет</a></li>
+                                <li class="mb-2"><a href="/vybor-calculate">Список всех калькуляторов</a></li>
+                                <li class="mb-2"><a href="/calculate-dlya-chaynikov">Калькулятор предварительного расчета</a></li>
+                                <li class="mb-2"><a href="/calculate">Детальный расчет</a></li>
                             </ul>
                         </div>
 
                         <div class="sitemap-section mb-4">
                             <h2 class="h4 mb-3">Статьи</h2>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><a href="articles.php">Все статьи</a></li>
-                                <li class="mb-2"><a href="articles/electrical-safety-home.php">Как обеспечить безопасность электропроводки в доме</a></li>
-                                <li class="mb-2"><a href="articles/socket-replacement-guide.php">Пошаговая инструкция по замене розетки</a></li>
-                                <li class="mb-2"><a href="articles/energy-saving-tips.php">10 способов сэкономить на электроэнергии</a></li>
-                                <li class="mb-2"><a href="articles/electrical-requirements.php">Каким требованиям должна соответствовать современная электрика</a></li>
-                                <li class="mb-2"><a href="articles/wiring-check.php">Как проверить свою электрическую проводку самостоятельно</a></li>
-                                <li class="mb-2"><a href="articles/grounding-importance.php">Зачем нужно заземление и нужно ли оно вообще?</a></li>
+                                <li class="mb-2"><a href="/articles">Все статьи</a></li>
+                                <li class="mb-2"><a href="articles//articles/electrical-safety-home">Как обеспечить безопасность электропроводки в доме</a></li>
+                                <li class="mb-2"><a href="articles//articles/socket-replacement-guide">Пошаговая инструкция по замене розетки</a></li>
+                                <li class="mb-2"><a href="articles//articles/energy-saving-tips">10 способов сэкономить на электроэнергии</a></li>
+                                <li class="mb-2"><a href="articles//articles/electrical-requirements">Каким требованиям должна соответствовать современная электрика</a></li>
+                                <li class="mb-2"><a href="articles//articles/wiring-check">Как проверить свою электрическую проводку самостоятельно</a></li>
+                                <li class="mb-2"><a href="articles//articles/grounding-importance">Зачем нужно заземление и нужно ли оно вообще?</a></li>
                             </ul>
                         </div>
 
                         <div class="sitemap-section mb-4">
                             <h2 class="h4 mb-3">Проекты</h2>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><a href="projects.php">Все проекты</a></li>
-                                <li class="mb-2"><a href="projects/house-comfort.php">Электромонтаж в частном доме (комфорт)</a></li>
-                                <li class="mb-2"><a href="projects/house-budget.php">Электромонтаж в частном доме (бюджет)</a></li>
-                                <li class="mb-2"><a href="projects/2room-comfort.php">Электромонтаж в 2-комнатной квартире (комфорт)</a></li>
-                                <li class="mb-2"><a href="projects/2room-budget.php">Электромонтаж в 2-комнатной квартире (бюджет)</a></li>
-                                <li class="mb-2"><a href="projects/1room-comfort.php">Электромонтаж в 1-комнатной квартире (комфорт)</a></li>
-                                <li class="mb-2"><a href="projects/1room-budget.php">Электромонтаж в 1-комнатной квартире (бюджет)</a></li>
+                                <li class="mb-2"><a href="/projects">Все проекты</a></li>
+                                <li class="mb-2"><a href="projects//projects/house-comfort">Электромонтаж в частном доме (комфорт)</a></li>
+                                <li class="mb-2"><a href="projects//projects/house-budget">Электромонтаж в частном доме (бюджет)</a></li>
+                                <li class="mb-2"><a href="projects//projects/2room-comfort">Электромонтаж в 2-комнатной квартире (комфорт)</a></li>
+                                <li class="mb-2"><a href="projects//projects/2room-budget">Электромонтаж в 2-комнатной квартире (бюджет)</a></li>
+                                <li class="mb-2"><a href="projects//projects/1room-comfort">Электромонтаж в 1-комнатной квартире (комфорт)</a></li>
+                                <li class="mb-2"><a href="projects//projects/1room-budget">Электромонтаж в 1-комнатной квартире (бюджет)</a></li>
                             </ul>
                         </div>
 
                         <div class="sitemap-section mb-4">
                             <h2 class="h4 mb-3">Дополнительная информация</h2>
                             <ul class="list-unstyled">
-                                <li class="mb-2"><a href="privacy.php">Политика конфиденциальности</a></li>
-                                <li class="mb-2"><a href="sitemap.php">Карта сайта</a></li>
+                                <li class="mb-2"><a href="/privacy">Политика конфиденциальности</a></li>
+                                <li class="mb-2"><a href="/sitemap">Карта сайта</a></li>
                             </ul>
                         </div>
                     </div>

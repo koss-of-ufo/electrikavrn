@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Важность заземления в электропроводке - ЭлектрикаВРН';
 $pageDescription = 'Узнайте, почему заземление необходимо для безопасной работы электропроводки, как правильно его выполнить и какие требования предъявляются к современным системам заземления.';
-$pageCanonical = 'https://electrikavrn.ru/articles/grounding-importance.php';
+$pageCanonical = 'https://electrikavrn.ru/articles/grounding-importance';
 $pageType = 'article';
 $pageImage = 'https://electrikavrn.ru/assets/images/articles/zazemlenie-elektrika.jpg';
 
@@ -17,7 +17,7 @@ $article = [
 // Хлебные крошки для Schema.org
 $breadcrumbItems = [
     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
-    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles.php'],
+    ['name' => 'Статьи', 'url' => 'https://electrikavrn.ru/articles'],
     ['name' => 'Заземление электропроводки', 'url' => $pageCanonical]
 ];
 
@@ -35,8 +35,8 @@ include 'head-articles.php';
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
-                        <li class="breadcrumb-item"><a href="../articles.php">Статьи</a></li>
+                        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="/articles">Статьи</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Заземление электропроводки</li>
                     </ol>
                 </nav>
@@ -170,7 +170,7 @@ include 'head-articles.php';
                             <img src="../assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg" class="card-img-top" alt="Безопасность электропроводки">
                             <div class="card-body">
                                 <h5 class="card-title">Как обеспечить безопасность электропроводки в доме</h5>
-                                <a href="electrical-safety-home.html" class="btn btn-primary">Читать</a>
+                                <a href="/articles/electrical-safety-home" class="btn btn-primary">Читать</a>
                             </div>
                         </div>
                     </div>
@@ -179,7 +179,7 @@ include 'head-articles.php';
                             <img src="../assets/images/articles/samostoyatelniy-remont.jpg" class="card-img-top" alt="Проверка электропроводки">
                             <div class="card-body">
                                 <h5 class="card-title">Как проверить свою электрическую проводку самостоятельно</h5>
-                                <a href="wiring-check.html" class="btn btn-primary">Читать</a>
+                                <a href="/articles/wiring-check" class="btn btn-primary">Читать</a>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@ include 'head-articles.php';
                             <img src="../assets/images/articles/sovremennaya-electrica.png" class="card-img-top" alt="Требования к современной электрике">
                             <div class="card-body">
                                 <h5 class="card-title">Каким требованиям должна соответствовать современная электрика</h5>
-                                <a href="electrical-requirements.html" class="btn btn-primary">Читать</a>
+                                <a href="/articles/electrical-requirements" class="btn btn-primary">Читать</a>
                             </div>
                         </div>
                     </div>
@@ -211,4 +211,4 @@ include 'head-articles.php';
     <script src="../js/geolocate.js"></script>
 
 </body>
-</html> 
+</html>

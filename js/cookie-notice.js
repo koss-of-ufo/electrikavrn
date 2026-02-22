@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <img src="assets/favicon.png" alt="Cookie" class="cookie-notice-icon">
             <div class="cookie-notice-content">
                 <div class="cookie-notice-text">
-                    Этот сайт использует файлы cookie для хранения данных. Продолжая использовать сайт, вы даете свое согласие на работу с этими файлами. Подробнее в <a href="/privacy.html">политике конфиденциальности</a>.
+                    Этот сайт использует файлы cookie для хранения данных. Продолжая использовать сайт, вы даете свое согласие на работу с этими файлами. Подробнее в <a href="/privacy">политике конфиденциальности</a>.
                 </div>
                 <button class="btn btn-primary">Хорошо, принимаю</button>
             </div>
         `;
-        
+
         // Добавляем уведомление на страницу
         document.body.appendChild(notice);
-        
+
         // Показываем уведомление с небольшой задержкой
         setTimeout(() => {
             notice.classList.add('show');
@@ -29,4 +29,4 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => notice.remove(), 300);
         });
     }
-}); 
+});

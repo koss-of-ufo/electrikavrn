@@ -19,7 +19,7 @@
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="modalPrivacyAgree" name="privacyAgree">
-                            <label class="form-check-label" for="modalPrivacyAgree">Я согласен с <a href="privacy.php" target="_blank">политикой конфиденциальности</a></label>
+                            <label class="form-check-label" for="modalPrivacyAgree">Я согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a></label>
                             <div class="invalid-feedback">Пожалуйста, подтвердите согласие с политикой конфиденциальности</div>
                         </div>
                         <input type="hidden" id="modalLatitude" name="latitude">

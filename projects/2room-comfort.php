@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Проект электромонтажа в двухкомнатной квартире 60 м² - Комфортный вариант под ключ | ЭлектрикаВРН';
 $pageDescription = 'Готовый проект электромонтажа для двухкомнатной квартиры 60 м². Комфортный вариант включает: 32 розетки, 8 выключателей, расширенное освещение, встраиваемый щит. Срок работ: 12 дней. Цена: 59 400 ₽. Оптимальное решение для комфортного проживания.';
-$pageCanonical = 'https://electrikavrn.ru/projects/2room-comfort.php';
+$pageCanonical = 'https://electrikavrn.ru/projects/2room-comfort';
 $pageImage = 'https://electrikavrn.ru/assets/images/projects/2-komn/kollag-2km-komfort.jpg';
 
 // Данные проекта для Schema.org
@@ -48,7 +48,7 @@ $project = [
 // Хлебные крошки
 $breadcrumbItems = [
     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
-    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
+    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
     ['name' => 'Двухкомнатная квартира 60 м² (Комфортный вариант)', 'url' => $pageCanonical]
 ];
 
@@ -172,7 +172,7 @@ $stages = [
     ]
 ];
 
-include 'head-projects.php';
+include 'head-/projects';
 ?>
 
 <body>
@@ -182,8 +182,8 @@ include 'head-projects.php';
     <!-- Хлебные крошки -->
     <nav aria-label="breadcrumb" class="container mt-3">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
-            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
             <li class="breadcrumb-item active">Двухкомнатная квартира 60 м² (Комфортный)</li>
         </ol>
     </nav>
@@ -486,7 +486,7 @@ include 'head-projects.php';
                             <div class="card-body">
                                 <h5 class="card-title">Двухкомнатная квартира (Бюджет)</h5>
                                 <p class="card-text">Базовый вариант электромонтажа</p>
-                                <a href="2room-budget.php" class="btn btn-primary">Подробнее</a>
+                                <a href="/projects/2room-budget" class="btn btn-primary">Подробнее</a>
                             </div>
                         </div>
                     </div>
@@ -496,7 +496,7 @@ include 'head-projects.php';
                             <div class="card-body">
                                 <h5 class="card-title">Однокомнатная квартира (Комфорт)</h5>
                                 <p class="card-text">Расширенный вариант для меньшей площади</p>
-                                <a href="1room-comfort.php" class="btn btn-primary">Подробнее</a>
+                                <a href="/projects/1room-comfort" class="btn btn-primary">Подробнее</a>
                             </div>
                         </div>
                     </div>
@@ -520,4 +520,4 @@ include 'head-projects.php';
     <script src="../js/callback.js"></script>
     <script src="../js/geolocate.js"></script>
 </body>
-</html> 
+</html>

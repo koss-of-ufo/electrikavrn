@@ -72,7 +72,7 @@ function getArticleSchema($metaTags, $article) {
         ],
         "breadcrumb" => getBreadcrumbList([
             ['name' => 'Главная', 'url' => SITE_URL],
-            ['name' => 'Статьи', 'url' => SITE_URL . '/articles.php'],
+            ['name' => 'Статьи', 'url' => SITE_URL . '//articles'],
             ['name' => $article['name'], 'url' => $article['url']]
         ])
     ];

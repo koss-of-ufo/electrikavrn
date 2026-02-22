@@ -1,0 +1,210 @@
+diff a/projects/2room-budget.php b/projects/2room-budget.php	(rejected hunks)
+@@ -1,76 +1,76 @@
+ <?php
+ $pageTitle = 'Проект электромонтажа в двухкомнатной квартире 60 м² - Бюджетный вариант под ключ | ЭлектрикаВРН';
+ $pageDescription = 'Готовый проект электромонтажа для двухкомнатной квартиры 60 м². Бюджетный вариант включает: 17 розеток, 5 выключателей, базовое освещение, накладной щит. Срок работ: 8 дней. Цена: 35 550 ₽. Оптимальное решение для ремонта.';
+-$pageCanonical = 'https://electrikavrn.ru/projects/2room-budget.php';
++$pageCanonical = 'https://electrikavrn.ru/projects/2room-budget';
+ $pageImage = 'https://electrikavrn.ru/assets/images/projects/2-komn/kollag-2km-budget.jpg';
+ 
+ // Данные проекта для Schema.org
+ $project = [
+     'name' => 'Проект электромонтажа двухкомнатной квартиры 60 м² (Бюджет)',
+     'description' => 'Базовый проект электромонтажа для двухкомнатной квартиры площадью 60 м². Включает оптимальное количество розеток, базовое освещение и накладной электрощит. Идеальное решение для экономного ремонта.',
+     'image' => $pageImage,
+     'price' => '35550',
+     'priceValidUntil' => '2024-12-31',
+     'properties' => [
+         [
+             '@type' => 'PropertyValue',
+             'name' => 'Площадь',
+             'value' => '60 м²'
+         ],
+         [
+             '@type' => 'PropertyValue',
+             'name' => 'Срок выполнения',
+             'value' => '8 дней'
+         ],
+         [
+             '@type' => 'PropertyValue',
+             'name' => 'Количество розеток',
+             'value' => '17'
+         ],
+         [
+             '@type' => 'PropertyValue',
+             'name' => 'Количество выключателей',
+             'value' => '5'
+         ],
+         [
+             '@type' => 'PropertyValue',
+             'name' => 'Тип освещения',
+             'value' => 'Базовое освещение'
+         ],
+         [
+             '@type' => 'PropertyValue',
+             'name' => 'Тип электрощита',
+             'value' => 'Накладной'
+         ]
+     ]
+ ];
+ 
+ // Хлебные крошки
+ $breadcrumbItems = [
+     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
+-    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects.php'],
++    ['name' => 'Проекты', 'url' => 'https://electrikavrn.ru/projects'],
+     ['name' => 'Двухкомнатная квартира 60 м² (Бюджетный вариант)', 'url' => $pageCanonical]
+ ];
+ 
+ // Данные этапов работ
+ $stages = [
+     [
+         'title' => 'Черновой электромонтаж',
+         'duration' => '5 рабочих дней',
+         'works' => [
+             [
+                 'name' => 'Прокладка кабеля',
+                 'unit' => 'м.п.',
+                 'quantity' => 75,
+                 'price' => 50,
+                 'data_price' => 'kabel'
+             ],
+             [
+                 'name' => 'Штроба (бетон)',
+                 'unit' => 'м.п.',
+                 'quantity' => 20,
+                 'price' => 300,
+                 'data_price' => 'shtroba',
+                 'data_material' => 'beton'
+             ],
+             [
+@@ -150,62 +150,62 @@ $stages = [
+                 'quantity' => 4,
+                 'price' => 150,
+                 'data_price' => 'switch',
+                 'data_type' => 'basic'
+             ],
+             [
+                 'name' => 'Установка розеток',
+                 'unit' => 'шт.',
+                 'quantity' => 13,
+                 'price' => 150,
+                 'data_price' => 'socket',
+                 'data_type' => 'basic'
+             ],
+             [
+                 'name' => 'Монтаж люстр до 3х кг.',
+                 'unit' => 'шт.',
+                 'quantity' => 2,
+                 'price' => 700,
+                 'data_price' => 'light',
+                 'data_type' => 'chandelier'
+             ]
+         ]
+     ]
+ ];
+ 
+-include 'head-projects.php';
++include 'head-/projects';
+ ?>
+ 
+ <body>
+     <?php include '../articles/preloader-articles.php'; ?>
+     <?php include '../articles/header-articles.php'; ?>
+ 
+     <!-- Хлебные крошки -->
+     <nav aria-label="breadcrumb" class="container mt-3">
+         <ol class="breadcrumb">
+-            <li class="breadcrumb-item"><a href="../index.php">Главная</a></li>
+-            <li class="breadcrumb-item"><a href="../projects.php">Проекты</a></li>
++            <li class="breadcrumb-item"><a href="/">Главная</a></li>
++            <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
+             <li class="breadcrumb-item active">Двухкомнатная квартира 60 м² (Бюджетный)</li>
+         </ol>
+     </nav>
+ 
+     <div class="container my-5">
+         <h1 class="mb-4">Двухкомнатная квартира 60 м² (Вариант "Бюджет")</h1>
+         
+         <!-- Основная информация -->
+         <div class="row mb-5">
+             <div class="col-md-8">
+                 <div class="project-images mb-4">
+                     <img src="../assets/images/projects/2-komn/kollag-2km-budget.jpg" alt="До ремонта" class="img-fluid mb-3">
+                 </div>
+             </div>
+             <div class="col-md-4">
+                 <div class="project-summary card">
+                     <div class="card-body">
+                         <h5 class="card-title">Краткая информация</h5>
+                         <ul class="list-unstyled">
+                             <li><strong>Площадь:</strong> 60 м²</li>
+                             <li><strong>Тип помещения:</strong> Квартира</li>
+                             <li><strong>Срок выполнения:</strong> 8 дней</li>
+                             <li><strong>Стоимость работ:</strong> 35 550 ₽</li>
+                         </ul>
+                         <a href="#" class="btn btn-primary w-100" data-callback>Заказать похожий проект</a>
+@@ -442,60 +442,60 @@ include 'head-projects.php';
+                     </div>
+                     <div class="col-md-4">
+                         <div class="card h-100">
+                             <div class="card-body">
+                                 <i class="fas fa-calculator fa-2x text-primary mb-3"></i>
+                                 <h5 class="card-title">Экономичность</h5>
+                                 <p class="card-text">Оптимальное соотношение цены и качества для базового варианта электромонтажа</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+ 
+         <!-- Похожие проекты -->
+         <div class="row">
+             <div class="col-12">
+                 <h2 class="mb-4">Похожие проекты</h2>
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="card">
+                             <img src="../assets/images/projects/2-komn/planirovka-2km-komfort.png" class="card-img-top" alt="Комфорт вариант">
+                             <div class="card-body">
+                                 <h5 class="card-title">Двухкомнатная квартира (Комфорт)</h5>
+                                 <p class="card-text">Расширенный вариант с дополнительными возможностями</p>
+-                                <a href="2room-comfort.php" class="btn btn-primary">Подробнее</a>
++                                <a href="/projects/2room-comfort" class="btn btn-primary">Подробнее</a>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="card">
+                             <img src="../assets/images/projects/1-komn/planirovka-1km-budget.png" class="card-img-top" alt="Однокомнатная бюджет">
+                             <div class="card-body">
+                                 <h5 class="card-title">Однокомнатная квартира (Бюджет)</h5>
+                                 <p class="card-text">Базовый вариант для меньшей площади</p>
+-                                <a href="1room-budget.php" class="btn btn-primary">Подробнее</a>
++                                <a href="/projects/1room-budget" class="btn btn-primary">Подробнее</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ 
+     <?php include '../articles/footer-articles.php'; ?>
+     <?php include '../articles/modal-articles.php'; ?>
+ 
+     <!-- JavaScript -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+     <script src="../js/prices.js?v=1"></script>
+     <script src="../js/project-totals.js"></script>
+     <script src="../js/projects.js"></script>
+     <script src="../js/main.js"></script>
+     <script src="../js/callback.js"></script>
+     <script src="../js/geolocate.js"></script>
+ </body>
+ </html> 
+\ No newline at end of file

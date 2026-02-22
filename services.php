@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Услуги электрика в Воронеже: цены на электромонтажные работы 2024 | ЭлектрикаВРН';
 $pageDescription = 'Электромонтажные работы в Воронеже: квартиры от 15000₽, дома от 25000₽, офисы от 20000₽. Замена проводки от 50₽/м, установка розеток от 150₽. Срочный выезд электрика 24/7. Гарантия до 5 лет.';
-$pageCanonical = 'https://electrikavrn.ru/services.php';
+$pageCanonical = 'https://electrikavrn.ru/services';
 $pageType = 'services';
 $pageImage = 'https://electrikavrn.ru/assets/images/services/elektromontazh-white.jpg';
 
