@@ -1,62 +1,23 @@
 User-agent: *
-Allow: /wp-admin/admin-ajax.php
-Disallow: /wp-admin/
-Disallow: /wp-includes/
-Disallow: /wp-content/plugins/
-Disallow: /wp-content/themes/
-Disallow: /trackback/
-Disallow: /xmlrpc.php
-Disallow: /comments/feed/
-Disallow: */trackback/
-Disallow: */xmlrpc.php
-Disallow: */comments/feed/
-Disallow: /category/*/*
-Disallow: /tag/*/*
-Disallow: */wp-login.php
-Disallow: */wp-register.php
-Disallow: /elementor-3670.html
-Disallow: /tag/politics.html
-Disallow: /category/business.html
-Disallow: /category/celebrity.html
-Disallow: /category/uncategorized.html
-Disallow: /author/adm.html
-Disallow: /tag/world.html
-Disallow: /?wpr_mega_menu=wpr-mega-menu-item-1382.html
-Disallow: /2021/01.html
-Disallow: /tag/science.html
-Disallow: /tag/money.html
-Disallow: /tag/travel.html
-Disallow: /category/bez-rubriki.html
-Disallow: /404-2.html
-Disallow: /404.html
 Disallow: /cgi-bin/
-Disallow: /?
-Allow: /*.js$
+Disallow: /bot/
+Disallow: /debug.log
+Disallow: /patch.diff
+Disallow: /security_check.php
+Disallow: /*?*
+
 Allow: /*.css$
-Allow: /*.png$
+Allow: /*.js$
 Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
 Allow: /*.gif$
 Allow: /*.svg$
 Allow: /*.webp$
 
 User-agent: Yandex
-Allow: /
 Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
 Clean-param: yclid&gclid&fbclid
-
-User-agent: Mail.ru
-Allow: /
-
-User-agent: Yahoo Slurp
-Allow: /
-
-User-agent: Googlebot
-Allow: /
-Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
-Clean-param: yclid&gclid&fbclid
-
-User-agent: Googlebot-Image
-Disallow: /wp-content/uploads/
 
 Host: electrikavrn.ru
 Sitemap: https://electrikavrn.ru/sitemap.xml

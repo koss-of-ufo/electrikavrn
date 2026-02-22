@@ -130,6 +130,17 @@ include 'head-articles.php';
 
         <!-- Блок "Читайте также" -->
         <div class="container mt-5">
+
+            <section class="alert alert-info mt-4" aria-label="Полезные коммерческие страницы">
+                <h3 class="h5 mb-3">Полезно по теме</h3>
+                <p class="mb-2">Если планируете обновление электрики, посмотрите услуги и быстрый расчет стоимости:</p>
+                <ul class="mb-0">
+                    <li><a href="/services">Услуги электрика в Воронеже: монтаж, ремонт и аварийный выезд</a></li>
+                    <li><a href="/calculate">Онлайн-калькулятор стоимости электромонтажных работ</a></li>
+                    <li><a href="/projects">Готовые проекты электромонтажа квартир и домов</a></li>
+                </ul>
+            </section>
+
             <div class="related-articles">
                 <h3>Читайте также</h3>
                 <div class="row g-4">
