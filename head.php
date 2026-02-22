@@ -62,21 +62,21 @@ function getArticlesSchema($metaTags, $articles = null) {
     if ($articles === null) {
         $articles = [
             [
-                "url" => SITE_URL . "/articles//articles/electrical-safety-home",
+                "url" => SITE_URL . "/articles/electrical-safety-home",
                 "name" => "Как обеспечить безопасность электропроводки в доме",
                 "description" => "Основные правила и рекомендации по обеспечению безопасности электропроводки в жилых помещениях",
                 "image" => SITE_URL . "/assets/images/articles/bezopasnaya-elektrika-avtomatika.jpg",
                 "datePublished" => "2024-03-15"
             ],
             [
-                "url" => SITE_URL . "/articles//articles/socket-replacement-guide",
+                "url" => SITE_URL . "/articles/socket-replacement-guide",
                 "name" => "Пошаговая инструкция по замене розетки",
                 "description" => "Подробное руководство по безопасной замене электрической розетки своими руками",
                 "image" => SITE_URL . "/assets/images/articles/ustanovka-zamena-rozetok.png",
                 "datePublished" => "2024-03-10"
             ],
             [
-                "url" => SITE_URL . "/articles//articles/energy-saving-tips",
+                "url" => SITE_URL . "/articles/energy-saving-tips",
                 "name" => "10 способов сэкономить на электроэнергии",
                 "description" => "Практические советы по снижению потребления электроэнергии",
                 "image" => SITE_URL . "/assets/images/articles/ekonomiya-elektroenergii.jpg",

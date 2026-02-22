@@ -123,12 +123,12 @@ include 'head.php';
                             <h2 class="h4 mb-3">Статьи</h2>
                             <ul class="list-unstyled">
                                 <li class="mb-2"><a href="/articles">Все статьи</a></li>
-                                <li class="mb-2"><a href="articles//articles/electrical-safety-home">Как обеспечить безопасность электропроводки в доме</a></li>
-                                <li class="mb-2"><a href="articles//articles/socket-replacement-guide">Пошаговая инструкция по замене розетки</a></li>
-                                <li class="mb-2"><a href="articles//articles/energy-saving-tips">10 способов сэкономить на электроэнергии</a></li>
-                                <li class="mb-2"><a href="articles//articles/electrical-requirements">Каким требованиям должна соответствовать современная электрика</a></li>
-                                <li class="mb-2"><a href="articles//articles/wiring-check">Как проверить свою электрическую проводку самостоятельно</a></li>
-                                <li class="mb-2"><a href="articles//articles/grounding-importance">Зачем нужно заземление и нужно ли оно вообще?</a></li>
+                                <li class="mb-2"><a href="/articles/electrical-safety-home">Как обеспечить безопасность электропроводки в доме</a></li>
+                                <li class="mb-2"><a href="/articles/socket-replacement-guide">Пошаговая инструкция по замене розетки</a></li>
+                                <li class="mb-2"><a href="/articles/energy-saving-tips">10 способов сэкономить на электроэнергии</a></li>
+                                <li class="mb-2"><a href="/articles/electrical-requirements">Каким требованиям должна соответствовать современная электрика</a></li>
+                                <li class="mb-2"><a href="/articles/wiring-check">Как проверить свою электрическую проводку самостоятельно</a></li>
+                                <li class="mb-2"><a href="/articles/grounding-importance">Зачем нужно заземление и нужно ли оно вообще?</a></li>
                             </ul>
                         </div>
 
@@ -136,12 +136,12 @@ include 'head.php';
                             <h2 class="h4 mb-3">Проекты</h2>
                             <ul class="list-unstyled">
                                 <li class="mb-2"><a href="/projects">Все проекты</a></li>
-                                <li class="mb-2"><a href="projects//projects/house-comfort">Электромонтаж в частном доме (комфорт)</a></li>
-                                <li class="mb-2"><a href="projects//projects/house-budget">Электромонтаж в частном доме (бюджет)</a></li>
-                                <li class="mb-2"><a href="projects//projects/2room-comfort">Электромонтаж в 2-комнатной квартире (комфорт)</a></li>
-                                <li class="mb-2"><a href="projects//projects/2room-budget">Электромонтаж в 2-комнатной квартире (бюджет)</a></li>
-                                <li class="mb-2"><a href="projects//projects/1room-comfort">Электромонтаж в 1-комнатной квартире (комфорт)</a></li>
-                                <li class="mb-2"><a href="projects//projects/1room-budget">Электромонтаж в 1-комнатной квартире (бюджет)</a></li>
+                                <li class="mb-2"><a href="/projects/house-comfort">Электромонтаж в частном доме (комфорт)</a></li>
+                                <li class="mb-2"><a href="/projects/house-budget">Электромонтаж в частном доме (бюджет)</a></li>
+                                <li class="mb-2"><a href="/projects/2room-comfort">Электромонтаж в 2-комнатной квартире (комфорт)</a></li>
+                                <li class="mb-2"><a href="/projects/2room-budget">Электромонтаж в 2-комнатной квартире (бюджет)</a></li>
+                                <li class="mb-2"><a href="/projects/1room-comfort">Электромонтаж в 1-комнатной квартире (комфорт)</a></li>
+                                <li class="mb-2"><a href="/projects/1room-budget">Электромонтаж в 1-комнатной квартире (бюджет)</a></li>
                             </ul>
                         </div>
 
