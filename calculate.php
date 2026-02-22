@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Калькулятор стоимости электромонтажных работ в Воронеже | ЭлектрикаВРН';
 $pageDescription = 'Рассчитайте точную стоимость электромонтажа в Воронеже: замена проводки, установка розеток, монтаж освещения. Учитываем материал стен, тип щита, количество точек. Актуальные цены 2024 года.';
-$pageCanonical = 'https://electrikavrn.ru/calculate.php';
+$pageCanonical = 'https://electrikavrn.ru/calculate';
 $pageType = 'calculator';
 $pageImage = 'https://electrikavrn.ru/assets/images/services/elektromontazh-white.jpg';
 

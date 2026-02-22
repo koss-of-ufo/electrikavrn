@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Калькулятор стоимости электромонтажа: простой расчет цены | ЭлектрикаВРН';
 $pageDescription = 'Простой калькулятор стоимости электромонтажа в Воронеже. Быстрый расчет цены работ для квартиры или дома. Актуальные цены 2024 года, учет материала стен и типа помещения.';
-$pageCanonical = 'https://electrikavrn.ru/calculate-dlya-chaynikov.php';
+$pageCanonical = 'https://electrikavrn.ru/calculate-dlya-chaynikov';
 $pageType = 'calculator';
 $pageImage = 'https://electrikavrn.ru/assets/images/services/elektromontazh-white.jpg';
 

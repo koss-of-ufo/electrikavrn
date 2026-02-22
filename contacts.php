@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Контакты электромонтажной компании ЭлектрикаВРН в Воронеже | Заказать электромонтаж';
 $pageDescription = 'Свяжитесь с нами для заказа электромонтажных работ в Воронеже. Профессиональные электрики, выезд на замер бесплатно. Работаем без выходных с 9:00 до 21:00.';
-$pageCanonical = 'https://electrikavrn.ru/contacts.php';
+$pageCanonical = 'https://electrikavrn.ru/contacts';
 $pageType = 'contacts';
 $pageImage = 'https://electrikavrn.ru/assets/logo.png';
 
@@ -64,7 +64,7 @@ include 'head.php';
                                     </div>
                                     <div class="mb-4 form-check">
                                         <input type="checkbox" class="form-check-input" id="privacyAgree" name="privacyAgree">
-                                        <label class="form-check-label" for="privacyAgree">Я согласен с <a href="privacy.php" target="_blank">политикой конфиденциальности</a></label>
+                                        <label class="form-check-label" for="privacyAgree">Я согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a></label>
                                         <div class="invalid-feedback">Пожалуйста, подтвердите согласие с политикой конфиденциальности</div>
                                     </div>
                                     <input type="hidden" id="latitude" name="latitude">

@@ -313,7 +313,7 @@ if (!isset($schemaMarkup)) {
     <?php echo json_encode($schemaMarkup, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>
     </script>
     <?php endif; ?>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
 
@@ -328,7 +328,7 @@ if (!isset($schemaMarkup)) {
     <link href="css/main.css" rel="stylesheet">
     <link href="css/modal.css" rel="stylesheet">
     <link href="css/cookie-notice.css" rel="stylesheet">
-    
+
     <?php if (isset($additionalCss) && is_array($additionalCss)): ?>
         <?php foreach ($additionalCss as $cssFile): ?>
             <link href="<?php echo $cssFile; ?>" rel="stylesheet">
@@ -336,4 +336,3 @@ if (!isset($schemaMarkup)) {
     <?php endif; ?>
     <?php include 'included/ya-metrika.php'; ?>
 </head>
-</rewritten_file> 

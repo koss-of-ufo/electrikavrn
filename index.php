@@ -189,7 +189,7 @@ include 'head.php';
                                         <i class="fas fa-calculator fa-2x mb-3 text-primary"></i>
                                         <h3 class="h5 mb-2">Калькулятор предварительного расчета</h3>
                                         <p class="card-text mb-3">Быстрый расчет стоимости базовых электромонтажных работ для квартир и домов</p>
-                                        <a href="calculate-dlya-chaynikov.html" class="btn btn-primary">Рассчитать</a>
+                                        <a href="/calculate-dlya-chaynikov" class="btn btn-primary">Рассчитать</a>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@ include 'head.php';
                                         <i class="fas fa-tools fa-2x mb-3 text-primary"></i>
                                         <h3 class="h5 mb-2">Профессиональный калькулятор</h3>
                                         <p class="card-text mb-3">Детальный расчет с учетом всех параметров и дополнительных работ. Требует глубокого понимания объекта строительства</p>
-                                        <a href="calculate.html" class="btn btn-primary">Рассчитать</a>
+                                        <a href="/calculate" class="btn btn-primary">Рассчитать</a>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@ include 'head.php';
                                         <i class="fas fa-home fa-2x mb-3 text-primary"></i>
                                         <h3 class="h5 mb-2">Типовые проекты</h3>
                                         <p class="card-text mb-3">Готовые проекты электромонтажа для квартир, домов и коммерческих помещений</p>
-                                        <a href="projects.html" class="btn btn-primary">Смотреть проекты</a>
+                                        <a href="/projects" class="btn btn-primary">Смотреть проекты</a>
                                     </div>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@ include 'head.php';
                     </div>
                 </div>
                 <div class="text-center mt-5">
-                    <a href="gallery.html" class="btn btn-primary" data-aos="fade-up">
+                    <a href="/gallery" class="btn btn-primary" data-aos="fade-up">
                         Смотреть все работы
                     </a>
                 </div>

@@ -1313,7 +1313,7 @@ index 695407dbb810f224854e8baef2e49bd2e4e9842a..7c6117dbb9db1eefe0441f1aaf856973
              <!-- Фильтры -->
              <div class="row mb-4">
 diff --git a/head.php b/head.php
-index 7de97f744028f76a5b58d63ce4f0b467208b6a5a..2002386a0e00e19fa3678a33697ef2e1a93111bb 100644
+index 7de97f744028f76a5b58d63ce4f0b467208b6a5a..46d03172a5684e871589489ae6ce5ef898aa9131 100644
 --- a/head.php
 +++ b/head.php
 @@ -40,263 +40,263 @@ function getOrganizationSchema() {
@@ -1591,6 +1591,34 @@ index 7de97f744028f76a5b58d63ce4f0b467208b6a5a..2002386a0e00e19fa3678a33697ef2e1
      <meta property="og:type" content="<?php echo $pageType === 'article' ? 'article' : 'website'; ?>">
      <meta property="og:title" content="<?php echo $metaTags['title']; ?>">
      <meta property="og:description" content="<?php echo $metaTags['description']; ?>">
+@@ -314,26 +314,25 @@ if (!isset($schemaMarkup)) {
+     </script>
+     <?php endif; ?>
+     
+     <!-- Favicon -->
+     <link rel="icon" type="image/png" href="assets/favicon.png">
+ 
+     <!-- CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+     <link href="css/variables.css" rel="stylesheet">
+     <link href="css/components.css" rel="stylesheet">
+     <link href="css/pages.css" rel="stylesheet">
+     <link href="css/main.css" rel="stylesheet">
+     <link href="css/modal.css" rel="stylesheet">
+     <link href="css/cookie-notice.css" rel="stylesheet">
+     
+     <?php if (isset($additionalCss) && is_array($additionalCss)): ?>
+         <?php foreach ($additionalCss as $cssFile): ?>
+             <link href="<?php echo $cssFile; ?>" rel="stylesheet">
+         <?php endforeach; ?>
+     <?php endif; ?>
+     <?php include 'included/ya-metrika.php'; ?>
+ </head>
+-</rewritten_file> 
+\ No newline at end of file
 diff --git a/index.php b/index.php
 index b87179bf9f02de7d1ca7713c00f89dabed193115..d18583826a13b36f8a5a3341fb66b9fe4287e86c 100644
 --- a/index.php
@@ -2677,6 +2705,38 @@ index 80ae5b88023f213ba51b4f1d998683583edd13d6..7782ade687d8a69cbea9d91e1e47c564
      <script src="../js/geolocate.js"></script>
  </body>
  </html> 
+\ No newline at end of file
+diff --git a/projects/head-projects.php b/projects/head-projects.php
+index 4bcf9bf7dadcf60609d557e879586f6d20006548..2ed1e17228f3d17c53a3046b1f75dde394bdff62 100644
+--- a/projects/head-projects.php
++++ b/projects/head-projects.php
+@@ -104,26 +104,25 @@ $schemaMarkup = [
+         <?php if (strpos($property, 'og:') === 0): ?>
+             <meta property="<?php echo $property; ?>" content="<?php echo $content; ?>">
+         <?php endif; ?>
+     <?php endforeach; ?>
+     
+     <!-- Schema.org разметка -->
+     <?php foreach ($schemaMarkup as $schema): ?>
+         <script type="application/ld+json">
+             <?php echo json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>
+         </script>
+     <?php endforeach; ?>
+ 
+     <!-- Favicon -->
+     <link rel="icon" type="image/png" href="../assets/favicon.png">
+     
+     <!-- CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+     <link href="../css/main.css" rel="stylesheet">
+     <link href="../css/pages.css" rel="stylesheet">
+     <link href="../css/modal.css" rel="stylesheet">
+ </head>
+-</rewritten_file> 
 \ No newline at end of file
 diff --git a/projects/house-budget.php b/projects/house-budget.php
 index 9ba6af3f24d90f114010d0a5cc93133998d11a58..fc35f71031a5e84a0340152feaaa0c1002128f01 100644

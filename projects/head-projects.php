@@ -105,7 +105,7 @@ $schemaMarkup = [
             <meta property="<?php echo $property; ?>" content="<?php echo $content; ?>">
         <?php endif; ?>
     <?php endforeach; ?>
-    
+
     <!-- Schema.org разметка -->
     <?php foreach ($schemaMarkup as $schema): ?>
         <script type="application/ld+json">
@@ -115,7 +115,7 @@ $schemaMarkup = [
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/favicon.png">
-    
+
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -126,4 +126,3 @@ $schemaMarkup = [
     <link href="../css/pages.css" rel="stylesheet">
     <link href="../css/modal.css" rel="stylesheet">
 </head>
-</rewritten_file> 

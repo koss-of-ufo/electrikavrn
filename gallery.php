@@ -2,7 +2,7 @@
 // Метаданные страницы
 $pageTitle = 'Галерея работ - фото электромонтажа в квартирах и домах | ЭлектрикаВРН';
 $pageDescription = 'Фотографии выполненных электромонтажных работ в Воронеже...';
-$pageCanonical = 'https://electrikavrn.ru/gallery.php';
+$pageCanonical = 'https://electrikavrn.ru/gallery';
 $pageType = 'gallery';
 $pageImage = 'https://electrikavrn.ru/assets/images/gallery/residential/electrika-v-trehkomnatnoy-kvartire-1.jpg';
 
@@ -37,7 +37,7 @@ $gallerySchema = [
 // Хлебные крошки для Schema.org
 $breadcrumbItems = [
     ['name' => 'Главная', 'url' => 'https://electrikavrn.ru/'],
-    ['name' => 'Галерея', 'url' => 'https://electrikavrn.ru/gallery.php']
+    ['name' => 'Галерея', 'url' => 'https://electrikavrn.ru/gallery']
 ];
 
 // Добавляем разметку Schema.org
